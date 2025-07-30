@@ -1,1 +1,33 @@
+/* Estilo general */
+body {
+  padding-top: 70px; 
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Imagen principal */
+header img {
+  max-height: 250px;
+  object-fit: cover;
+  width: 100%;
+}
+
+/* Sección equipo */
+.seccion-equipo img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Footer */
+.footer {
+  background-color: #343a40;
+  color: white;
+  padding: 1rem 0;
+}
+
+/* Marca del navbar */
+.navbar-brand {
+  font-weight: bold;
+}
 
