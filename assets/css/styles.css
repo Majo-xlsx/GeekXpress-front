@@ -1,32 +1,120 @@
-/* Estilo general */
 body {
-  padding-top: 70px; 
+  padding-top: 70px;
   font-family: 'Segoe UI', sans-serif;
 }
 
-/* Imagen principal */
 header img {
   max-height: 250px;
   object-fit: cover;
   width: 100%;
 }
 
-/* Sección equipo */
-.seccion-equipo img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-/* Footer */
 .footer {
   background-color: #343a40;
   color: white;
   padding: 1rem 0;
 }
 
-/* Marca del navbar */
 .navbar-brand {
   font-weight: bold;
+}
+
+.profile-card {
+    width: 150px;
+    height: 150px;
+    perspective: 1000px;
+    margin: 0 auto 15px auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.profile-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    border-radius: 50%;
+}
+
+.profile-card:hover .profile-card-inner {
+    transform: rotateY(180deg);
+}
+
+.profile-card-front, .profile-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: lightgray; 
+}
+
+.camila-front { background-image: url('../img/Camila.png'); }
+.andres-front { background-image: url('../img/404.jpg'); }
+.majo-front { background-image: url('../img/Majo.png'); }
+.sergio-front { background-image: url('../img/Sergio.png'); }
+.alexa-front { background-image: url('../img/Alexandra.png'); }
+
+.profile-card-back {
+    transform: rotateY(180deg);
+    background-color: transparent;
+}
+
+.camila-back { background-image: url('../img/backCamila.jpg'); }
+.andres-back { background-image: url('../img/405.jpg'); }
+.majo-back { background-image: url('../img/backMajo.jpg'); }
+.sergio-back { background-image: url('../img/backSergio.jpg'); }
+.alexa-back { background-image: url('../img/backAlexandra.jpg'); }
+
+.profile-card-back h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.profile-card-back p {
+    margin-bottom: 5px;
+}
+
+.profile-card-back a {
+    color: #ffffff;
+    text-decoration: underline;
+    margin: 0 5px;
+}
+
+.profile-card-back a:hover {
+    color: #e2e6ea;
+}
+
+.col-6 h6, .col-6 p {
+    margin-top: 5px;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.row.justify-content-center.mt-4 {
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .profile-card {
+        width: 130px;
+        height: 130px;
+    }
+}
+
+@media (max-width: 576px) {
+    .profile-card {
+        width: 120px;
+        height: 120px;
+    }
 }
