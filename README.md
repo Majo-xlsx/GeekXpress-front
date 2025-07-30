@@ -12,26 +12,26 @@ GeekXpress es una plataforma virtual pensada para conectar a coleccionistas y fa
 /GeekXpress
 │
 ├── /.vscode
-│   └── settings.json        ✅
+│   └── settings.json
 │
 ├── /assets
 │   ├── /css
-│   │   └── styles.css       ✅
+│   │   └── styles.css
 │   ├── /img
-│   │   └── 404.jpg          ✅
+│   │   └── 404.jpg
 │   └── /js
-│       └── file.js          ✅
+│       └── file.js
 │
 ├── /components
-│   └── footer.html          ✅
+│   └── footer.html
 │
 ├── /pages
-│   ├── about.html           ✅
-│   ├── catalog.html         ✅
-│   ├── contact.html         ✅
-│   ├── login.html           ✅
-│   └── product.html         ✅
+│   ├── about.html
+│   ├── catalog.html
+│   ├── contact.html
+│   ├── login.html
+│   └── product.html
 │
-├── .gitignore               ✅
-├── index.html               ✅
-└── README.md                ✅
+├── .gitignore
+├── index.html
+└── README.md
