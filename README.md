@@ -9,6 +9,7 @@ GeekXpress es una plataforma virtual pensada para conectar a coleccionistas y fa
 - Cuenta con una interfaz amigable y adaptada a las necesidades del público geek
 - Está diseñada para integrarse con el backend y base de datos del proyecto GeekXpress
 
+```
 /GeekXpress
 │
 ├── /.vscode
@@ -35,3 +36,4 @@ GeekXpress es una plataforma virtual pensada para conectar a coleccionistas y fa
 ├── .gitignore
 ├── index.html
 └── README.md
+```
