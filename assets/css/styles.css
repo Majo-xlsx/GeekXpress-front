@@ -63,7 +63,7 @@ header img {
 .andres-front { background-image: url('../img/404.jpg'); }
 .majo-front { background-image: url('../img/Majo.png'); }
 .sergio-front { background-image: url('../img/Sergio.png'); }
-.alexa-front { background-image: url('../img/Alexandra.png'); }
+.alexa-front { background-image: url('../img/Alexandra.jpg'); }
 
 .profile-card-back {
     transform: rotateY(180deg);
