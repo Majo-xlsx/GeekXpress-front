@@ -1,22 +1,33 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #130524;
+  box-sizing: border-box;
+}
+
+section {
+  box-shadow: 0 0 30px rgba(172, 49, 177, 0.4); 
+}
+
 body {
   padding-top: 70px;
   font-family: 'Segoe UI', sans-serif;
 }
 
 header img {
-  max-height: 250px;
+  max-height: 300px;
   object-fit: cover;
   width: 100%;
 }
 
 .footer {
-  background-color: #343a40;
-  color: white;
+  background-color: #2c032e;
+  color: rgb(248, 222, 255);
   padding: 1rem 0;
 }
 
 .navbar-brand {
-  font-weight: bold;
+  font-weight:bolder;
 }
 
 .profile-card {
@@ -117,4 +128,277 @@ header img {
         width: 120px;
         height: 120px;
     }
+}
+
+/*CAMILA
+/* fondo header */
+header {
+  background: linear-gradient(to bottom, #1a0033, #00001a);
+  color: white;
+  padding: 4rem 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* imagen principal */
+header img {
+  width: 100%;
+  max-height: 250px; 
+  object-fit: cover;
+  border-radius: 1rem;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+  margin-bottom: 2rem;
+  transition: transform 0.5s ease;
+}
+
+header img:hover {
+  transform: scale(1.02);
+}
+
+/* titulo con degrade */
+header h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #2D0333, #9C18A1, #40DFFF);
+  -webkit-background-clip: text;
+  background-clip: text; 
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+  margin-bottom: 1rem;
+}
+/* subtitulo */
+header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #d4bfff;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+  font-style: italic;
+  letter-spacing: 0.5px;
+}
+/* subtitulo */
+header p.lead {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  color: #ddddff;
+}
+
+/* boton */
+header a.btn {
+  background: linear-gradient(to right, #9C18A1, #40DFFF);
+  color: white;
+  border: none;
+  font-weight: bold;
+  padding: 0.75rem 2rem;
+  border-radius: 50px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+header a.btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #40DFFF, 0 0 10px #9C18A1;
+}
+
+/* parrafo */
+header p:not(.lead) {
+  color: #ccccff;
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+}
+#mision-vision-valores {
+  padding-top: 3rem;
+}
+
+.flip-card {
+  background: transparent;
+  perspective: 1000px;
+  height: 100%;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s;
+  transform-style: preserve-3d;
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #212245, #3e206e);
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  color: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.flip-card-front {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.flip-card-back {
+  background: #2e1f58;
+  transform: rotateY(180deg);
+}
+
+.icon-img {
+  max-height: 120px;
+  width: auto;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+}
+
+#mision-vision-valores h4 {
+  font-weight: 700;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+#mision-vision-valores p {
+  color: #dcdcdc;
+  font-size: 0.95rem;
+  margin: 0;
+  text-align: center;
+}
+
+
+/* MISION VISION Y VALORES */
+.mission-section {
+  background: linear-gradient(to bottom, #1a1a2e, #2a1240);
+  padding: 4rem 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 110px rgba(188, 70, 243, 0.6);
+}
+
+.info-card {
+  background: rgba(255, 255, 255, 0.04); 
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.info-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 30px rgba(64, 223, 255, 0.4);
+}
+
+.info-card img {
+  max-height: 160px; 
+  object-fit: contain;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.info-card h3 {
+  color: #ffffff;
+  font-weight: 700;
+  margin-top: 1rem;
+  font-size: 1.3rem;
+  background: linear-gradient(90deg, #5c1066, #9C18A1, #40DFFF);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(207, 223, 70, 0);
+}
+
+.info-card p {
+  color: #e3e3ff;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  line-height: 1.5;
+  padding: 0 0.5rem;
+}
+
+/* fondo */
+section.bg-light {
+  background: linear-gradient(to bottom, #15002b, #0c0016);
+  color: #f8e8ff; 
+  padding: 4rem 1rem;
+}
+
+/* titulo */
+section.bg-light h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #9C18A1, #40DFFF);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+}
+
+section.bg-light p {
+  color: #d7c6f0; 
+}
+
+.profile-card {
+  background: transparent;
+  box-shadow: none;
+  border: none;
+  transition: transform 0.3s ease;
+}
+
+.profile-card:hover {
+  transform: scale(1.05);
+}
+
+/* nombre del integrante */
+h5.nombre-equipo {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #15002b;
+  margin-bottom: 0.3rem;
+}
+
+
+/* rol integrante */
+.col-6 p.rol-equipo {
+  display: inline-block;
+  background-color: #883c96; 
+  color: #ffffff; 
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* descripcion */
+.col-6 p:not(.text-muted) {
+  font-size: 0.85rem;
+  color: #d0cfe4;
+  line-height: 1.4;
+  margin: 0 auto;
+  max-width: 160px;
+}
+.footer {
+  background-color: #1b0224; 
+  color: #e0e0e0; 
+  padding: 1.5rem 0;
+  font-size: 0.9rem;
 }
