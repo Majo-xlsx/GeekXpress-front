@@ -1,3 +1,14 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #130524;
+  box-sizing: border-box;
+}
+
+section {
+  box-shadow: 0 0 30px rgba(172, 49, 177, 0.4); 
+}
+
 body {
   padding-top: 70px;
   font-family: 'Segoe UI', sans-serif;
@@ -132,11 +143,16 @@ header {
 /* imagen principal */
 header img {
   width: 100%;
-  max-height: 500px;
+  max-height: 350px; 
   object-fit: cover;
   border-radius: 1rem;
   box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
   margin-bottom: 2rem;
+  transition: transform 0.5s ease;
+}
+
+header img:hover {
+  transform: scale(1.02);
 }
 
 /* titulo con degrade */
@@ -254,31 +270,33 @@ header p:not(.lead) {
 }
 /* MISION VISION Y VALORES */
 .mission-section {
-  background: linear-gradient(to bottom, #00001a, #1a0033);
+  background: linear-gradient(to bottom, #1a1a2e, #2a1240);
   padding: 4rem 1rem;
   border-radius: 1rem;
-  box-shadow: 0 0 110px rgb(140, 9, 180);
+  box-shadow: 0 0 110px rgba(188, 70, 243, 0.6);
 }
 
 .info-card {
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 1rem;
-  padding: 2rem 1rem;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.04); 
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   height: 100%;
+  max-width: 320px;
+  margin: 0 auto;
 }
 
 .info-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 0 25px rgba(64, 223, 255, 0.3);
+  transform: translateY(-6px);
+  box-shadow: 0 0 30px rgba(64, 223, 255, 0.4);
 }
 
 .info-card img {
-  max-height: 200px;
+  max-height: 160px; 
   object-fit: contain;
-  border-radius: 0.75rem;
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
   transition: transform 0.3s ease;
 }
 
@@ -286,65 +304,89 @@ header p:not(.lead) {
   color: #ffffff;
   font-weight: 700;
   margin-top: 1rem;
-  background: linear-gradient(90deg, #2D0333, #9C18A1, #40DFFF);
+  font-size: 1.3rem;
+  background: linear-gradient(90deg, #5c1066, #9C18A1, #40DFFF);
   -webkit-background-clip: text;
-  background-clip: text; 
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 0 10px rgba(207, 223, 70, 0);
 }
 
 .info-card p {
-  color: #d7d7f7f8;
-  font-size: 0.95rem;
+  color: #e3e3ff;
+  font-size: 0.9rem;
   margin-top: 0.5rem;
   line-height: 1.5;
+  padding: 0 0.5rem;
 }
-/* EQUIPO */
+
+/* fondo */
 section.bg-light {
-  background: linear-gradient(to bottom, #1a0033, #00001a);
-  color: white;
+  background: linear-gradient(to bottom, #15002b, #0c0016);
+  color: #f8e8ff; 
   padding: 4rem 1rem;
-  border-top: 2px solid rgba(255, 255, 255, 0.05);
 }
 
 /* titulo */
 section.bg-light h2 {
   font-size: 2.5rem;
   font-weight: 800;
-  background: linear-gradient(90deg, #2D0333, #9C18A1, #40DFFF);
+  background: linear-gradient(90deg, #9C18A1, #40DFFF);
   -webkit-background-clip: text;
-  background-clip: text; 
+  background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  text-align: center;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
 }
 
 section.bg-light p {
-  color: #ccccee;
+  color: #d7c6f0; 
 }
 
-
 .profile-card {
-  box-shadow: 0 0 15px rgba(144, 50, 255, 0.3);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background: rgba(255, 255, 255, 0.03);
+  background: transparent;
+  box-shadow: none;
+  border: none;
+  transition: transform 0.3s ease;
 }
 
 .profile-card:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 25px rgba(64, 223, 255, 0.4);
 }
 
-/* nombre y descripcion */
-.col-6 h6 {
-  background: linear-gradient(90deg, #2D0333, #9C18A1, #40DFFF);
-  -webkit-background-clip: text;
-  background-clip: text; 
-  -webkit-text-fill-color: transparent;
-  font-weight: bold;
-  font-size: 1rem;
+/* nombre del integrante */
+h5.nombre-equipo {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #15002b;
+  margin-bottom: 0.3rem;
 }
 
-.col-6 p {
+
+/* rol integrante */
+.col-6 p.rol-equipo {
+  display: inline-block;
+  background-color: #883c96; 
+  color: #ffffff; 
+  font-weight: 700;
   font-size: 0.85rem;
-  color: #d7d7f7;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* descripcion */
+.col-6 p:not(.text-muted) {
+  font-size: 0.85rem;
+  color: #d0cfe4;
+  line-height: 1.4;
+  margin: 0 auto;
+  max-width: 160px;
+}
+.footer {
+  background-color: #1b0224; 
+  color: #e0e0e0; 
+  padding: 1.5rem 0;
+  font-size: 0.9rem;
 }
