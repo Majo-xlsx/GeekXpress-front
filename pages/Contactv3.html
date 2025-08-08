@@ -40,19 +40,39 @@
                                 <div class="row mb-3">
                                     <div class="col-md-6 mb-3 mb-md-0">
                                         <label for="phoneForm" class="form-label">Teléfono</label>
+                                        
                                         <div class="input-group">
-                                            <select class="form-select" style="max-width: 100px;">
-                                                <option value="+57">🇨🇴 +57</option>
-                                                <option value="+1">🇺🇸 +1</option>
-                                                <option value="+34">🇪🇸 +34</option>
+                                            <select class="form-select" id="countryCode" style="max-width: 105px;">
+                                                <option value="+54">+54 AR Argentina</option>
+                                                <option value="+591">+591 BO Bolivia</option>
+                                                <option value="+55">+55 BR Brasil</option>
+                                                <option value="+56">+56 CL Chile</option>
+                                                <option value="+57" selected>+57 CO Colombia</option>
+                                                <option value="+506">+506 CR Costa Rica</option>
+                                                <option value="+53">+53 CU Cuba</option>
+                                                <option value="+593">+593 EC Ecuador</option>
+                                                <option value="+503">+503 SV El Salvador</option>
+                                                <option value="+502">+502 GT Guatemala</option>
+                                                <option value="+509">+509 HT Haití</option>
+                                                <option value="+504">+504 HN Honduras</option>
+                                                <option value="+52">+52 MX México</option>
+                                                <option value="+505">+505 NI Nicaragua</option>
+                                                <option value="+507">+507 PA Panamá</option>
+                                                <option value="+595">+595 PY Paraguay</option>
+                                                <option value="+51">+51 PE Perú</option>
+                                                <option value="+1-787">+1-787 PR Puerto Rico</option>
+                                                <option value="+1-809">+1-809 DO República Dominicana</option>
+                                                <option value="+598">+598 UY Uruguay</option>
+                                                <option value="+58">+58 VE Venezuela</option>
                                             </select>
-                                            <input type="number" class="form-control" id="phoneForm" placeholder="Número" min="0" required>
+                                            <input type="tel" class="form-control" id="phoneForm" placeholder="Número" required>
                                         </div>
                                     </div>
+
                                     <div class="col-md-6">
                                         <label for="categoryForm" class="form-label">Categoría</label><br>
-                                        <!-- <input type="text" class="form-control" id="categoryForm" required> -->
                                         <select name="categoryForm" id="categoryForm" class=" form-select col">
+                                            <option value="" disabled selected hidden>--Seleccione la categoría--</option>
                                             <option value="valor1">Opción 1</option>
                                             <option value="valor2">Opción 2</option>
                                             <option value="valor3">Opción 3</option>
