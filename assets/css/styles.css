@@ -81,8 +81,13 @@ header img {
     background-color: transparent;
 }
 
+<<<<<<< HEAD
 .camila-back { background-image: url('../img/backCamila.png'); }
 .andres-back { background-image: url('../img/405.jpg'); }
+=======
+.camila-back { background-image: url('../img/backCamila.jpg'); }
+.andres-back { background-image: url('../img/backAndres.jpeg'); }
+>>>>>>> e9de511d446945ff0fa82f0eb487b5ce7d40e726
 .majo-back { background-image: url('../img/backMajo.jpg'); }
 .sergio-back { background-image: url('../img/backSergio.jpg'); }
 .alexa-back { background-image: url('../img/backAlexandra.jpg'); }
