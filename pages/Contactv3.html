@@ -40,11 +40,23 @@
                                 <div class="row mb-3">
                                     <div class="col-md-6 mb-3 mb-md-0">
                                         <label for="phoneForm" class="form-label">Teléfono</label>
-                                        <input type="text" class="form-control" id="phoneForm" required>
+                                        <div class="input-group">
+                                            <select class="form-select" style="max-width: 100px;">
+                                                <option value="+57">🇨🇴 +57</option>
+                                                <option value="+1">🇺🇸 +1</option>
+                                                <option value="+34">🇪🇸 +34</option>
+                                            </select>
+                                            <input type="number" class="form-control" id="phoneForm" placeholder="Número" min="0" required>
+                                        </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="categoryForm" class="form-label">Categoría</label>
-                                        <input type="text" class="form-control" id="categoryForm" required>
+                                        <label for="categoryForm" class="form-label">Categoría</label><br>
+                                        <!-- <input type="text" class="form-control" id="categoryForm" required> -->
+                                        <select name="categoryForm" id="categoryForm" class=" form-select col">
+                                            <option value="valor1">Opción 1</option>
+                                            <option value="valor2">Opción 2</option>
+                                            <option value="valor3">Opción 3</option>
+                                        </select>
                                     </div>
                                 </div>
 
