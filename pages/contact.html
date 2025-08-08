@@ -8,7 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-    <section>
+    <section class="contact">
         <div class="text-center">
             <h2>
                 ¿Tienes dudas o sugerencias? <br>
@@ -20,58 +20,64 @@
             </p>
         </div>
         <!-- seccion del formulario -->
-        <div>
-            <!-- <form action="https://formspree.io/f/mkgzpvoe" method="POST"> -->
-            <form>
-                <div class="row">
-                    <i class="col">
-                    </i>
-                    <p class="col">
-                        Envianos un mensaje
-                    </p>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <label for="nameForm" class="form-label">Nombre Completo</label>
-                        <br>
-                        <input type="text" class="col" id="nameForm" name="nameForm" required>
-                    </div>
+        <div class="row">
+
+            <div class="col">
+                <!-- <form action="https://formspree.io/f/mkgzpvoe" method="POST"> -->
+                    <form>
+                        <div class="row">
+                            <i class="col">
+                            </i>
+                            <p class="col">
+                                Envianos un mensaje
+                            </p>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="nameForm" class="form-label">Nombre Completo</label>
+                                <br>
+                                <input type="text" class="col" id="nameForm" name="nameForm" required>
+                            </div>
+                            
+                            <div class="col">
+                                <label for="emailForm" class="form-label">Email</label>
+                                <br>
+                                <input type="email" name="emailForm" id="emailForm" class="col" required>
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            
+                            <div class="col">
+                                <label for="phoneForm">Teléfono</label><br>
+                                <input type="text" name="phoneForm" id="phoneForm" class="col" required>
+                            </div>
+                            
+                            <div class="col">
+                                <label for="categoryForm">Categoría</label><br>
+                                <input type="text" name="categoryForm" id="categoryForm" class="col" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <label for="subjectForm">Asunto</label><br>
+                            <input type="text" name="subjectForm" id="subjectForm" class="col" required>
+                        </div>
+                        
+                        <div class="row">
+                            <label for="messageForm">mensaje</label><br>
+                            <textarea name="messageForm" id="messageForm" class="col"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-5">enviar</button>
+                    </form>
                     
-                    <div class="col">
-                        <label for="emailForm" class="form-label">Email</label>
-                        <br>
-                        <input type="email" name="emailForm" id="emailForm" class="col" required>
-                    </div>
-
+                    
                 </div>
-                <div class="row">
-
-                    <div class="col">
-                        <label for="phoneForm">Teléfono</label><br>
-                        <input type="text" name="phoneForm" id="phoneForm" class="col" required>
-                    </div>
-
-                    <div class="col">
-                        <label for="categoryForm">Categoría</label><br>
-                        <input type="text" name="categoryForm" id="categoryForm" class="col" required>
-                    </div>
+                <div class="col">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.0399081227006!2d-74.04801662689403!3d4.76305634111773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f8593cfb53fab%3A0x7e1314c3e84e41a2!2sCentro%20Comercial%20Santaf%C3%A9%20Bogot%C3%A1!5e0!3m2!1ses-419!2sco!4v1754684281761!5m2!1ses-419!2sco" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
-
-                <div class="row">
-                    <label for="subjectForm">Asunto</label><br>
-                    <input type="text" name="subjectForm" id="subjectForm" class="col" required>
-                </div>
-                
-                <div class="row">
-                    <label for="messageForm">mensaje</label><br>
-                    <textarea name="messageForm" id="messageForm" class="col"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary mt-5">enviar</button>
-            </form>
-
-        </div>
-
-    </section>
-    
-</body>
-</html>
+            </div>
+            </section>
+            
+        </body>
+        </html>
