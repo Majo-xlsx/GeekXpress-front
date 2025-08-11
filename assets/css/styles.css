@@ -16,6 +16,7 @@
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 .navbar-brand {
   font-weight:bolder;
 }
@@ -131,6 +132,9 @@ header {
 =======
 .sn-header {
 >>>>>>> 88552a8f235e64f43bb5a44be3c892ea784f514d
+=======
+.sn-header {
+>>>>>>> b0e3c975b32e059c1f4ed3dbae80db20c7c299cc
   background: linear-gradient(to bottom, #1a0033, #00001a);
   color: white;
   padding: 4rem 1rem;
