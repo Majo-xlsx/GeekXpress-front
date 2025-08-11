@@ -1,1 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <title>Contacto</title>
+</head>
+
+<body class="sn-body">
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm px-3 sn-navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">GeekXpress</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarContent"></div>
+    </div>
+  </nav>
+
+  <section class="cn-contact-section py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="fw-bold cn-title">¿Tienes dudas o sugerencias? <br> Escríbenos.</h2>
+        <p class="cn-subtitle">
+          Te responderemos en menos de 24 horas.<br>
+          También puedes contactarnos por redes sociales.
+        </p>
+        <div class="cn-social-icons mt-4">
+          <a href="https://instagram.com" target="_blank" class="me-3"><i class="bi bi-instagram"></i></a>
+          <a href="https://facebook.com" target="_blank" class="me-3"><i class="bi bi-facebook"></i></a>
+          <a href="https://twitter.com" target="_blank"><i class="bi bi-twitter-x"></i></a>
+        </div>
+
+      </div>
+
+      <div class="row align-items-center g-5">
+
+        <!-- Formulario -->
+        <div class="col-lg-6">
+          <div class="cn-form-card p-4">
+            <form>
+              <div class="row mb-3">
+                <div class="col">
+                  <label for="nameForm" class="form-label">Nombre Completo</label>
+                  <input type="text" class="form-control" id="nameForm" required>
+                </div>
+                <div class="col">
+                  <label for="emailForm" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="emailForm" required>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col">
+                  <label for="phoneForm" class="form-label">Teléfono</label>
+                  <input type="text" class="form-control" id="phoneForm" required>
+                </div>
+                <div class="col">
+                  <label for="categoryForm" class="form-label">Categoría</label>
+                  <select class="form-select" id="categoryForm" required>
+                    <option value="">Selecciona una categoría</option>
+                    <option value="soporte">Soporte Técnico</option>
+                    <option value="ventas">Consultas de Ventas</option>
+                    <option value="facturacion">Facturación y Pagos</option>
+                    <option value="sugerencias">Sugerencias y Mejoras</option>
+                    <option value="otro">Otro</option>
+                  </select>
+
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="subjectForm" class="form-label">Asunto</label>
+                <input type="text" class="form-control" id="subjectForm" required>
+              </div>
+
+              <div class="mb-4">
+                <label for="messageForm" class="form-label">Mensaje</label>
+                <textarea class="form-control" id="messageForm" rows="4"></textarea>
+              </div>
+
+              <button type="submit" class="btn cn-btn-submit w-100">Enviar</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Mapa -->
+        <div class="col-lg-6">
+          <div class="cn-map-wrapper">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.0399081227006!2d-74.04801662689403!3d4.76305634111773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f8593cfb53fab%3A0x7e1314c3e84e41a2!2sCentro%20Comercial%20Santaf%C3%A9%20Bogot%C3%A1!5e0!3m2!1ses-419!2sco!4v1754684281761!5m2!1ses-419!2sco"
+              width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy">
+            </iframe>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="sn-footer text-center">
+    <div class="container">
+      <p>&copy; 2025 GEEKXPRESS. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</body>
+
+</html>
