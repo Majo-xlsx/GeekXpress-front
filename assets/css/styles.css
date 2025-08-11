@@ -4,165 +4,17 @@
   padding: 0;
   background-color: #130524;
   box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.sn-body {
+  padding-top: 70px;
 }
 
 .sn-section {
   box-shadow: 0 0 30px rgba(172, 49, 177, 0.4);
 }
 
-.sn-body {
-  padding-top: 70px;
-  font-family: 'Segoe UI', sans-serif;
-}
-
-.sn-header img {
-  max-height: 300px;
-  object-fit: cover;
-  width: 100%;
-}
-
-.sn-footer {
-  background-color: #2c032e;
-  color: rgb(248, 222, 255);
-  padding: 1rem 0;
-}
-
-.sn-navbar-brand {
-  font-weight: bolder;
-}
-
-/* Tarjetas de perfil */
-.sn-profile-card {
-  width: 150px;
-  height: 150px;
-  perspective: 1000px;
-  margin: 0 auto 15px auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 50%;
-  overflow: hidden;
-}
-
-.sn-profile-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
-  border-radius: 50%;
-}
-
-.sn-profile-card:hover .sn-profile-card-inner {
-  transform: rotateY(180deg);
-}
-
-.sn-profile-card-front,
-.sn-profile-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  border-radius: 50%;
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  background-color: lightgray;
-}
-
-.sn-camila-front {
-  background-image: url('../img/Camila.png');
-}
-
-.sn-andres-front {
-  background-image: url('../img/404.jpg');
-}
-
-.sn-majo-front {
-  background-image: url('../img/Majo.png');
-}
-
-.sn-sergio-front {
-  background-image: url('../img/Sergio.png');
-}
-
-.sn-alexa-front {
-  background-image: url('../img/Alexandra.jpg');
-}
-
-.sn-profile-card-back {
-  transform: rotateY(180deg);
-  background-color: transparent;
-}
-
-.sn-camila-back {
-  background-image: url('../img/backCamila.jpg');
-}
-
-.sn-andres-back {
-  background-image: url('../img/405.jpg');
-}
-
-.sn-majo-back {
-  background-image: url('../img/backMajo.jpg');
-}
-
-.sn-sergio-back {
-  background-image: url('../img/backSergio.jpg');
-}
-
-.sn-alexa-back {
-  background-image: url('../img/backAlexandra.jpg');
-}
-
-.sn-profile-card-back h3 {
-  margin-top: 0;
-  margin-bottom: 5px;
-}
-
-.sn-profile-card-back p {
-  margin-bottom: 5px;
-}
-
-.sn-profile-card-back a {
-  color: #ffffff;
-  text-decoration: underline;
-  margin: 0 5px;
-}
-
-.sn-profile-card-back a:hover {
-  color: #e2e6ea;
-}
-
-.sn-col-6 h6,
-.sn-col-6 p {
-  margin-top: 5px;
-  margin-bottom: 0;
-  text-align: center;
-}
-
-.sn-row.justify-content-center.mt-4 {
-  gap: 20px;
-}
-
-@media (max-width: 768px) {
-  .sn-profile-card {
-    width: 130px;
-    height: 130px;
-  }
-}
-
-@media (max-width: 576px) {
-  .sn-profile-card {
-    width: 120px;
-    height: 120px;
-  }
-}
-
-/* HEADER */
 .sn-header {
   background: linear-gradient(to bottom, #1a0033, #00001a);
   color: white;
@@ -173,7 +25,7 @@
 
 .sn-header img {
   width: 100%;
-  max-height: 250px;
+  max-height: 300px; /* unificado a max 300px */
   object-fit: cover;
   border-radius: 1rem;
   box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
@@ -235,6 +87,160 @@
   line-height: 1.6;
   max-width: 800px;
   margin: 0 auto;
+}
+
+.sn-footer {
+  background-color: #1b0224;
+  color: #e0e0e0;
+  padding: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+/* Navbar brand */
+.sn-navbar-brand {
+  font-weight: bolder;
+}
+
+/* Tarjetas de perfil */
+.sn-profile-card {
+  width: 150px;
+  height: 150px;
+  perspective: 1000px;
+  margin: 0 auto 15px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  overflow: hidden;
+  background: transparent;
+  border: none;
+  transition: transform 0.3s ease;
+}
+
+.sn-profile-card:hover {
+  transform: scale(1.05);
+}
+
+.sn-profile-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  border-radius: 50%;
+}
+
+.sn-profile-card:hover .sn-profile-card-inner {
+  transform: rotateY(180deg);
+}
+
+.sn-profile-card-front,
+.sn-profile-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: lightgray;
+}
+
+.sn-profile-card-back {
+  transform: rotateY(180deg);
+  background-color: transparent;
+}
+
+.sn-profile-card-back h3 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.sn-profile-card-back p {
+  margin-bottom: 5px;
+}
+
+.sn-profile-card-back a {
+  color: #ffffff;
+  text-decoration: underline;
+  margin: 0 5px;
+}
+
+.sn-profile-card-back a:hover {
+  color: #e2e6ea;
+}
+
+/* Fondos frontales */
+.sn-camila-front {
+  background-image: url('../img/Camila.png');
+}
+
+.sn-andres-front {
+  background-image: url('../img/404.jpg');
+}
+
+.sn-majo-front {
+  background-image: url('../img/Majo.png');
+}
+
+.sn-sergio-front {
+  background-image: url('../img/Sergio.png');
+}
+
+.sn-alexa-front {
+  background-image: url('../img/Alexandra.jpg');
+}
+
+/* Fondos traseros */
+.sn-camila-back {
+  background-image: url('../img/backCamila.jpg');
+}
+
+.sn-andres-back {
+  background-image: url('../img/405.jpg');
+}
+
+.sn-majo-back {
+  background-image: url('../img/backMajo.jpg');
+}
+
+.sn-sergio-back {
+  background-image: url('../img/backSergio.jpg');
+}
+
+.sn-alexa-back {
+  background-image: url('../img/backAlexandra.jpg');
+}
+
+/* Layout y textos */
+.sn-col-6 h6,
+.sn-col-6 p {
+  margin-top: 5px;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.sn-row.justify-content-center.mt-4 {
+  gap: 20px;
+}
+
+/* Responsive tarjetas */
+@media (max-width: 768px) {
+  .sn-profile-card {
+    width: 130px;
+    height: 130px;
+  }
+}
+
+@media (max-width: 576px) {
+  .sn-profile-card {
+    width: 120px;
+    height: 120px;
+  }
 }
 
 /* Sección Misión, Visión y Valores */
@@ -359,14 +365,13 @@
   padding: 0 0.5rem;
 }
 
-/* Fondo */
+/* Fondo y secciones */
 .sn-section.bg-light {
   background: linear-gradient(to bottom, #15002b, #0c0016);
   color: #f8e8ff;
   padding: 4rem 1rem;
 }
 
-/* Título */
 .sn-section.bg-light h2 {
   font-size: 2.5rem;
   font-weight: 800;
@@ -382,63 +387,13 @@
   color: #d7c6f0;
 }
 
-.sn-profile-card {
-  background: transparent;
-  box-shadow: none;
-  border: none;
-  transition: transform 0.3s ease;
-}
-
-.sn-profile-card:hover {
-  transform: scale(1.05);
-}
-
-/* Nombre integrante */
-.sn-nombre-equipo {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #15002b;
-  margin-bottom: 0.3rem;
-}
-
-/* Rol integrante */
-.sn-col-6 p.sn-rol-equipo {
-  display: inline-block;
-  background-color: #883c96;
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 0.85rem;
-  padding: 0.4rem 0.9rem;
-  border-radius: 999px;
-  margin-bottom: 0.5rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Descripción */
-.sn-col-6 p:not(.text-muted) {
-  font-size: 0.85rem;
-  color: #d0cfe4;
-  line-height: 1.4;
-  margin: 0 auto;
-  max-width: 160px;
-}
-
-/* Footer */
-.sn-footer {
-  background-color: #1b0224;
-  color: #e0e0e0;
-  padding: 1.5rem 0;
-  font-size: 0.9rem;
-}
-
-/* fondo */
+/* Equipo (team) */
 .sn-team-section {
   background: linear-gradient(to bottom, #15002b, #0c0016);
   color: #f8e8ff;
   padding: 4rem 1rem;
 }
 
-/* título */
 .sn-team-section h2 {
   font-size: 2.5rem;
   font-weight: 800;
@@ -454,27 +409,17 @@
   color: #d7c6f0;
 }
 
-.profile-card {
-  background: transparent;
-  box-shadow: none;
-  border: none;
-  transition: transform 0.3s ease;
-}
-
-.profile-card:hover {
-  transform: scale(1.05);
-}
-
-/* nombre del integrante */
+/* Nombres y roles equipo */
+.sn-nombre-equipo,
 h5.sn-nombre-equipo {
   font-size: 1.2rem;
   font-weight: 700;
-  color: #f7f7f7;
+  color: #f7f7f7; /* unify color */
   margin-bottom: 0.3rem;
 }
 
-/* rol integrante */
-.sn-rol-equipo {
+.sn-rol-equipo,
+.sn-col-6 p.sn-rol-equipo {
   display: inline-block;
   background-color: #883c96;
   color: #ffffff;
@@ -486,8 +431,9 @@ h5.sn-nombre-equipo {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* descripción */
-.sn-descripcion-equipo {
+/* Descripciones */
+.sn-descripcion-equipo,
+.sn-col-6 p:not(.text-muted) {
   font-size: 0.85rem;
   color: #d0cfe4;
   line-height: 1.4;
@@ -495,6 +441,7 @@ h5.sn-nombre-equipo {
   max-width: 160px;
 }
 
+/* Contacto */
 .cn-contact-section {
   background: linear-gradient(to bottom, #15002b, #0c0016);
   color: #f8e8ff;
@@ -603,5 +550,17 @@ h5.sn-nombre-equipo {
 
   .cn-form-card {
     padding: 1.5rem;
+  }
+
+  .sn-profile-card {
+    width: 130px;
+    height: 130px;
+  }
+}
+
+@media (max-width: 576px) {
+  .sn-profile-card {
+    width: 120px;
+    height: 120px;
   }
 }
