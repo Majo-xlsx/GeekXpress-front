@@ -1,116 +1,160 @@
 <!DOCTYPE html>
+
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-  <link rel="stylesheet" href="../assets/css/styles.css">
-  <title>Contacto</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+
+    <title>Contacto</title>
 </head>
 
-<body class="sn-body">
-
-  <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm px-3 sn-navbar">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">GeekXpress</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarContent"></div>
-    </div>
-  </nav>
-
-  <section class="cn-contact-section py-5">
-    <div class="container">
-      <div class="text-center mb-5">
-        <h2 class="fw-bold cn-title">¿Tienes dudas o sugerencias? <br> Escríbenos.</h2>
-        <p class="cn-subtitle">
-          Te responderemos en menos de 24 horas.<br>
-          También puedes contactarnos por redes sociales.
-        </p>
-        <div class="cn-social-icons mt-4">
+<body class="bg-light">
+    <section class="cn-contact-section py-5">
+        <div class="container">
+            <div class="text-center mb-4">
+                <h2 class="cn-title">¿Tienes dudas o sugerencias?<br> Escríbenos.</h2>
+                <p class="cn-subtitle">
+                    Te responderemos en menos de 24 horas.<br>
+                    También puedes contactarnos por redes sociales.
+                </p>
+                 <div class="cn-social-icons mt-4">
           <a href="https://instagram.com" target="_blank" class="me-3"><i class="bi bi-instagram"></i></a>
           <a href="https://facebook.com" target="_blank" class="me-3"><i class="bi bi-facebook"></i></a>
-          <a href="https://twitter.com" target="_blank"><i class="bi bi-twitter-x"></i></a>
+          <a href="https://twitter.com" target="_blank"><i class="bi bi-twitter"></i></a>
         </div>
+            </div>
 
-      </div>
+            <div class="row g-4 align-items-stretch">
+                <!-- Columna Izquierda - Formulario -->
+                <div class="col-lg-6 col-md-12 d-flex">
+                    <div class="cn-form-card p-4 h-100 w-100">
+                        <h4 class="mb-4 text-center">Envíanos un mensaje</h4>
+                        <form>
+                            <div class="row mb-3">
+                                <div class="col-md-6 mb-3 mb-md-0">
+                                    <label for="nameForm" class="form-label">Nombre Completo</label>
+                                    <input type="text" class="form-control" id="nameForm" name="nameForm" required
+                                        aria-label="Campo de texto para escribir el nombre">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="emailForm" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="emailForm" name="emailForm" required
+                                        aria-label="Campo de texto para escribir el email">
+                                </div>
+                            </div>
 
-      <div class="row align-items-center g-5">
+                            <div class="row mb-3">
+                                <div class="col-md-6 mb-3 mb-md-0">
+                                    <label for="phoneForm" class="form-label">Teléfono</label>
 
-        <!-- Formulario -->
-        <div class="col-lg-6">
-          <div class="cn-form-card p-4">
-            <form>
-              <div class="row mb-3">
-                <div class="col">
-                  <label for="nameForm" class="form-label">Nombre Completo</label>
-                  <input type="text" class="form-control" id="nameForm" required>
+                                    <div class="input-group">
+                                        <select class="form-select" id="countryCode" name="countryCode"
+                                            style="max-width: 105px;">
+                                            <option value="+54">+54 AR Argentina</option>
+                                            <option value="+591">+591 BO Bolivia</option>
+                                            <option value="+55">+55 BR Brasil</option>
+                                            <option value="+56">+56 CL Chile</option>
+                                            <option value="+57" selected>+57 CO Colombia</option>
+                                            <option value="+506">+506 CR Costa Rica</option>
+                                            <option value="+53">+53 CU Cuba</option>
+                                            <option value="+593">+593 EC Ecuador</option>
+                                            <option value="+503">+503 SV El Salvador</option>
+                                            <option value="+502">+502 GT Guatemala</option>
+                                            <option value="+509">+509 HT Haití</option>
+                                            <option value="+504">+504 HN Honduras</option>
+                                            <option value="+52">+52 MX México</option>
+                                            <option value="+505">+505 NI Nicaragua</option>
+                                            <option value="+507">+507 PA Panamá</option>
+                                            <option value="+595">+595 PY Paraguay</option>
+                                            <option value="+51">+51 PE Perú</option>
+                                            <option value="+1-787">+1-787 PR Puerto Rico</option>
+                                            <option value="+1-809">+1-809 DO República Dominicana</option>
+                                            <option value="+598">+598 UY Uruguay</option>
+                                            <option value="+58">+58 VE Venezuela</option>
+                                        </select>
+                                        <input type="tel" class="form-control" id="phoneForm" placeholder="Número"
+                                            pattern="[0-9+\-\s]+" maxlength="10" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="categoryForm" class="form-label">Categoría</label><br>
+                                    <select name="categoryForm" id="categoryForm" name="categoryForm"
+                                        class=" form-select col" aria-label="Campo de texto para escoger la categoría">
+                                        <option value="" disabled selected hidden>--Seleccione la categoría--</option>
+                                        <option value="soporte">Soporte Técnico</option>
+                                        <option value="ventas">Consultas de Ventas</option>
+                                        <option value="facturacion">Facturación y Pagos</option>
+                                        <option value="sugerencias">Sugerencias y Mejoras</option>
+                                        <option value="otro">Otro</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="subjectForm" class="form-label">Asunto</label>
+                                <input type="text" class="form-control" id="subjectForm" name="subjectForm" required
+                                    aria-label="Campo de texto para escribir el asunto">
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="messageForm" class="form-label">Mensaje</label>
+                                <textarea id="messageForm" name="messageForm" class="form-control" rows="4" required
+                                    aria-label="Campo de texto para escribir el mensaje"></textarea>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="cn-btn-submit w-100">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="col">
-                  <label for="emailForm" class="form-label">Email</label>
-                  <input type="email" class="form-control" id="emailForm" required>
+
+                <!-- Columna Derecha - Información y Mapa -->
+                <div class="col-lg-6 col-md-12 d-flex">
+                    <div class="cn-form-card p-4 h-100 w-100">
+                        <h5 class="mb-4 text-center">Información de contacto</h5>
+
+                        <div class="mb-3 d-flex align-items-start">
+                            <i class="bi bi-geo-alt-fill fs-3 text-primary me-3"></i>
+                            <div>
+                                <strong>Ubicación:</strong><br>
+                                Calle Falsa 123, Ciudad, País
+                            </div>
+                        </div>
+
+                        <div class="mb-3 d-flex align-items-start">
+                            <i class="bi bi-telephone-fill fs-3 text-primary me-3"></i>
+                            <div>
+                                <strong>Teléfono:</strong><br>
+                                +57 (322) 123-4567<br>
+                                <small class="text-light-muted">Lunes a Sábado 9AM – 8PM</small>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 d-flex align-items-start">
+                            <i class="bi bi-envelope-fill fs-3 text-primary me-3"></i>
+                            <div>
+                                <strong>Correo Electrónico:</strong><br>
+                                sportify@gmail.com
+                            </div>
+                        </div>
+                        <div class="cn-map-wrapper shadow rounded mt-auto" style="height:35vh;">
+                            <iframe title="Ubicación de la tienda en Google Maps"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.0399081227006!2d-74.04801662689403!3d4.76305634111773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f8593cfb53fab%3A0x7e1314c3e84e41a2!2sCentro%20Comercial%20Santaf%C3%A9%20Bogot%C3%A1!5e0!3m2!1ses-419!2sco!4v1754684281761!5m2!1ses-419!2sco"
+                                style="border:0; width:100%; height:100%;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
                 </div>
-              </div>
-
-              <div class="row mb-3">
-                <div class="col">
-                  <label for="phoneForm" class="form-label">Teléfono</label>
-                  <input type="text" class="form-control" id="phoneForm" required>
-                </div>
-                <div class="col">
-                  <label for="categoryForm" class="form-label">Categoría</label>
-                  <select class="form-select" id="categoryForm" required>
-                    <option value="">Selecciona una categoría</option>
-                    <option value="soporte">Soporte Técnico</option>
-                    <option value="ventas">Consultas de Ventas</option>
-                    <option value="facturacion">Facturación y Pagos</option>
-                    <option value="sugerencias">Sugerencias y Mejoras</option>
-                    <option value="otro">Otro</option>
-                  </select>
-
-                </div>
-              </div>
-
-              <div class="mb-3">
-                <label for="subjectForm" class="form-label">Asunto</label>
-                <input type="text" class="form-control" id="subjectForm" required>
-              </div>
-
-              <div class="mb-4">
-                <label for="messageForm" class="form-label">Mensaje</label>
-                <textarea class="form-control" id="messageForm" rows="4"></textarea>
-              </div>
-
-              <button type="submit" class="btn cn-btn-submit w-100">Enviar</button>
-            </form>
-          </div>
+            </div>
         </div>
-
-        <!-- Mapa -->
-        <div class="col-lg-6">
-          <div class="cn-map-wrapper">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.0399081227006!2d-74.04801662689403!3d4.76305634111773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f8593cfb53fab%3A0x7e1314c3e84e41a2!2sCentro%20Comercial%20Santaf%C3%A9%20Bogot%C3%A1!5e0!3m2!1ses-419!2sco!4v1754684281761!5m2!1ses-419!2sco"
-              width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy">
-            </iframe>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <footer class="sn-footer text-center">
-    <div class="container">
-      <p>&copy; 2025 GEEKXPRESS. Todos los derechos reservados.</p>
-    </div>
-  </footer>
+    </section>
 </body>
 
 </html>
