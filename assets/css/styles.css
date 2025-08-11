@@ -1,31 +1,21 @@
-html, body {
+.sn-html,
+.sn-body {
   margin: 0;
   padding: 0;
   background-color: #130524;
   box-sizing: border-box;
-}
-
-section {
-  box-shadow: 0 0 30px rgba(172, 49, 177, 0.4); 
-}
-
-body {
-  padding-top: 70px;
   font-family: 'Segoe UI', sans-serif;
 }
 
-header img {
-  max-height: 300px;
-  object-fit: cover;
-  width: 100%;
+.sn-body {
+  padding-top: 70px;
 }
 
-.footer {
-  background-color: #2c032e;
-  color: rgb(248, 222, 255);
-  padding: 1rem 0;
+.sn-section {
+  box-shadow: 0 0 30px rgba(172, 49, 177, 0.4);
 }
 
+<<<<<<< HEAD
 .navbar-brand {
   font-weight:bolder;
 }
@@ -138,6 +128,9 @@ header img {
 /*CAMILA
 /* fondo header */
 header {
+=======
+.sn-header {
+>>>>>>> 88552a8f235e64f43bb5a44be3c892ea784f514d
   background: linear-gradient(to bottom, #1a0033, #00001a);
   color: white;
   padding: 4rem 1rem;
@@ -145,10 +138,9 @@ header {
   overflow: hidden;
 }
 
-/* imagen principal */
-header img {
+.sn-header img {
   width: 100%;
-  max-height: 250px; 
+  max-height: 300px; /* unificado a max 300px */
   object-fit: cover;
   border-radius: 1rem;
   box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
@@ -156,23 +148,22 @@ header img {
   transition: transform 0.5s ease;
 }
 
-header img:hover {
+.sn-header img:hover {
   transform: scale(1.02);
 }
 
-/* titulo con degrade */
-header h1 {
+.sn-header h1 {
   font-size: 3rem;
   font-weight: 800;
   background: linear-gradient(90deg, #2D0333, #9C18A1, #40DFFF);
   -webkit-background-clip: text;
-  background-clip: text; 
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
   margin-bottom: 1rem;
 }
-/* subtitulo */
-header h2 {
+
+.sn-header h2 {
   font-size: 1.5rem;
   font-weight: 600;
   color: #d4bfff;
@@ -182,15 +173,14 @@ header h2 {
   font-style: italic;
   letter-spacing: 0.5px;
 }
-/* subtitulo */
-header p.lead {
+
+.sn-header p.lead {
   font-size: 1.2rem;
   margin-bottom: 1.5rem;
   color: #ddddff;
 }
 
-/* boton */
-header a.btn {
+.sn-header a.btn {
   background: linear-gradient(to right, #9C18A1, #40DFFF);
   color: white;
   border: none;
@@ -201,30 +191,185 @@ header a.btn {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-header a.btn:hover {
+.sn-header a.btn:hover {
   transform: scale(1.05);
   box-shadow: 0 0 20px #40DFFF, 0 0 10px #9C18A1;
 }
 
-/* parrafo */
-header p:not(.lead) {
+.sn-header p:not(.lead) {
   color: #ccccff;
   font-size: 1rem;
   line-height: 1.6;
   max-width: 800px;
   margin: 0 auto;
 }
-#mision-vision-valores {
+
+.sn-footer {
+  background-color: #1b0224;
+  color: #e0e0e0;
+  padding: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+/* Navbar brand */
+.sn-navbar-brand {
+  font-weight: bolder;
+}
+
+/* Tarjetas de perfil */
+.sn-profile-card {
+  width: 150px;
+  height: 150px;
+  perspective: 1000px;
+  margin: 0 auto 15px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  overflow: hidden;
+  background: transparent;
+  border: none;
+  transition: transform 0.3s ease;
+}
+
+.sn-profile-card:hover {
+  transform: scale(1.05);
+}
+
+.sn-profile-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  border-radius: 50%;
+}
+
+.sn-profile-card:hover .sn-profile-card-inner {
+  transform: rotateY(180deg);
+}
+
+.sn-profile-card-front,
+.sn-profile-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: lightgray;
+}
+
+.sn-profile-card-back {
+  transform: rotateY(180deg);
+  background-color: transparent;
+}
+
+.sn-profile-card-back h3 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.sn-profile-card-back p {
+  margin-bottom: 5px;
+}
+
+.sn-profile-card-back a {
+  color: #ffffff;
+  text-decoration: underline;
+  margin: 0 5px;
+}
+
+.sn-profile-card-back a:hover {
+  color: #e2e6ea;
+}
+
+/* Fondos frontales */
+.sn-camila-front {
+  background-image: url('../img/Camila.png');
+}
+
+.sn-andres-front {
+  background-image: url('../img/404.jpg');
+}
+
+.sn-majo-front {
+  background-image: url('../img/Majo.png');
+}
+
+.sn-sergio-front {
+  background-image: url('../img/Sergio.png');
+}
+
+.sn-alexa-front {
+  background-image: url('../img/Alexandra.jpg');
+}
+
+/* Fondos traseros */
+.sn-camila-back {
+  background-image: url('../img/backCamila.jpg');
+}
+
+.sn-andres-back {
+  background-image: url('../img/405.jpg');
+}
+
+.sn-majo-back {
+  background-image: url('../img/backMajo.jpg');
+}
+
+.sn-sergio-back {
+  background-image: url('../img/backSergio.jpg');
+}
+
+.sn-alexa-back {
+  background-image: url('../img/backAlexandra.jpg');
+}
+
+/* Layout y textos */
+.sn-col-6 h6,
+.sn-col-6 p {
+  margin-top: 5px;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.sn-row.justify-content-center.mt-4 {
+  gap: 20px;
+}
+
+/* Responsive tarjetas */
+@media (max-width: 768px) {
+  .sn-profile-card {
+    width: 130px;
+    height: 130px;
+  }
+}
+
+@media (max-width: 576px) {
+  .sn-profile-card {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+/* Sección Misión, Visión y Valores */
+.sn-mision-vision-valores {
   padding-top: 3rem;
 }
 
-.flip-card {
+.sn-flip-card {
   background: transparent;
   perspective: 1000px;
   height: 100%;
 }
 
-.flip-card-inner {
+.sn-flip-card-inner {
   position: relative;
   width: 100%;
   height: 100%;
@@ -235,12 +380,12 @@ header p:not(.lead) {
   background: linear-gradient(135deg, #212245, #3e206e);
 }
 
-.flip-card:hover .flip-card-inner {
+.sn-flip-card:hover .sn-flip-card-inner {
   transform: rotateY(180deg);
 }
 
-.flip-card-front,
-.flip-card-back {
+.sn-flip-card-front,
+.sn-flip-card-back {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -254,47 +399,46 @@ header p:not(.lead) {
   justify-content: center;
 }
 
-.flip-card-front {
+.sn-flip-card-front {
   background: rgba(255, 255, 255, 0.05);
 }
 
-.flip-card-back {
+.sn-flip-card-back {
   background: #2e1f58;
   transform: rotateY(180deg);
 }
 
-.icon-img {
+.sn-icon-img {
   max-height: 120px;
   width: auto;
   border-radius: 1rem;
   margin-bottom: 1rem;
 }
 
-#mision-vision-valores h4 {
+.sn-mision-vision-valores h4 {
   font-weight: 700;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
   color: #ffffff;
 }
 
-#mision-vision-valores p {
+.sn-mision-vision-valores p {
   color: #dcdcdc;
   font-size: 0.95rem;
   margin: 0;
   text-align: center;
 }
 
-
-/* MISION VISION Y VALORES */
-.mission-section {
+/* Misión y Visión */
+.sn-mission-section {
   background: linear-gradient(to bottom, #1a1a2e, #2a1240);
   padding: 4rem 1rem;
   border-radius: 1rem;
   box-shadow: 0 0 110px rgba(188, 70, 243, 0.6);
 }
 
-.info-card {
-  background: rgba(255, 255, 255, 0.04); 
+.sn-info-card {
+  background: rgba(255, 255, 255, 0.04);
   border-radius: 0.75rem;
   padding: 1.5rem;
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
@@ -304,20 +448,20 @@ header p:not(.lead) {
   margin: 0 auto;
 }
 
-.info-card:hover {
+.sn-info-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 0 30px rgba(64, 223, 255, 0.4);
 }
 
-.info-card img {
-  max-height: 160px; 
+.sn-info-card img {
+  max-height: 160px;
   object-fit: contain;
   border-radius: 0.5rem;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
   transition: transform 0.3s ease;
 }
 
-.info-card h3 {
+.sn-info-card h3 {
   color: #ffffff;
   font-weight: 700;
   margin-top: 1rem;
@@ -326,10 +470,9 @@ header p:not(.lead) {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 10px rgba(207, 223, 70, 0);
 }
 
-.info-card p {
+.sn-info-card p {
   color: #e3e3ff;
   font-size: 0.9rem;
   margin-top: 0.5rem;
@@ -337,15 +480,14 @@ header p:not(.lead) {
   padding: 0 0.5rem;
 }
 
-/* fondo */
-section.bg-light {
+/* Fondo y secciones */
+.sn-section.bg-light {
   background: linear-gradient(to bottom, #15002b, #0c0016);
-  color: #f8e8ff; 
+  color: #f8e8ff;
   padding: 4rem 1rem;
 }
 
-/* titulo */
-section.bg-light h2 {
+.sn-section.bg-light h2 {
   font-size: 2.5rem;
   font-weight: 800;
   background: linear-gradient(90deg, #9C18A1, #40DFFF);
@@ -356,35 +498,46 @@ section.bg-light h2 {
   text-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
 }
 
-section.bg-light p {
-  color: #d7c6f0; 
+.sn-section.bg-light p {
+  color: #d7c6f0;
 }
 
-.profile-card {
-  background: transparent;
-  box-shadow: none;
-  border: none;
-  transition: transform 0.3s ease;
+/* Equipo (team) */
+.sn-team-section {
+  background: linear-gradient(to bottom, #15002b, #0c0016);
+  color: #f8e8ff;
+  padding: 4rem 1rem;
 }
 
-.profile-card:hover {
-  transform: scale(1.05);
+.sn-team-section h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #9C18A1, #40DFFF);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
 }
 
-/* nombre del integrante */
-h5.nombre-equipo {
+.sn-team-section p {
+  color: #d7c6f0;
+}
+
+/* Nombres y roles equipo */
+.sn-nombre-equipo,
+h5.sn-nombre-equipo {
   font-size: 1.2rem;
   font-weight: 700;
-  color: #15002b;
+  color: #f7f7f7; /* unify color */
   margin-bottom: 0.3rem;
 }
 
-
-/* rol integrante */
-.col-6 p.rol-equipo {
+.sn-rol-equipo,
+.sn-col-6 p.sn-rol-equipo {
   display: inline-block;
-  background-color: #883c96; 
-  color: #ffffff; 
+  background-color: #883c96;
+  color: #ffffff;
   font-weight: 700;
   font-size: 0.85rem;
   padding: 0.4rem 0.9rem;
@@ -393,17 +546,136 @@ h5.nombre-equipo {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* descripcion */
-.col-6 p:not(.text-muted) {
+/* Descripciones */
+.sn-descripcion-equipo,
+.sn-col-6 p:not(.text-muted) {
   font-size: 0.85rem;
   color: #d0cfe4;
   line-height: 1.4;
   margin: 0 auto;
   max-width: 160px;
 }
-.footer {
-  background-color: #1b0224; 
-  color: #e0e0e0; 
-  padding: 1.5rem 0;
-  font-size: 0.9rem;
+
+/* Contacto */
+.cn-contact-section {
+  background: linear-gradient(to bottom, #15002b, #0c0016);
+  color: #f8e8ff;
+  padding: 4rem 1rem;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.cn-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #9C18A1, #40DFFF);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+  margin-bottom: 1rem;
+}
+
+.cn-subtitle {
+  color: #d7c6f0;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.cn-form-card {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 0.75rem;
+  padding: 2rem;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cn-form-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 30px rgba(64, 223, 255, 0.4);
+}
+
+.cn-form-card .form-control,
+.cn-form-card .form-select {
+  background-color: rgba(255, 255, 255, 0.07);
+  color: #f8e8ff;
+  border-radius: 0.5rem;
+  border: 1px solid #ff66ff;
+}
+
+.cn-form-card .form-control:focus,
+.cn-form-card .form-select:focus {
+  border-color: #40DFFF;
+  box-shadow: 0 0 10px rgba(64, 223, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.cn-form-card .form-label {
+  font-weight: 600;
+  color: #e3e3ff;
+}
+
+.cn-btn-submit {
+  background: linear-gradient(to right, #9C18A1, #40DFFF);
+  color: white;
+  border: none;
+  font-weight: bold;
+  padding: 0.75rem 2rem;
+  border-radius: 50px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cn-btn-submit:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #40DFFF, 0 0 10px #9C18A1;
+}
+
+.cn-map-wrapper iframe {
+  border-radius: 1rem;
+  box-shadow: 0 0 30px rgba(64, 223, 255, 0.2);
+}
+
+.cn-social-icons a {
+  font-size: 2rem;
+  color: #f8e8ff;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.cn-social-icons a:hover {
+  transform: translateY(-5px);
+  color: #ff66ff;
+}
+
+#categoryForm {
+  background-color: #1a0a33;
+  color: #f8e8ff;
+  border: 1px solid #ff66ff;
+}
+
+#categoryForm option {
+  background-color: #1a0a33;
+  color: #f8e8ff;
+}
+
+@media (max-width: 768px) {
+  .cn-title {
+    font-size: 2rem;
+  }
+
+  .cn-form-card {
+    padding: 1.5rem;
+  }
+
+  .sn-profile-card {
+    width: 130px;
+    height: 130px;
+  }
+}
+
+@media (max-width: 576px) {
+  .sn-profile-card {
+    width: 120px;
+    height: 120px;
+  }
 }
