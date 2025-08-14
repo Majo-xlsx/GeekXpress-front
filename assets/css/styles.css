@@ -60,17 +60,17 @@ header img {
 }
 
 .camila-front { background-image: url('../img/Camila.png'); }
-.andres-front { background-image: url('../img/404.jpg'); }
+.andres-front { background-image: url('../img/Andres.jpg'); }
 .majo-front { background-image: url('../img/Majo.png'); }
-.sergio-front { background-image: url('../img/Sergio.png'); }
-.alexa-front { background-image: url('../img/Alexandra.jpg'); }
+.sergio-front { background-image: url('../img/Sergio.jpg'); }
+.alexa-front { background-image: url('../img/Alexandra.png'); }
 
 .profile-card-back {
     transform: rotateY(180deg);
     background-color: transparent;
 }
 
-.camila-back { background-image: url('../img/backCamila.jpg'); }
+.camila-back { background-image: url('../img/backCamila.png'); }
 .andres-back { background-image: url('../img/backAndres.jpeg'); }
 .majo-back { background-image: url('../img/backMajo.jpg'); }
 .sergio-back { background-image: url('../img/backSergio.jpg'); }
