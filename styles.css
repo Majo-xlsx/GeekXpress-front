@@ -1,0 +1,19 @@
+/* Estilos para el input de búsqueda y el botón de ícono */
+.navbar-search-container {
+    position: relative;
+    width: 220px;
+}
+
+.navbar-search-input {
+    padding-right: 2.5rem;
+}
+
+.navbar-search-btn {
+    position: absolute;
+    top: 50%;
+    right: 0.75rem;
+    transform: translateY(-50%);
+    z-index: 2;
+    border: 0;
+    background: transparent;
+}
