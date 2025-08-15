@@ -40,12 +40,28 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        Swal.fire({
-            icon: 'success',
-            title: 'Mensaje enviado',
-            text: 'Formulario validado correctamente. ¡Gracias por escribirnos!'
+        emailjs.send("service_zakrrtu", "template_004az0q", {
+            name: name,
+            email: email,
+            phone: phone,
+            category: category,
+            subject: subject,
+            message: message
+        })
+        .then(function () {
+            Swal.fire({
+                icon: 'success',
+                title: 'Mensaje enviado',
+                text: 'Tu mensaje fue enviado correctamente. ¡Gracias por escribirnos!'
+            });
+            form.reset();
+        })
+        .catch(function (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al enviar',
+                text: 'Ocurrió un problema: ' + error.text
+            });
         });
-
-        form.reset();
     });
 });
