@@ -17,3 +17,41 @@
     border: 0;
     background: transparent;
 }
+
+/* Navbar general */
+.sn-navbar {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Links */
+.sn-navbar .nav-link {
+  color: #333 !important;
+  transition: color 0.3s ease;
+}
+
+.sn-navbar .nav-link:hover {
+  color: #6c63ff !important; /* Lila moderno */
+}
+
+/* Logo más elegante */
+.sn-navbar .navbar-brand img {
+  transition: transform 0.3s ease;
+}
+
+.sn-navbar .navbar-brand img:hover {
+  transform: scale(1.05);
+}
+
+/* Badge carrito */
+.sn-navbar .badge {
+  font-size: 0.7rem;
+  padding: 0.35em 0.55em;
+}
+
+/* Sombra ligera al hacer scroll */
+.sn-navbar.scrolled {
+  background: #ffffff;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
