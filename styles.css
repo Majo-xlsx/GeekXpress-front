@@ -18,11 +18,10 @@
     background: transparent;
 }
 
-/* Navbar general */
+/* Estilo general del navbar */
 .sn-navbar {
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
-  transition: all 0.3s ease-in-out;
 }
 
 /* Links */
@@ -32,26 +31,32 @@
 }
 
 .sn-navbar .nav-link:hover {
-  color: #6c63ff !important; /* Lila moderno */
+  color: #ff9ff3 !important; /* Rosa/morado moderno */
 }
 
-/* Logo más elegante */
-.sn-navbar .navbar-brand img {
-  transition: transform 0.3s ease;
-}
+/* ----- SOLO PARA MÓVILES ----- */
+@media (max-width: 991px) {
+  .custom-mobile-menu {
+    background: linear-gradient(135deg, #6a0dad, #4b0082); /* Morado degradado */
+    border-radius: 12px;
+    padding: 1rem;
+    margin-top: 1rem;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  }
 
-.sn-navbar .navbar-brand img:hover {
-  transform: scale(1.05);
+  .custom-mobile-menu .nav-link {
+    color: #fff !important;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .custom-mobile-menu .nav-link:hover {
+    color: #ffb6f9 !important;
+  }
 }
 
 /* Badge carrito */
 .sn-navbar .badge {
   font-size: 0.7rem;
   padding: 0.35em 0.55em;
-}
-
-/* Sombra ligera al hacer scroll */
-.sn-navbar.scrolled {
-  background: #ffffff;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
