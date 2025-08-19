@@ -17,3 +17,46 @@
     border: 0;
     background: transparent;
 }
+
+/* Estilo general del navbar */
+.sn-navbar {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+}
+
+/* Links */
+.sn-navbar .nav-link {
+  color: #333 !important;
+  transition: color 0.3s ease;
+}
+
+.sn-navbar .nav-link:hover {
+  color: #ff9ff3 !important; /* Rosa/morado moderno */
+}
+
+/* ----- SOLO PARA MÓVILES ----- */
+@media (max-width: 991px) {
+  .custom-mobile-menu {
+    background: linear-gradient(135deg, #6a0dad, #4b0082); /* Morado degradado */
+    border-radius: 12px;
+    padding: 1rem;
+    margin-top: 1rem;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  }
+
+  .custom-mobile-menu .nav-link {
+    color: #fff !important;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .custom-mobile-menu .nav-link:hover {
+    color: #ffb6f9 !important;
+  }
+}
+
+/* Badge carrito */
+.sn-navbar .badge {
+  font-size: 0.7rem;
+  padding: 0.35em 0.55em;
+}
