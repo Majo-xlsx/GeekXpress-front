@@ -708,7 +708,7 @@ nav.navbar .navbar-toggler-icon {
     box-shadow: 0 8px 25px rgba(172, 49, 177, 0.5);
     padding: 1rem 1.5rem;
     margin-top: 0.5rem;
-    transition: all 0.5s ease;
+    /* transition: all 0.5s ease; */
   }
 
   nav.navbar .navbar-nav {
@@ -725,4 +725,7 @@ nav.navbar .navbar-toggler-icon {
     margin: 0;
     font-size: 1rem;
   }
+}
+.collapsing {
+  transition: height 0.1s ease; /* más rápido */
 }
