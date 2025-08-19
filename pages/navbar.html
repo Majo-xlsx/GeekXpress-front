@@ -11,56 +11,74 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm px-3 sn-navbar">
-  <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
 
-    <!-- Logo -->
-    <a class="navbar-brand" href="#">
-      <img src="../assets/img/logoo.png" alt="GeekXpress" height="40">
-    </a>
+            <!-- Logo -->
+            <a class="navbar-brand mx-5" href="#">
+                <img src="../assets/img/logoo.png" alt="Logo" height="40">
+            </a>
 
-    <!-- Carrito + Hamburguesa -->
-    <div class="d-flex align-items-center">
-      <!-- Carrito -->
-      <a class="nav-link position-relative me-3" href="#">
-        <i class="bi bi-cart-fill fs-5"></i>
-        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-          3
-          <span class="visually-hidden">productos en carrito</span>
-        </span>
-      </a>
 
-      <!-- Botón hamburguesa -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-        data-bs-target="#navbarContent" aria-controls="navbarContent"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
+            <!-- Carrito + Botón hamburguesa (solo en móviles) -->
+            <div class="d-flex d-lg-none align-items-center ms-auto me-3">
+                <!-- Carrito móvil -->
+                <button class="nav-link position-relative me-3">
+                    <i class="bi bi-cart-fill"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        3
+                        <span class="visually-hidden">productos en carrito</span>
+                    </span>
+                </button>
 
-    <!-- Contenido colapsable -->
-    <div class="collapse navbar-collapse mt-3 mt-lg-0" id="navbarContent">
-      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 custom-mobile-menu">
-        <li class="nav-item me-3">
-          <a class="nav-link" href="#">Catálogo</a>
-        </li>
-        <li class="nav-item me-3">
-          <a class="nav-link" href="#">Contáctanos</a>
-        </li>
-        <li class="nav-item me-3">
-          <a class="nav-link" href="#">Sobre nosotros</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link d-flex align-items-center" href="#">
-            Tú cuenta <i class="bi bi-person-circle ms-2"></i>
-          </a>
-        </li>
-      </ul>
-    </div>
+                <!-- Botón hamburguesa -->
+                <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
 
-  </div>
-</nav>
+            <!-- Menú y cuenta (colapsable) -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="d-flex flex-column flex-lg-row w-100 align-items-stretch justify-content-between">
 
+                    <!-- Menú central -->
+                    <ul class="navbar-nav w-100 justify-content-center mb-2 mb-lg-0 order-1">
+                        <li class="nav-item me-3">
+                            <a class="nav-link" aria-current="page" href="#">Catálogo</a>
+                        </li>
+                        <li class="nav-item me-3">
+                            <a class="nav-link" href="#">Contáctanos</a>
+                        </li>
+                        <li class="nav-item me-3">
+                            <a class="nav-link text-nowrap" href="#">Sobre nosotros</a>
+                        </li>
+                    </ul>
+
+                    <!-- Cuenta + carrito escritorio -->
+                    <div class="d-flex flex-row align-items-center ms-lg-auto order-2 mt-lg-0 me-5">
+                        <a class="nav-link text-nowrap d-flex align-items-center" href="#">
+                            Tú cuenta
+                            <i class="bi bi-person-circle ms-2"></i>
+                        </a>
+
+                        <!-- Carrito visible solo en escritorio -->
+                        <a class="nav-link position-relative ms-3 d-none d-lg-flex" href="#">
+                            <i class="bi bi-cart-fill"></i>
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                3
+                                <span class="visually-hidden">productos en carrito</span>
+                            </span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </nav>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>
