@@ -14,19 +14,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function createProductCard(data) {
-        const card = document.createElement('div');
-        card.classList.add('product-card');
-        
-        card.innerHTML = `
-            <img src="${data.imagen}" alt="${data.nombre}" class="product-image">
-            <div class="product-details">
-                <h3>${data.nombre}</h3>
-                <p>${data.descripcion}</p>
-                <p>Precio: $${data.precio.toFixed(2)}</p>
-                <span>Categoría: ${data.categoria}</span>
+        const cardCol = document.createElement('div');
+        cardCol.classList.add('col-12', 'col-sm-6', 'col-md-4', 'mb-4');
+
+        cardCol.innerHTML = `
+            <div class="card product-card">
+                <div class="card-img-container">
+                    <img src="${data.imagen}" class="card-img-top" alt="${data.nombre}" style="max-width: 100%; height: auto;">
+
+                    <span class="badge bg-success badge-nuevo">NUEVO</span>
+                    <span class="badge bg-danger badge-descuento">-25%</span>
+                    <span class="badge bg-light badge-categoria">${data.categoria}</span>
+
+                    <div class="iconos-acciones">
+                        <i class="bi bi-heart-fill"></i>
+                        <i class="bi bi-eye-fill"></i>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="rating">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star text-warning"></i>
+                        <span class="rating-number">4.8 (124)</span>
+                    </div>
+
+                    <h5 class="card-title">${data.nombre}</h5>
+                    <p class="card-text">${data.descripcion}</p>
+                    <p class="precio">
+                        <span class="precio-oferta">$${data.precio.toFixed(2)}</span>
+                        <span class="precio-original">$${(data.precio * 1.25).toFixed(2)}</span>
+                    </p>
+
+                    <button class="btn btn-agregar-carrito w-100" onclick="addProduct('${data.nombre}', '${data.precio}', '${data.imagen}')">
+                        <i class="bi bi-cart me-2"></i> Agregar al Carrito
+                    </button>
+                </div>
             </div>
         `;
         
-        productContainer.appendChild(card);
+        productContainer.appendChild(cardCol);
     }
 });
