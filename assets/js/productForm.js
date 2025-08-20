@@ -1,11 +1,28 @@
 document.addEventListener('DOMContentLoaded', () => {
     const productForm = document.getElementById('productForm');
-    const productContainer = document.getElementById('productContainer');
     const successMessage = document.getElementById('successMessage');
     const errorMessage = document.getElementById('errorMessage');
     const resetButton = document.getElementById('resetButton');
+    const imageInput = document.getElementById('imageInput');
+    const imagePreview = document.getElementById('imagePreview');
 
-    loadProductsFromLocalStorage();
+    imageInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.maxWidth = '200px';
+                img.style.height = 'auto';
+                imagePreview.innerHTML = ''; 
+                imagePreview.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            imagePreview.innerHTML = '';
+        }
+    });
 
     productForm.addEventListener('submit', async function(event) {
         event.preventDefault();
@@ -41,16 +58,17 @@ document.addEventListener('DOMContentLoaded', () => {
         productData.imagen = imageDataBase64;
         
         saveProductToLocalStorage(productData);
-        createProductCard(productData);
         
         successMessage.style.display = 'block';
         productForm.reset();
+        imagePreview.innerHTML = ''; 
     });
 
     resetButton.addEventListener('click', () => {
         productForm.reset();
         successMessage.style.display = 'none';
         errorMessage.style.display = 'none';
+        imagePreview.innerHTML = ''; 
     });
 
     function convertToBase64(file) {
@@ -62,16 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function loadProductsFromLocalStorage() {
-        const productsJson = localStorage.getItem('products');
-        if (productsJson) {
-            const products = JSON.parse(productsJson);
-            products.forEach(product => {
-                createProductCard(product);
-            });
-        }
-    }
-
     function saveProductToLocalStorage(product) {
         const productsJson = localStorage.getItem('products');
         const products = productsJson ? JSON.parse(productsJson) : [];
@@ -79,22 +87,5 @@ document.addEventListener('DOMContentLoaded', () => {
         products.push(product);
 
         localStorage.setItem('products', JSON.stringify(products));
-    }
-
-    function createProductCard(data) {
-        const card = document.createElement('div');
-        card.classList.add('product-card');
-        
-        card.innerHTML = `
-            <img src="${data.imagen}" alt="${data.nombre}" class="product-image">
-            <div class="product-details">
-                <h3>${data.nombre}</h3>
-                <p>${data.descripcion}</p>
-                <p>Precio: $${data.precio.toFixed(2)}</p>
-                <span>Categoría: ${data.categoria}</span>
-            </div>
-        `;
-        
-        productContainer.appendChild(card);
     }
 });
