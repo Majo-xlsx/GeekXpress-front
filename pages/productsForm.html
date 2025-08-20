@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Producto</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Panel de Administración</h1>
+        <h2>Agregar Nuevo Producto</h2>
+        
+        <div id="successMessage" style="display: none;">
+            Producto agregado exitosamente
+        </div>
+        
+        <div id="errorMessage" style="display: none;">
+            Por favor completa todos los campos requeridos
+        </div>
+        
+        <form id="productForm">
+            <div>
+                <label for="productName">Nombre del Producto <span style="color: red;">*</span></label><br>
+                <input type="text" id="productName" name="productName" placeholder="Ej: figura de Goku" required>
+            </div>
+            <br>
+            <div>
+                <label for="productDescription">Descripción <span style="color: red;">*</span></label><br>
+                <textarea id="productDescription" name="productDescription" rows="5" cols="50" placeholder="Describe las características del producto..." required></textarea>
+            </div>
+            <br>
+            <div>
+                <label for="productCategory">Categoría <span style="color: red;">*</span></label><br>
+                <select id="productCategory" name="productCategory" required>
+                    <option value="">Selecciona una categoría</option>
+                    <option value="Cartas TGC">Cartas TGC</option>
+                    <option value="Comic">Comic</option>
+                    <option value="Figuras">Figuras</option>
+                    <option value="Manga">Manga</option>
+                    <option value="Ropa">Ropa</option>
+                </select>
+            </div>
+            <br>
+            <div>
+                <label for="productPrice">Precio <span style="color: red;">*</span></label><br>
+                <input type="number" id="productPrice" name="productPrice" placeholder="0.00" step="0.01" min="0" required>
+            </div>
+            <br>
+            <div>
+                <label for="imageInput">Imágenes del Producto <span style="color: red;">*</span></label><br>
+                <input type="file" id="imageInput" name="productImages" accept="image/*" multiple required>
+                <div id="imagePreview"></div>
+            </div>
+            <br><br>
+            <button type="button" id="resetButton">Limpiar Formulario</button>
+            <button type="submit">Publicar Producto</button>
+        </form>
+    </div>
+    
+    <script src="../assets/js/productForm.js"></script>
+</body>
+</html>
