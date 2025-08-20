@@ -176,11 +176,11 @@
 
 /* Fondos frontales */
 .sn-camila-front {
-  background-image: url('../img/backCamila.png');
+  background-image: url('../img/Camila.png');
 }
 
 .sn-andres-front {
-  background-image: url('../img/404.jpg');
+  background-image: url('../img/Andres.jpg');
 }
 
 .sn-majo-front {
@@ -188,20 +188,20 @@
 }
 
 .sn-sergio-front {
-  background-image: url('../img/Sergio.png');
+  background-image: url('../img/Sergio.jpg');
 }
 
 .sn-alexa-front {
-  background-image: url('../img/Alexandra.jpg');
+  background-image: url('../img/Alexandra.png');
 }
 
 /* Fondos traseros */
 .sn-camila-back {
-  background-image: url('../img/backCamila.jpg');
+  background-image: url('../img/backCamila.png');
 }
 
 .sn-andres-back {
-  background-image: url('../img/405.jpg');
+  background-image: url('../img/backAndres.jpeg');
 }
 
 .sn-majo-back {
@@ -209,7 +209,7 @@
 }
 
 .sn-sergio-back {
-  background-image: url('../img/backSergio.jpg');
+  background-image: url('../img/backSergio.png');
 }
 
 .sn-alexa-back {
