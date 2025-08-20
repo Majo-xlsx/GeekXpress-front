@@ -729,3 +729,16 @@ nav.navbar .navbar-toggler-icon {
 .collapsing {
   transition: height 0.1s ease; /* más rápido */
 }
+
+.fly-img {
+    position: fixed;
+    z-index: 9999;
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 1.5s ease-in-out;
+}
