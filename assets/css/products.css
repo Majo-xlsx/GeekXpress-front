@@ -1,0 +1,155 @@
+/* Gradiente del título */
+.text-gradient {
+    background: linear-gradient(to right, #ff6a00, #ff3c3c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.product-card {
+    width: 290px;
+    border: 1px solid rgba(0, 0, 0, 0.116);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 20px;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.card-img-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.card-img-top {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.2s ease;
+}
+
+/* Al pasar el mouse */
+.product-card:hover {
+    border: 2px solid #ff6f00;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.product-card:hover .card-img-top {
+    transform: scale(1.08);
+}
+
+/* Badges */
+.badge-nuevo {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 12px;
+}
+
+.badge-descuento {
+    position: absolute;
+    top: 10px;
+    left: 70px;
+    font-size: 12px;
+}
+
+.badge-categoria {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    font-size: 12px;
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    padding: 4px 8px;
+}
+
+/* Contenedor de los iconos */
+.iconos-acciones {
+
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.iconos-acciones i {
+    background-color: rgba(255, 255, 255, 0.6); /* semi-transparente */
+    color: #000;
+    padding: 6px;
+    border-radius: 60%;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.iconos-acciones i:hover {
+    transform: scale(1.2);
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.product-card:hover .iconos-acciones {
+    opacity: 1;   
+}
+
+/* Texto y precios */
+.rating {
+    font-size: 14px;
+    color: #F39523;
+}
+
+.rating-number {
+    color: #444;
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.card-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.precio {
+    margin: 10px 0;
+}
+
+.precio-oferta {
+    font-size: 18px;
+    font-weight: bold;
+    color: #e74c3c;
+}
+
+.precio-original {
+    text-decoration: line-through;
+    color: #888;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.btn-agregar-carrito {
+    background: linear-gradient(to right, #F39523, #CD1D31);
+    color: white !important;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-weight: bold;
+    font-size: 14px;
+    opacity: 0.85;
+    transition: opacity 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-agregar-carrito:hover {
+    opacity: 1;
+    transform: scale(1.02);
+}
+
+.btn-agregar-carrito:active {
+    transform: scale(0.98);
+}
+
