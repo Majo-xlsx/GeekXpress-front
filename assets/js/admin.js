@@ -11,7 +11,9 @@ document.getElementById("busquedaProducto").addEventListener("keyup", function (
 
 
 document.getElementById("nuevoProductoBtn").addEventListener("click", function () {
-  alert("Abrir formulario para agregar un nuevo producto 🚀");
+  window.location.href = "/pages/productsForm.html";
+
+  // alert("Abrir formulario para agregar un nuevo producto 🚀");
 });
 
 
