@@ -725,37 +725,30 @@ nav.navbar .navbar-toggler-icon {
     margin: 0;
     font-size: 1rem;
   }
-<<<<<<< HEAD
 }
 .collapsing {
   transition: height 0.1s ease; /* más rápido */
-=======
->>>>>>> 3263c3dabf052b790dcc245420ff59dbc9dfd22b
 }
 .collapsing {
   transition: height 0.1s ease; /* más rápido */
 }
 
-<<<<<<< HEAD
-  nav.navbar .d-flex.ms-lg-auto {
-    margin-left: 0;
-    margin-right: 0.5rem;
-    gap: 0.25rem;
-  }
-
-  nav.navbar .bi-cart-fill,
-  nav.navbar .bi-person-circle {
-    margin-left: 0.3rem;
-    margin-top: 0.1rem;
-    font-size: 1.1rem;
-  }
-
-  nav.navbar .navbar-toggler {
-    margin-top: 0.1rem; 
-  }
+nav.navbar .d-flex.ms-lg-auto {
+  margin-left: 0;
+  margin-right: 0.5rem;
+  gap: 0.25rem;
 }
 
-=======
+nav.navbar .bi-cart-fill,
+nav.navbar .bi-person-circle {
+  margin-left: 0.3rem;
+  margin-top: 0.1rem;
+  font-size: 1.1rem;
+}
+
+nav.navbar .navbar-toggler {
+  margin-top: 0.1rem; 
+}
 .fly-img {
     position: fixed;
     z-index: 9999;
@@ -768,4 +761,4 @@ nav.navbar .navbar-toggler-icon {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 1.5s ease-in-out;
 }
->>>>>>> 751d3246a0010812f3e372f97a7ff97fa98af310
+

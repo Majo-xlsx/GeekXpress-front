@@ -85,6 +85,8 @@ registerForm.addEventListener('submit', (e) => {
     password
   };
 
+  
+
   localStorage.setItem(email, JSON.stringify(user));
   alert('Cuenta creada.');
   registerForm.reset();
