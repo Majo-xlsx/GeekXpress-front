@@ -5,23 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>GeekXpress</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* Custom scrollbar for tab navigation */
-    ::-webkit-scrollbar {
-      height: 8px;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #7c3aed;
-      border-radius: 9999px;
-    }
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    /* For hiding password */
-    button:focus {
-      outline-offset: 2px;
-    }
-  </style>
 </head>
 <body class="bg-[#181825] text-gray-300 min-h-screen flex flex-col justify-center items-center px-4 py-10 select-none">
 
@@ -48,7 +31,7 @@
       <h2 class="text-2xl font-bold text-white mb-2 select-text">¡Bienvenido de vuelta!</h2>
       <p class="text-gray-400 mb-6 select-text">Ingresa a tu cuenta para continuar comprando</p>
       
-      <form class="space-y-6" onsubmit="event.preventDefault(); alert('Iniciar sesión no está implementado');">
+      <form id="login-form" class="space-y-6">
       
         <label for="email" class="block text-gray-300 font-semibold mb-1 select-text">Email</label>
         <div class="relative">
@@ -90,14 +73,13 @@
         </button>
       
       </form>
-      </div>
     </section>
 
     <section id="panel-register" tabindex="0" role="tabpanel" aria-labelledby="tab-register" hidden class="p-8 w-full bg-[#2A273F] rounded-b-lg text-gray-300 select-none">
       <h2 class="text-2xl font-bold text-white mb-2 select-text">¡Únete a GeekXpress!</h2>
       <p class="text-gray-400 mb-6 select-text">Crea tu cuenta y accede a beneficios exclusivos</p>
     
-      <form class="space-y-6" onsubmit="event.preventDefault(); alert('Crear cuenta no está implementado');">
+      <form id="register-form" class="space-y-6">
     
         <label for="first-name" class="block text-gray-300 font-semibold mb-1 select-text">Nombre</label>
         <input id="first-name" name="first-name" type="text" required placeholder="Juan" class="w-full rounded-md border border-gray-700 bg-[#312e4c] px-3 py-2 text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500"/>
@@ -143,49 +125,7 @@
     </a>
   </footer>
 
-  <script>
-    // Tab switching behavior
-    const tabLogin = document.getElementById('tab-login');
-    const tabRegister = document.getElementById('tab-register');
-    const panelLogin = document.getElementById('panel-login');
-    const panelRegister = document.getElementById('panel-register');
-
-    tabLogin.addEventListener('click', () => {
-      tabLogin.setAttribute('aria-selected', 'true');
-      tabRegister.setAttribute('aria-selected', 'false');
-      panelLogin.hidden = false;
-      panelRegister.hidden = true;
-
-      tabLogin.classList.add('text-white', 'font-semibold');
-      tabRegister.classList.remove('text-white', 'font-semibold');
-    });
-
-    tabRegister.addEventListener('click', () => {
-      tabRegister.setAttribute('aria-selected', 'true');
-      tabLogin.setAttribute('aria-selected', 'false');
-      panelRegister.hidden = false;
-      panelLogin.hidden = true; 
-
-      tabRegister.classList.add('text-white', 'font-semibold');
-      tabLogin.classList.remove('text-white', 'font-semibold');
-    });
-
-    // Toggle password visibility
-    function togglePasswordVisibility() {
-      const passwordInput = document.getElementById('password');
-      const eyeOpen = document.getElementById('eye-open');
-      const eyeClosed = document.getElementById('eye-closed');
-      if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        eyeOpen.classList.add('hidden');
-        eyeClosed.classList.remove('hidden');
-      } else {
-        passwordInput.type = 'password';
-        eyeOpen.classList.remove('hidden');
-        eyeClosed.classList.add('hidden');
-      }
-    }
-  </script>
+  <script src="../assets/js/login.js"></script>
 
 </body>
 </html>
