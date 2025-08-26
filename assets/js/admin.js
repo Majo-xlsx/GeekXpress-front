@@ -195,4 +195,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   renderizarUsuarios();
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> 626491ce07b8f4bff09b77e0bc49ec914e617709
