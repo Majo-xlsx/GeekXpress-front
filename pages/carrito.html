@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrito de Compras - GeekXpress</title>
+  <link href="../assets/css/carrito.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+  <h2 class="titulo">🛒 Carrito de Compras</h2>
+  
+  <!-- Producto -->
+  <div class="card producto">
+    <img src="https://via.placeholder.com/100" alt="Figura Goku">
+    <div class="info">
+      <span class="badge">Anime</span>
+      <h5>Figura Goku Super Saiyan</h5>
+      <span class="precio">$ 89.900</span>
+      <span class="precio-antiguo">$ 113.900</span>
+      <div class="cantidad">
+        <button class="btn-cantidad" onclick="cambiarCantidad(this, -1)">-</button>
+        <span class="num-cantidad">2</span>
+        <button class="btn-cantidad" onclick="cambiarCantidad(this, 1)">+</button>
+      </div>
+    </div>
+    <div class="total">
+      <p class="subtotal">$ 179.800</p>
+      <span class="btn-remove" onclick="eliminarProducto(this)">🗑️</span>
+    </div>
+  </div>
+
+  <!-- Otro producto -->
+  <div class="card producto">
+    <img src="https://via.placeholder.com/100" alt="Batman">
+    <div class="info">
+      <span class="badge">Cómics</span>
+      <h5>Funko Pop! Batman</h5>
+      <span class="precio">$ 45.900</span>
+      <div class="cantidad">
+        <button class="btn-cantidad" onclick="cambiarCantidad(this, -1)">-</button>
+        <span class="num-cantidad">1</span>
+        <button class="btn-cantidad" onclick="cambiarCantidad(this, 1)">+</button>
+      </div>
+    </div>
+    <div class="total">
+      <p class="subtotal">$ 45.900</p>
+      <span class="btn-remove" onclick="eliminarProducto(this)">🗑️</span>
+    </div>
+  </div>
+
+  <!-- Otro producto -->
+  <div class="card producto">
+    <img src="https://via.placeholder.com/100" alt="Pokémon">
+    <div class="info">
+      <span class="badge">Cartas</span>
+      <h5>Cartas Pokémon Booster Pack</h5>
+      <span class="precio">$ 25.900</span>
+      <div class="cantidad">
+        <button class="btn-cantidad" onclick="cambiarCantidad(this, -1)">-</button>
+        <span class="num-cantidad">3</span>
+        <button class="btn-cantidad" onclick="cambiarCantidad(this, 1)">+</button>
+      </div>
+    </div>
+    <div class="total">
+      <p class="subtotal">$ 77.700</p>
+      <span class="btn-remove" onclick="eliminarProducto(this)">🗑️</span>
+    </div>
+  </div>
+
+  <!-- Resumen -->
+  <div class="card resumen">
+    <h5>Resumen del Pedido</h5>
+    <div class="linea">
+      <span>Subtotal (<span id="num-articulos">3</span> artículos)</span>
+      <span id="subtotal">$ 303.400</span>
+    </div>
+    <div class="linea">
+      <span>Envío</span>
+      <span class="gratis">¡Gratis!</span>
+    </div>
+    <hr>
+    <div class="linea">
+      <strong>Total</strong>
+      <strong id="total">$ 303.400</strong>
+    </div>
+    <button class="btn-pago">Proceder al Pago</button>
+  </div>
+</div>
+
+<script src="../assets/js/vistaCarrito.js"></script>
+</body>
+</html>
