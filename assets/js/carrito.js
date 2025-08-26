@@ -6,40 +6,63 @@ const listaCarrito = document.getElementById('lista-carrito')
 const iconoCarrito = document.getElementById('icono-carrito')
 
 function actualizarCarrito() {
-    localStorage.setItem('carrito', JSON.stringify(carrito))
+    localStorage.setItem('carrito', JSON.stringify(carrito));
 
-    let total = 0
-    for (let i = 0; i < carrito.length; i++) {
-        total = total + carrito[i].cantidad
-    }
+    let totalCantidad = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+    if (contador) contador.textContent = totalCantidad;
 
-    if (contador) {
-      contador.textContent = total
-    }
-    
     if (listaCarrito) {
-      listaCarrito.innerHTML = ''
-      for (let i = 0; i < carrito.length; i++) {
-          let producto = carrito[i]
-          let totalProducto = producto.precio * producto.cantidad
+        listaCarrito.innerHTML = '';
 
-          let item = document.createElement('li')
-          item.textContent = producto.cantidad + ' x ' + producto.nombre + ' - $' + totalProducto.toLocaleString()
+        let totalPrecio = 0;
 
-          let botonEliminar = document.createElement('button')
-          botonEliminar.textContent = ' X'
-          botonEliminar.addEventListener('click', function () {
-              if (producto.cantidad > 1) {
-                  producto.cantidad = producto.cantidad - 1
-              } else {
-                  carrito.splice(i, 1)
-              }
-              actualizarCarrito()
-          })
+        carrito.forEach((producto) => {
+            let totalProducto = producto.precio * producto.cantidad;
+            totalPrecio += totalProducto;
 
-          item.appendChild(botonEliminar)
-          listaCarrito.appendChild(item)
-      }
+            let item = document.createElement('li');
+            item.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
+
+            item.innerHTML = `
+                <span>${producto.nombre} - $${totalProducto.toLocaleString()}</span>
+                <div>
+                    <button class="btn btn-sm btn-secondary me-1" data-id="${producto.id}" data-accion="disminuir">-</button>
+                    <span class="mx-1">${producto.cantidad}</span>
+                    <button class="btn btn-sm btn-success me-1" data-id="${producto.id}" data-accion="aumentar">+</button>
+                    <button class="btn btn-sm btn-danger" data-id="${producto.id}" data-accion="eliminar">X</button>
+                </div>
+            `;
+
+            listaCarrito.appendChild(item);
+        });
+
+        if (totalPrecio > 0) {
+            let totalItem = document.createElement('li');
+            totalItem.classList.add('list-group-item', 'fw-bold', 'text-end');
+            totalItem.textContent = `Total: $${totalPrecio.toLocaleString()}`;
+            listaCarrito.appendChild(totalItem);
+        }
+
+        // Eventos a botones
+        listaCarrito.querySelectorAll('button').forEach((btn) => {
+            btn.addEventListener('click', () => {
+                const id = btn.getAttribute('data-id');
+                const accion = btn.getAttribute('data-accion');
+                const index = carrito.findIndex(p => p.id === id);
+
+                if (index !== -1) {
+                    if (accion === 'aumentar') {
+                        carrito[index].cantidad += 1;
+                    } else if (accion === 'disminuir') {
+                        carrito[index].cantidad -= 1;
+                        if (carrito[index].cantidad <= 0) carrito.splice(index, 1);
+                    } else if (accion === 'eliminar') {
+                        carrito.splice(index, 1);
+                    }
+                    actualizarCarrito();
+                }
+            });
+        });
     }
 }
 
