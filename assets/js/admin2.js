@@ -21,13 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     productos.forEach((producto, index) => {
       const fila = document.createElement('tr');
+      // <div class="producto-info">
+      //   <strong>${producto.nombre}</strong>
+      //   <small>${producto.categoria}</small>
+      // </div> debajo de img
       fila.innerHTML = `
         <td class="producto-cell">
-          <img src="${producto.imagen}" alt="${producto.nombre}" style="width: 50px; height: 50px; object-fit: cover;">
-          <div class="producto-info">
-            <strong>${producto.nombre}</strong>
-            <small>${producto.categoria}</small>
-          </div>
+          <img src="${producto.imagen}" alt="${producto.nombre}" style="width: 80px; height: 80px; object-fit: cover;">
         </td>
         <td>${producto.sku || 'N/A'}</td> 
         <td>$${producto.precio.toFixed(2)}</td>
