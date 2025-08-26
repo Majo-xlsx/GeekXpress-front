@@ -14,7 +14,11 @@ function cambiarCantidad(boton, cambio) {
 
 // Función para actualizar subtotal de un producto
 function actualizarSubtotal(producto) {
-  const precioTexto = producto.querySelector(".precio").textContent.replace("$", "").replace(".", "").trim();
+  const precioTexto = producto.querySelector(".precio").textContent
+    .replace("$", "")
+    .replace(/\./g, "") // eliminar puntos de miles
+    .trim();
+
   const precio = parseInt(precioTexto.replace(/\D/g, ""));
   const cantidad = parseInt(producto.querySelector(".num-cantidad").textContent);
 
