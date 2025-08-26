@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 <body>
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm px-3">
+    <div id="navbar">
+            <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm px-3">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">GeekXpress</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,8 +38,541 @@
         </div>
     </nav>
     <br><br><br><br>
+    </div>
+    <h1 class="text-center">Catálogo de Productos</h1>
+    <!-- PRODUCTOS ESTÁTICOS -->
+    <section id="products">
+        <div class="container text-center">
+            
 
-    <h1>Catálogo de Productos</h1>
+
+ 
+            <h2 class="fw-bold mb-3">
+                <span class="text-gradient">Lo más épico del momento</span>
+            </h2>
+ 
+            <p class="mb-5 text-muted">
+                Explora artículos especiales con diseños exclusivos, ediciones limitadas y contenido ideal para fans y coleccionistas. Cada pieza está pensada para complementar tu colección y resaltar lo que más te apasiona.
+        
+            </p>
+        </div>
+ 
+ 
+ 
+<div class="container">
+    <div class="row justify-content-center">
+ 
+        <!-- 1.  Card TCG ONE PIECE -->
+        <div class="col-12 col-sm-6 col-md-4 mb-4">
+            <div class="card product-card">
+                <div class="card-img-container">
+                    <img src="/assets/img/imgProducts/TCG_ONEPIECE_1.png" class="card-img-top" alt="CARTAS TCG ONE PIECE">
+                   
+                    <!-- Etiquetas -->
+                    <span class="badge bg-success badge-nuevo">NUEVO</span>
+                    <span class="badge bg-light text-dark">CARTAS TCG</span>
+
+                       
+                        <!-- Iconos al pasar el cursor -->
+                        <div class="iconos-acciones">
+                            <i class="bi bi-heart-fill"></i>
+                            <i class="bi bi-eye-fill"></i>
+                        </div>
+                    </div>
+                   
+                    <div class="card-body">
+                        <div class="rating">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                            <span class="rating-number">4.8 (124)</span>
+                        </div>
+                       
+                        <h4 class="card-title">One Piece | Caja 24 Sobres OP-05 Awakening of the New Era</h4>
+                
+                        <p class="precio">
+                            <span class="precio-oferta">$1'215.000</span>
+                        </p>
+                       
+                        <button class="btn btn-agregar-carrito w-100" onclick="addProduct('TCG','1215000','../assets/img/TCG_ONEPIECE_1.png')">
+                            <i class="bi bi-cart me-2"></i> Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+           
+            <!-- 2.  Card TCG POKEMON -->
+            <div class="col-12 col-sm-6 col-md-4 mb-4">
+                <div class="card product-card">
+                    <div class="card-img-container">
+                        <img src="/assets/img/imgProducts/TCG_POKEMON_1.png" class="card-img-top" alt="TCG_POKEMON_1">
+                       
+                        <!-- Etiquetas -->
+                        <span class="badge bg-success badge-nuevo">NUEVO</span>
+                        <span class="badge bg-danger badge-descuento">-10%</span>
+                        <span class="badge bg-light text-dark">CARTAS TCG</span>
+                       
+                        <!-- Iconos al pasar el cursor -->
+                        <div class="iconos-acciones">
+                            <i class="bi bi-heart-fill"></i>
+                            <i class="bi bi-eye-fill"></i>
+                        </div>
+                    </div>
+                   
+                    <div class="card-body">
+                        <div class="rating">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                            <span class="rating-number">4.3 (24)</span>
+                        </div>
+                       
+                        <h4 class="card-title">Pokemon Juego de cartas Mega Brave Booster Box (japonés)</h4>
+        
+                        <p class="precio">
+                            <span class="precio-oferta">$542.000</span>
+                            <span class="precio-original">$596.200</span>
+                        </p>
+                       
+                        <button class="btn btn-agregar-carrito w-100" onclick="addProduct('CARTAS TCG','$542.000','../assets/img/TCG_POKEMON_1.png')">
+                            <i class="bi bi-cart me-2"></i> Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+           
+            <!-- 3.  Card TCG MAGIC -->
+           
+            <div class="col-12 col-sm-6 col-md-4 mb-4">
+                <div class="card product-card">
+                    <div class="card-img-container">
+                        <img src="/assets/img/imgProducts/TCG_MAGIC_01.png" class="card-img-top" alt="TCG_MAGIC_01">
+                       
+                        <!-- Etiquetas -->
+                        <span class="badge bg-success badge-nuevo">NUEVO</span>
+                        <span class="badge bg-danger badge-descuento">-30%</span>
+                        <span class="badge bg-light text-dark">CARTAS TCG</span>
+                       
+                        <!-- Iconos al pasar el cursor -->
+                        <div class="iconos-acciones">
+                            <i class="bi bi-heart-fill"></i>
+                            <i class="bi bi-eye-fill"></i>
+                        </div>
+                    </div>
+                   
+                    <div class="card-body">
+                        <div class="rating">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                            <span class="rating-number">4.5 (194)</span>
+                        </div>
+                       
+                        <h4 class="card-title">Magic The Gathering Innistrad Remastered Collector Boosters1</h4>
+        
+                        <p class="precio">
+                            <span class="precio-oferta">$1'649.350</span>
+                            <span class="precio-original">$2'144.155</span>
+                        </p>
+                       
+                        <button class="btn btn-agregar-carrito w-100" onclick="addProduct('CARTAS TCG','1649350','../assets/img/TCG_MAGIC_01.png')">
+                            <i class="bi bi-cart me-2"></i> Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+ 
+            <!-- 4. Card MANGA NARUTO -->
+            
+            <div class="col-12 col-sm-6 col-md-4 mb-4">
+                <div class="card product-card">
+                    <div class="card-img-container">
+                        <img src="/assets/img/imgProducts/MANGA_NARUTO_N.01.png" class="card-img-top" alt="MANGA_NARUTO_N.01">
+                       
+                        <!-- Etiquetas -->
+                        <span class="badge bg-success badge-nuevo">NUEVO</span>
+                        <span class="badge bg-danger badge-descuento">-10%</span>
+                        <span class="badge bg-light text-dark">MANGA</span>
+                       
+                        <!-- Iconos al pasar el cursor -->
+                        <div class="iconos-acciones">
+                            <i class="bi bi-heart-fill"></i>
+                            <i class="bi bi-eye-fill"></i>
+                        </div>
+                    </div>
+                   
+                    <div class="card-body">
+                        <div class="rating">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                            <span class="rating-number">4.7 (44)</span>
+                        </div>
+                       
+                        <h4 class="card-title">Manga Naruto N.01 Special Edition</h4>
+        
+                        <p class="precio">
+                            <span class="precio-oferta">$49.500</span>
+                            <span class="precio-original">$54.450</span>
+                        </p>
+                       
+                        <button class="btn btn-agregar-carrito w-100" onclick="addProduct('MANGA','49500','../assets/img/MANGA_NARUTO_N.01.png')">
+                            <i class="bi bi-cart me-2"></i> Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+           
+            <!-- Card 5 -->
+            <div class="col-12 col-sm-6 col-md-4 mb-4">
+                <div class="card product-card">
+                    <div class="card-img-container">
+                        <img src="/assets/img/imgProducts/MANGA_FMA_N.01.JPG" class="card-img-top" alt="MANGA_FMA_N.01">
+                       
+                        <!-- Etiquetas -->
+                        <span class="badge bg-success badge-nuevo">NUEVO</span>
+                        <span class="badge bg-danger badge-descuento">-50%</span>
+                        <span class="badge bg-light text-dark">MANGA</span>
+                       
+                        <!-- Iconos al pasar el cursor -->
+                        <div class="iconos-acciones">
+                            <i class="bi bi-heart-fill"></i>
+                            <i class="bi bi-eye-fill"></i>
+                        </div>
+                    </div>
+                   
+                    <div class="card-body">
+                        <div class="rating">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                            <span class="rating-number">4.2 (264)</span>
+                        </div>
+                       
+                        <h4 class="card-title">Manga Full Metal Alchemist N.01 Special Edition</h4>
+        
+                        <p class="precio">
+                            <span class="precio-oferta">$60.000</span>
+                            <span class="precio-original">$120.000</span>
+                        </p>
+                       
+                        <button class="btn btn-agregar-carrito w-100" onclick="addProduct('MANGA','60000','../assets/img/MANGA_FMA_N.01.JPG')">
+                            <i class="bi bi-cart me-2"></i> Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+ 
+            <!-- 6. MANGA JOJOS 1 -->
+            <div class="col-12 col-sm-6 col-md-4 mb-4">
+                <div class="card product-card">
+                    <div class="card-img-container">
+                        <img src="/assets/img/imgProducts/MANGA_JOJOS_N.01.jpg" class="card-img-top" alt="MANGA_JOJOS_N.01">
+                       
+                        <!-- Etiquetas -->
+                        <span class="badge bg-success badge-nuevo">NUEVO</span>
+                        <span class="badge bg-light badge-categoria">MANGA</span>
+                       
+                        <!-- Iconos al pasar el cursor -->
+                        <div class="iconos-acciones">
+                            <i class="bi bi-heart-fill"></i>
+                            <i class="bi bi-eye-fill"></i>
+                        </div>
+                    </div>
+                   
+                    <div class="card-body">
+                        <div class="rating">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                            <span class="rating-number">4.9 (550)</span>
+                        </div>
+                       
+                        <h5 class="card-title">Manga Jojo's Bizarre N.01 Special Edition</h5>
+                        <p class="precio">
+                            <span class="precio-oferta">$76.000</span>
+                        </p>
+ 
+                        <button class="btn btn-agregar-carrito w-100" onclick="addProduct('Manga','76000','../assets/img/MANGA_JOJOS_N.01.jpg')">
+                            <i class="bi bi-cart me-2"></i> Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+           
+            
+            <!--7.  Card comic THOR N.1 -->
+            <div class="col-12 col-sm-6 col-md-4 mb-4">
+                <div class="card product-card">
+                    <div class="card-img-container">
+                        <img src="/assets/img/imgProducts/Comic_Thor N.01.png" class="card-img-top" alt="Thor N.01">
+                       
+                        <!-- Etiquetas -->
+                        <span class="badge bg-success badge-nuevo">NUEVO</span>
+                        <span class="badge bg-danger badge-descuento">-25%</span>
+                        <span class="badge bg-light text-dark">COMICS</span>
+                       
+                        <!-- Iconos al pasar el cursor -->
+                        <div class="iconos-acciones">
+                            <i class="bi bi-heart-fill"></i>
+                            <i class="bi bi-eye-fill"></i>
+                        </div>
+                    </div>
+                   
+                    <div class="card-body">
+                        <div class="rating">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                            <span class="rating-number">4.7 (94)</span>
+                        </div>
+                       
+                        <h4 class="card-title">Comic Thor N.01</h4>
+        
+                        <p class="precio">
+                            <span class="precio-oferta">$69.900</span>
+                            <span class="precio-original">$87.350</span>
+                        </p>
+                       
+                        <button class="btn btn-agregar-carrito w-100" onclick="addProduct('calzado','68900','../assets/img/comic_Thor_N.01.png')">
+                            <i class="bi bi-cart me-2"></i> Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+           
+ 
+            <!-- 8.Card COMIC BATMAN 1 -->
+            <div class="col-12 col-sm-6 col-md-4 mb-4">
+                <div class="card product-card">
+                    <div class="card-img-container">
+   
+ 
+                        <img src="/assets/img/imgProducts/COMIC_BATMAN_N.01.jpg" class="card-img-top" alt="COMIC_BATMAN_N.01">
+ 
+                        <!-- Etiquetas -->
+                        <span class="badge bg-success badge-nuevo">NUEVO</span>
+                        <span class="badge bg-danger badge-descuento">-10%</span>
+                        <span class="badge bg-light badge-categoria">COMICS</span>
+ 
+                        <!-- Iconos al pasar el cursor -->
+                        <div class="iconos-acciones">
+                            <i class="bi bi-heart-fill"></i>
+                            <i class="bi bi-eye-fill"></i>
+                        </div>
+                    </div>
+ 
+                    <div class="card-body">
+                        <div class="rating">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                            <span class="rating-number">4.4 (10)</span>
+                        </div>
+ 
+                        <h5 class="card-title">Comic Batman Absolute N.01</h5>
+                        <p class="precio">
+                            <span class="precio-oferta">$105.000</span>
+                            <span class="precio-original">$115.500</span>
+                        </p>
+ 
+                        <button class="btn btn-agregar-carrito w-100" onclick="addProduct('comic','105000','../assets/img/COMIC_BATMAN_N.01.jpg')">
+                            <i class="bi bi-cart me-2"></i> Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+ 
+            <!-- 9. Comic superman n.01-->
+            <div class="col-12 col-sm-6 col-md-4 mb-4">
+                <div class="card product-card">
+                    <div class="card-img-container">
+                        <img src="/assets/img/imgProducts/COMIC_SUPERMAN_N.01.jpg" class="card-img-top" alt="COMIC_SUPERMAN_N.01">
+ 
+                        <!-- Etiquetas -->
+                        <span class="badge bg-success badge-nuevo">NUEVO</span>
+                        <span class="badge bg-danger badge-descuento">-20%</span>
+                        <span class="badge bg-light badge-categoria">COMICS</span>
+ 
+                        <!-- Iconos al pasar el cursor -->
+                        <div class="iconos-acciones">
+                            <i class="bi bi-heart-fill"></i>
+                            <i class="bi bi-eye-fill"></i>
+                        </div>
+                    </div>
+ 
+                    <div class="card-body">
+                        <div class="rating">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                            <span class="rating-number">4.8 (15)</span>
+                        </div>
+ 
+                        <h5 class="card-title">All Star Superman Edition Deluxe N.01 </h5>
+                        <p class="precio">
+                            <span class="precio-oferta">$188.000</span>
+                            <span class="precio-original">$225.600</span>
+                        </p>
+ 
+                        <button class="btn btn-agregar-carrito w-100" onclick="addProduct('COMICS','188000','../assets/img/COMIC_SUPERMAN_N.01.jpg')">
+                            <i class="bi bi-cart me-2"></i> Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+ 
+            <!--10  Card FUNKO KIMETSU -->
+<div class="col-12 col-sm-6 col-md-4 mb-4">
+                <div class="card product-card">
+                    <div class="card-img-container">
+                        <img src="/assets/img/imgProducts/FIGURAS_KNY_01.png" class="card-img-top" alt="FUNKO KIMETSU NO YAIBA">
+                       
+                        <!-- Etiquetas -->
+                        <span class="badge bg-success badge-nuevo">NUEVO</span>
+                        <span class="badge bg-danger badge-descuento">-10%</span>
+                        <span class="badge bg-light text-dark">Figuras</span>
+                       
+                        <!-- Iconos al pasar el cursor -->
+                        <div class="iconos-acciones">
+                            <i class="bi bi-heart-fill"></i>
+                            <i class="bi bi-eye-fill"></i>
+                        </div>
+                    </div>
+                   
+                    <div class="card-body">
+                        <div class="rating">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                            <span class="rating-number">4.5 (194)</span>
+                        </div>
+                       
+                        <h4 class="card-title">Funko POP Plus Tanjiro Kamado Dancing Flash 2041 Demon Slayer</h4>
+        
+                        <p class="precio">
+                            <span class="precio-oferta">$69.900</span>
+                            <span class="precio-original">$80.385</span>
+                        </p>
+                       
+                        <button class="btn btn-agregar-carrito w-100" onclick="addProduct('FIGURA','68900','../assets/img/comic_Thor_N.01.png')">
+                            <i class="bi bi-cart me-2"></i> Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+ 
+ 
+            <!-- Card FUNKO DRAGON BALL -->
+            <div class="col-12 col-sm-6 col-md-4 mb-4">
+                <div class="card product-card">
+                    <div class="card-img-container">
+                        <img src="/assets/img/imgProducts/FIGURAS_DB_N.01.png" class="card-img-top" alt="FUNKO DRAGON BALL">
+ 
+                        <!-- Etiquetas -->
+                        <span class="badge bg-success badge-nuevo">NUEVO</span>
+                        <span class="badge bg-danger badge-descuento">-50%</span>
+                        <span class="badge bg-light badge-categoria">FIGURAS</span>
+ 
+                        <!-- Iconos al pasar el cursor -->
+                        <div class="iconos-acciones">
+                            <i class="bi bi-heart-fill"></i>
+                            <i class="bi bi-eye-fill"></i>
+                        </div>
+                    </div>
+ 
+                    <div class="card-body">
+                        <div class="rating">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                            <span class="rating-number">4.9 (15)</span>
+                        </div>
+ 
+                        <h5 class="card-title">¡Funko Pop! Animación Dragonball Z - Goku Súper Sayajin</h5>
+                        <p class="precio">
+                            <span class="precio-oferta">$69.900</span>
+                            <span class="precio-original">$139.800</span>
+                        </p>
+ 
+                        <button class="btn btn-agregar-carrito w-100" onclick="addProduct('falda','56000','../assets/img/falda.png')">
+                            <i class="bi bi-cart me-2"></i> Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+ 
+            <!-- Card FUNKO POP ONE PIECE G5-->
+            <div class="col-12 col-sm-6 col-md-4 mb-4">
+                <div class="card product-card">
+                    <div class="card-img-container">
+                        <img src="/assets/img/imgProducts/FIGURAS_ONEPIECE_G5_01.png" class="card-img-top" alt="FUNKO POP ONE PIECE G5">
+ 
+                        <!-- Etiquetas -->
+                        <span class="badge bg-success badge-nuevo">NUEVO</span>
+                        <span class="badge bg-danger badge-descuento">-40%</span>
+                        <span class="badge bg-light badge-categoria">FIGURAS</span>
+ 
+                        <!-- Iconos al pasar el cursor -->
+                        <div class="iconos-acciones">
+                            <i class="bi bi-heart-fill"></i>
+                            <i class="bi bi-eye-fill"></i>
+                        </div>
+                    </div>
+ 
+                    <div class="card-body">
+                        <div class="rating">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                            <span class="rating-number">4.9 (15)</span>
+                        </div>
+ 
+                        <h5 class="card-title">Funko Pop Luffy Gear Five One Piece</h5>
+                        <p class="precio">
+                            <span class="precio-oferta">$89.900</span>
+                            <span class="precio-original">$125.860</span>
+                        </p>
+ 
+                        <button class="btn btn-agregar-carrito w-100" onclick="addProduct('FIGURAS','89900','../assets/img/FIGURAS_ONEPIECE_G5_01.png')">
+                            <i class="bi bi-cart me-2"></i> Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+ 
+            <!-- Aquí puedes agregar más cards -->
+ 
+        </div>
+    </div>
+    </div>
+</section>
+
+    <!-- PRODUCTOS DINAMICOS -->
     <div class="container">
         <div class="row justify-content-center" id="productContainer"></div>
     </div>
