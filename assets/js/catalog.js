@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cardCol.classList.add('col-12', 'col-sm-6', 'col-md-4', 'mb-4');
 
         cardCol.innerHTML = `
-            <div class="card product-card">
+            <div class="card product-card" data-id="${data.id}">
                 <div class="card-img-container">
                     <img src="${data.imagen}" class="card-img-top" alt="${data.nombre}" style="max-width: 100%; height: auto;">
 

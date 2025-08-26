@@ -49,12 +49,15 @@ function asignarEventosCarrito() {
   for (let i = 0; i < botonesAgregar.length; i++) {
     botonesAgregar[i].addEventListener('click', function () {
         const boton = this
-        const id = boton.getAttribute('data-id')
-        const nombre = boton.getAttribute('data-nombre')
-        const precio = parseFloat(boton.getAttribute('data-precio'))
-        
-        const card = boton.closest('.card');
-        const imagen = card.querySelector('.card-img-top').src;
+        const card = boton.closest('.card')
+
+        const nombre = card.querySelector('.card-title').textContent
+        const precio = parseFloat(
+            card.querySelector('.precio-oferta').textContent.replace('$','')
+        )
+        const imagen = card.querySelector('.card-img-top').src
+
+        const id = card.getAttribute('data-id')
 
         if (iconoCarrito) {
             let rectBoton = boton.getBoundingClientRect()
