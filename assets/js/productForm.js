@@ -57,6 +57,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const imageDataBase64 = await convertToBase64(imageFile);
         productData.imagen = imageDataBase64;
         
+        if (!productData.id) {
+            productData.id = generarIdUnico();
+        }
+
         saveProductToLocalStorage(productData);
         
         successMessage.style.display = 'block';
@@ -80,9 +84,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function generarIdUnico() {
+        if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+            return crypto.randomUUID();
+        }
+        return Date.now().toString(36) + Math.random().toString(36).substring(2, 9);
+    }
+
     function saveProductToLocalStorage(product) {
         const productsJson = localStorage.getItem('products');
         const products = productsJson ? JSON.parse(productsJson) : [];
+
+        if (!product.id) product.id = generarIdUnico();
 
         products.push(product);
 

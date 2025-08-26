@@ -720,6 +720,7 @@ nav.navbar .navbar-toggler-icon {
     font-size: 1rem;
   }
 }
+
 .collapsing {
   transition: height 0.1s ease; /* más rápido */
 }
