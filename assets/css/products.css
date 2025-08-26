@@ -23,6 +23,7 @@
 .card-img-top {
     width: 100%;
     height: auto;
+    max-height: 200px;
     object-fit: cover;
     transition: transform 0.2s ease;
 }
@@ -152,4 +153,3 @@
 .btn-agregar-carrito:active {
     transform: scale(0.98);
 }
-

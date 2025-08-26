@@ -725,13 +725,8 @@ nav.navbar .navbar-toggler-icon {
     margin: 0;
     font-size: 1rem;
   }
-<<<<<<< HEAD
 }
-.collapsing {
-  transition: height 0.1s ease; /* más rápido */
-=======
->>>>>>> 3263c3dabf052b790dcc245420ff59dbc9dfd22b
-}
+
 .collapsing {
   transition: height 0.1s ease; /* más rápido */
 }
