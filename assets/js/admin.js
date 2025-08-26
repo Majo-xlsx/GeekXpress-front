@@ -1,15 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const tablaBody = document.querySelector("#tablaProductos tbody");
-  const busquedaInput = document.getElementById("busquedaProducto");
+//Productos
+  const tablaProductosBody = document.querySelector("#tablaProductos tbody");
+  const busquedaProductoInput = document.getElementById("busquedaProducto");
 
   function renderizarTablaProductos() {
     const productos = JSON.parse(localStorage.getItem('products')) || [];
-    tablaBody.innerHTML = '';
+    tablaProductosBody.innerHTML = '';
 
     if (productos.length === 0) {
       const noDataRow = document.createElement('tr');
       noDataRow.innerHTML = `<td colspan="7" class="text-center">No hay productos para mostrar.</td>`;
-      tablaBody.appendChild(noDataRow);
+      tablaProductosBody.appendChild(noDataRow);
       return;
     }
 
@@ -34,11 +35,11 @@ document.addEventListener('DOMContentLoaded', () => {
           <button class="btn btn-sm btn-danger eliminar-btn" data-index="${index}">🗑️</button>
         </td>
       `;
-      tablaBody.appendChild(fila);
+      tablaProductosBody.appendChild(fila);
     });
   }
 
-  busquedaInput.addEventListener("keyup", function () {
+  busquedaProductoInput.addEventListener("keyup", function () {
     let filtro = this.value.toLowerCase();
     let filas = document.querySelectorAll("#tablaProductos tbody tr");
 
@@ -48,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  tablaBody.addEventListener("click", function (e) {
+  tablaProductosBody.addEventListener("click", function (e) {
     const target = e.target.closest("button");
     if (!target) return;
 
@@ -88,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
       stock: parseInt(document.getElementById("stockProducto").value),
       categoria: document.getElementById("categoriaProducto").value,
       estado: document.getElementById("estadoProducto").value,
-      imagen: "https://via.placeholder.com/100" // Aquí puedes luego agregar un input de imagen
+      imagen: "https://via.placeholder.com/100"
     };
 
     productos.push(nuevoProducto);
@@ -97,11 +98,101 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = bootstrap.Modal.getInstance(document.getElementById("nuevoProductoModal"));
     modal.hide();
 
-    
     renderizarTablaProductos();
-
     this.reset();
   });
 
   renderizarTablaProductos();
+
+
+//Usuarios
+  const tablaUsuariosBody = document.querySelector("#tablaUsuarios tbody");
+  const busquedaUsuarioInput = document.getElementById("busquedaUsuario");
+  const formNuevoUsuario = document.getElementById("formNuevoUsuario");
+
+  let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [
+    { usuario: "Carlos Pérez", tipoDoc: "CC", documento: "12345678", estado: "Activo", compras: 5 },
+    { usuario: "María Gómez", tipoDoc: "CE", documento: "87654321", estado: "Inactivo", compras: 2 }
+  ];
+
+  function guardarUsuarios() {
+    localStorage.setItem("usuarios", JSON.stringify(usuarios));
+  }
+
+  function renderizarUsuarios(filtro = "") {
+    tablaUsuariosBody.innerHTML = "";
+
+    if (usuarios.length === 0) {
+      const noDataRow = document.createElement('tr');
+      noDataRow.innerHTML = `<td colspan="6" class="text-center">No hay usuarios para mostrar.</td>`;
+      tablaUsuariosBody.appendChild(noDataRow);
+      return;
+    }
+
+    usuarios
+      .filter(u => 
+        u.usuario.toLowerCase().includes(filtro.toLowerCase()) ||
+        u.documento.includes(filtro)
+      )
+      .forEach((u, index) => {
+        const fila = document.createElement("tr");
+
+        fila.innerHTML = `
+          <td>${u.usuario}</td>
+          <td>${u.tipoDoc}</td>
+          <td>${u.documento}</td>
+          <td><span class="badge ${u.estado === "Activo" ? "bg-success" : "bg-danger"}">${u.estado}</span></td>
+          <td>${u.compras}</td>
+          <td>
+            <button class="btn btn-sm btn-warning editar-usuario" data-index="${index}">✏️</button>
+            <button class="btn btn-sm btn-danger eliminar-usuario" data-index="${index}">🗑️</button>
+          </td>
+        `;
+        tablaUsuariosBody.appendChild(fila);
+      });
+  }
+
+  busquedaUsuarioInput.addEventListener("keyup", function () {
+    renderizarUsuarios(this.value);
+  });
+
+  formNuevoUsuario.addEventListener("submit", e => {
+    e.preventDefault();
+
+    const nuevoUsuario = {
+      usuario: document.getElementById("nombreUsuario").value,
+      tipoDoc: document.getElementById("tipoDocumento").value,
+      documento: document.getElementById("documentoUsuario").value,
+      estado: document.getElementById("estadoUsuario").value,
+      compras: parseInt(document.getElementById("comprasUsuario").value) || 0
+    };
+
+    usuarios.push(nuevoUsuario);
+    guardarUsuarios();
+    renderizarUsuarios();
+
+    formNuevoUsuario.reset();
+    bootstrap.Modal.getInstance(document.getElementById("nuevoUsuarioModal")).hide();
+  });
+
+  tablaUsuariosBody.addEventListener("click", e => {
+    const target = e.target.closest("button");
+    if (!target) return;
+
+    const index = target.dataset.index;
+
+    if (target.classList.contains("eliminar-usuario")) {
+      if (confirm("¿Seguro que deseas eliminar este usuario?")) {
+        usuarios.splice(index, 1);
+        guardarUsuarios();
+        renderizarUsuarios();
+      }
+    }
+
+    if (target.classList.contains("editar-usuario")) {
+      alert("Función de editar usuario en construcción 🚧");
+    }
+  });
+
+  renderizarUsuarios();
 });
