@@ -1,7 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-//Productos
+  // Productos
   const tablaProductosBody = document.querySelector("#tablaProductos tbody");
-  const busquedaProductoInput = document.getElementById("busquedaProducto");
+  const productForm = document.getElementById('formNuevoProducto');
+  const imageInput = document.getElementById('imagenesProducto');
+  const imagePreview = document.createElement('div'); 
+  imageInput.parentNode.appendChild(imagePreview); 
+
+  let editIndex = null; 
 
   function renderizarTablaProductos() {
     const productos = JSON.parse(localStorage.getItem('products')) || [];
@@ -18,17 +23,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const fila = document.createElement('tr');
       fila.innerHTML = `
         <td class="producto-cell">
-          <img src="${producto.imagen}" alt="${producto.nombre}" style="width: 50px; height: 50px; object-fit: cover;">
-          <div class="producto-info">
-            <strong>${producto.nombre}</strong>
-            <small>${producto.categoria}</small>
-          </div>
+          <img src="${producto.imagen}" alt="${producto.nombre}" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;">
+          <span>${producto.nombre}</span>
         </td>
-        <td>${producto.sku || 'N/A'}</td> 
+        <td>${producto.sku || 'N/A'}</td>
         <td>$${producto.precio.toFixed(2)}</td>
-        <td><span class="badge bg-primary">${producto.stock}</span></td> 
-        <td><span class="badge ${producto.estado === 'Activo' ? 'bg-success' : 'bg-secondary'}">${producto.estado}</span></td>
-        <td>N/A</td> 
+        <td>${producto.stock}</td>
+        <td>${producto.estado}</td>
+        <td>N/A</td>
         <td>
           <button class="btn btn-sm btn-warning editar-btn" data-index="${index}">✏️</button>
           <button class="btn btn-sm btn-info ver-btn" data-index="${index}">👁</button>
@@ -39,73 +41,116 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  busquedaProductoInput.addEventListener("keyup", function () {
-    let filtro = this.value.toLowerCase();
-    let filas = document.querySelectorAll("#tablaProductos tbody tr");
+  imageInput.addEventListener('change', function() {
+    const files = this.files;
+    imagePreview.innerHTML = '';
+    if (files.length > 0) {
+      const file = files[0];
+      const url = URL.createObjectURL(file); 
+      const img = document.createElement('img');
+      img.src = url;
+      img.style.maxWidth = '200px';
+      img.style.height = 'auto';
+      img.style.marginRight = '10px';
+      imagePreview.appendChild(img);
 
-    filas.forEach(fila => {
-      let textoFila = fila.innerText.toLowerCase();
-      fila.style.display = textoFila.includes(filtro) ? "" : "none";
-    });
-  });
-
-  tablaProductosBody.addEventListener("click", function (e) {
-    const target = e.target.closest("button");
-    if (!target) return;
-
-    const index = target.getAttribute('data-index');
-    const productos = JSON.parse(localStorage.getItem('products')) || [];
-
-    if (target.classList.contains("editar-btn")) {
-      const productoAEditar = productos[index];
-      alert(`Editar producto: ${productoAEditar.nombre}`);
-    }
-
-    if (target.classList.contains("ver-btn")) {
-      const productoAEditar = productos[index];
-      alert(`Ver detalles de: ${productoAEditar.nombre}`);
-    }
-
-    if (target.classList.contains("eliminar-btn")) {
-      if (confirm("¿Seguro que deseas eliminar este producto?")) {
-        productos.splice(index, 1);
-        localStorage.setItem('products', JSON.stringify(productos));
-        renderizarTablaProductos();
-      }
+      imageInput.dataset.imageUrl = url;
     }
   });
 
-  document.getElementById("formNuevoProducto").addEventListener("submit", function (e) {
-    e.preventDefault();
+  productForm.addEventListener('submit', function(event) {
+    event.preventDefault();
 
     const productos = JSON.parse(localStorage.getItem("products")) || [];
+    const sku = document.getElementById("skuProducto").value.trim();
+    if (!sku) {
+      alert("Debes ingresar un SKU para el producto.");
+      return;
+    }
 
-    const nuevoProducto = {
-      nombre: document.getElementById("nombreProducto").value,
-      sku: document.getElementById("skuProducto").value,
-      descripcion: document.getElementById("descripcionProducto").value,
-      precio: parseFloat(document.getElementById("precioProducto").value),
-      precioOriginal: parseFloat(document.getElementById("precioOriginalProducto").value) || null,
-      stock: parseInt(document.getElementById("stockProducto").value),
-      categoria: document.getElementById("categoriaProducto").value,
-      estado: document.getElementById("estadoProducto").value,
-      imagen: "https://via.placeholder.com/100"
+    const productoData = {
+      nombre: document.getElementById("nombreProducto").value || 'Sin nombre',
+      sku: sku,
+      descripcion: document.getElementById("descripcionProducto").value || '',
+      precio: parseFloat(document.getElementById("precioProducto").value) || 0,
+      stock: parseInt(document.getElementById("stockProducto").value) || 0,
+      categoria: document.getElementById("categoriaProducto").value || '',
+      estado: document.getElementById("estadoProducto").value || 'Activo',
+      imagen: imageInput.dataset.imageUrl || 'https://via.placeholder.com/100'
     };
 
-    productos.push(nuevoProducto);
+    if (editIndex !== null) {
+      productos[editIndex] = productoData; 
+      alert(`Producto "${productoData.nombre}" actualizado correctamente!`);
+    } else {
+      const existente = productos.find(p => p.sku === sku);
+      if (existente) {
+        alert(`Ya existe un producto con el SKU "${sku}".`);
+        return;
+      }
+      productos.push(productoData); 
+      alert(`Producto "${productoData.nombre}" cargado correctamente!`);
+    }
+
     localStorage.setItem("products", JSON.stringify(productos));
 
     const modal = bootstrap.Modal.getInstance(document.getElementById("nuevoProductoModal"));
     modal.hide();
 
-    renderizarTablaProductos();
-    this.reset();
+    productForm.reset();
+    imagePreview.innerHTML = '';
+    delete imageInput.dataset.imageUrl;
+    editIndex = null;
+
+    renderizarTablaProductos(); 
+  });
+
+  tablaProductosBody.addEventListener("click", function(e) {
+    const target = e.target.closest("button");
+    if (!target) return;
+
+    const index = target.dataset.index;
+    const productos = JSON.parse(localStorage.getItem("products")) || [];
+
+    if (target.classList.contains("eliminar-btn")) {
+      if (confirm(`¿Eliminar el producto "${productos[index].nombre}"?`)) {
+        productos.splice(index, 1);
+        localStorage.setItem("products", JSON.stringify(productos));
+        renderizarTablaProductos();
+      }
+    }
+
+    if (target.classList.contains("editar-btn")) {
+      editIndex = index;
+      const producto = productos[index];
+
+      document.getElementById("nombreProducto").value = producto.nombre;
+      document.getElementById("skuProducto").value = producto.sku;
+      document.getElementById("descripcionProducto").value = producto.descripcion;
+      document.getElementById("precioProducto").value = producto.precio;
+      document.getElementById("stockProducto").value = producto.stock;
+      document.getElementById("categoriaProducto").value = producto.categoria;
+      document.getElementById("estadoProducto").value = producto.estado;
+
+      if (producto.imagen) {
+        imagePreview.innerHTML = `<img src="${producto.imagen}" style="max-width:200px; height:auto; margin-right:10px;">`;
+        imageInput.dataset.imageUrl = producto.imagen;
+      } else {
+        imagePreview.innerHTML = '';
+        delete imageInput.dataset.imageUrl;
+      }
+
+      new bootstrap.Modal(document.getElementById("nuevoProductoModal")).show();
+    }
+
+    if (target.classList.contains("ver-btn")) {
+      alert(`Ver detalles de: ${productos[index].nombre}`);
+    }
   });
 
   renderizarTablaProductos();
 
-
-//Usuarios
+  // Usuarios 
   const tablaUsuariosBody = document.querySelector("#tablaUsuarios tbody");
   const busquedaUsuarioInput = document.getElementById("busquedaUsuario");
   const formNuevoUsuario = document.getElementById("formNuevoUsuario");
