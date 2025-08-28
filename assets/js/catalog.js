@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cardCol.classList.add('col-12', 'col-sm-6', 'col-md-4', 'mb-4');
 
         cardCol.innerHTML = `
-            <div class="card product-card">
+            <div class="card product-card" data-id="${data.sku}">
                 <div class="card-img-container">
                     <img src="${data.imagen}" class="card-img-top" alt="${data.nombre}" style="max-width: 100%; height: auto;">
 
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span class="precio-original">$${(data.precio * 1.25).toFixed(2)}</span>
                     </p>
 
-                    <button class="btn btn-agregar-carrito w-100" onclick="addProduct('${data.nombre}', '${data.precio}', '${data.imagen}')">
+                    <button class="btn btn-agregar-carrito w-100">
                         <i class="bi bi-cart me-2"></i> Agregar al Carrito
                     </button>
                 </div>
@@ -57,5 +57,10 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         
         productContainer.appendChild(cardCol);
+
+        const btnAgregar = cardCol.querySelector('.btn-agregar-carrito');
+        btnAgregar.addEventListener('click', () => {
+            addProduct(data.sku, data.nombre, data.precio, data.imagen);
+        });
     }
 });

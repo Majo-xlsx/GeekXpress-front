@@ -1,6 +1,7 @@
 /* Gradiente del título */
 .text-gradient {
     background: linear-gradient(to right, #ff6a00, #ff3c3c);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -153,4 +154,3 @@
 .btn-agregar-carrito:active {
     transform: scale(0.98);
 }
-
