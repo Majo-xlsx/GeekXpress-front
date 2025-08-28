@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,10 +8,8 @@
   <link rel="stylesheet" href="../assets/css/styles.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
-
 <body>
   <div class="container my-4">
-
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-center">
       <div>
@@ -50,7 +47,6 @@
 
     <!-- Contenido -->
     <div class="tab-content">
-
       <!-- Resumen -->
       <div class="tab-pane fade show active" id="resumen" role="tabpanel">
         <div class="row g-3">
@@ -101,12 +97,14 @@
             <table class="table table-dark table-hover" id="tablaProductos">
               <thead>
                 <tr>
-                  <th>Producto</th>
+                  <th>Imagen</th>
+                  <th>Nombre</th>
+                  <th>Descripción</th>
                   <th>SKU</th>
+                  <th>Categoría</th>
                   <th>Precio</th>
                   <th>Stock</th>
                   <th>Estado</th>
-                  <th>Ventas</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
@@ -140,15 +138,17 @@
             <table class="table table-dark table-hover" id="tablaUsuarios">
               <thead>
                 <tr>
-                  <th>Usuario</th>
-                  <th>Tipo de documento</th>
+                  <th>Nombre</th>
+                  <th>Email</th>
                   <th>Documento</th>
+                  <th>Teléfono</th>
+                  <th>Ciudad</th>
+                  <th>Rol</th>
                   <th>Estado</th>
-                  <th>Compras</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
-              <tbody><!-- Render dinámico --></tbody>
+              <tbody></tbody>
             </table>
           </div>
         </div>
@@ -161,7 +161,6 @@
           <p>Aquí irían los cupones activos.</p>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -170,41 +169,95 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header border-0">
-          <h5 class="modal-title" id="nuevoProductoLabel"><i class="bi bi-person-plus"></i> Nuevo Usuario</h5>
+          <h5 class="modal-title" id="nuevoUsuarioLabel"><i class="bi bi-person-plus"></i> Nuevo Usuario</h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
           <div class="admin-form-card">
             <form id="formNuevoUsuario">
-              <div class="mb-3">
-                <label for="nombreUsuario" class="form-label">Usuario</label>
-                <input type="text" class="form-control" id="nombreUsuario" required>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="nombreUsuario" class="form-label">Nombre Completo</label>
+                  <input type="text" class="form-control" id="nombreUsuario" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="emailUsuario" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="emailUsuario" required>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-4">
+                  <label for="tipoDocumento" class="form-label">Tipo de Documento</label>
+                  <select id="tipoDocumento" class="form-select" required>
+                    <option value="" selected disabled>Seleccionar</option>
+                    <option value="CC">Cédula de Ciudadanía</option>
+                    <option value="CE">Cédula de Extranjería</option>
+                    <option value="TI">Tarjeta de Identidad</option>
+                    <option value="PP">Pasaporte</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label for="documentoUsuario" class="form-label">Número de Documento</label>
+                  <input type="text" class="form-control" id="documentoUsuario" required>
+                </div>
+                <div class="col-md-4">
+                  <label for="telefonoUsuario" class="form-label">Teléfono</label>
+                  <input type="tel" class="form-control" id="telefonoUsuario">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                  <input type="date" class="form-control" id="fechaNacimiento">
+                </div>
+                <div class="col-md-6">
+                  <label for="generoUsuario" class="form-label">Género</label>
+                  <select id="generoUsuario" class="form-select">
+                    <option value="" selected disabled>Seleccionar</option>
+                    <option value="masculino">Masculino</option>
+                    <option value="femenino">Femenino</option>
+                    <option value="otro">Otro</option>
+                    <option value="prefiero_no_decir">Prefiero no decir</option>
+                  </select>
+                </div>
               </div>
               <div class="mb-3">
-                <label for="tipoDocumento" class="form-label">Tipo de Documento</label>
-                <select id="tipoDocumento" class="form-select" required>
-                  <option value="CC">Cédula de Ciudadanía</option>
-                  <option value="CE">Cédula de Extranjería</option>
-                  <option value="TI">Tarjeta de Identidad</option>
-                  <option value="PP">Pasaporte</option>
-                </select>
+                <label for="direccionUsuario" class="form-label">Dirección</label>
+                <input type="text" class="form-control" id="direccionUsuario" placeholder="Calle, número, barrio">
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="ciudadUsuario" class="form-label">Ciudad</label>
+                  <input type="text" class="form-control" id="ciudadUsuario">
+                </div>
+                <div class="col-md-6">
+                  <label for="rolUsuario" class="form-label">Rol</label>
+                  <select id="rolUsuario" class="form-select">
+                    <option value="cliente" selected>Cliente</option>
+                    <option value="admin">Administrador</option>
+                    <option value="moderador">Moderador</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="estadoUsuario" class="form-label">Estado</label>
+                  <select id="estadoUsuario" class="form-select">
+                    <option value="Activo" selected>Activo</option>
+                    <option value="Inactivo">Inactivo</option>
+                    <option value="Suspendido">Suspendido</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="fechaRegistro" class="form-label">Fecha de Registro</label>
+                  <input type="date" class="form-control" id="fechaRegistro" value="" readonly>
+                </div>
               </div>
               <div class="mb-3">
-                <label for="documentoUsuario" class="form-label">Documento</label>
-                <input type="text" class="form-control" id="documentoUsuario" required>
+                <label for="notasUsuario" class="form-label">Notas Administrativas</label>
+                <textarea class="form-control" id="notasUsuario" rows="3" placeholder="Información adicional sobre el usuario..."></textarea>
               </div>
-              <div class="mb-3">
-                <label for="estadoUsuario" class="form-label">Estado</label>
-                <select id="estadoUsuario" class="form-select">
-                  <option value="Activo">Activo</option>
-                  <option value="Inactivo">Inactivo</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label for="comprasUsuario" class="form-label">Compras</label>
-                <input type="number" class="form-control" id="comprasUsuario" min="0" value="0">
-              </div>
-              <button type="submit" class="btn btn-custom">Guardar</button>
+              <button type="submit" class="btn btn-custom">Crear Usuario</button>
             </form>
           </div>
         </div>
@@ -230,39 +283,33 @@
                 </div>
                 <div class="col">
                   <label for="skuProducto" class="form-label">SKU</label>
-                  <input type="text" class="form-control" id="skuProducto">
+                  <input type="text" class="form-control" id="skuProducto" required>
                 </div>
               </div>
-
               <div class="mb-3">
                 <label for="descripcionProducto" class="form-label">Descripción</label>
-                <textarea class="form-control" id="descripcionProducto"></textarea>
+                <textarea class="form-control" id="descripcionProducto" rows="3"></textarea>
               </div>
-
               <div class="row mb-3">
                 <div class="col">
                   <label for="precioProducto" class="form-label">Precio</label>
-                  <input type="number" class="form-control" id="precioProducto" required>
-                </div>
-                <div class="col">
-                  <label for="precioOriginalProducto" class="form-label">Precio Original</label>
-                  <input type="number" class="form-control" id="precioOriginalProducto">
+                  <input type="number" step="0.01" class="form-control" id="precioProducto" required>
                 </div>
                 <div class="col">
                   <label for="stockProducto" class="form-label">Stock</label>
                   <input type="number" class="form-control" id="stockProducto" required>
                 </div>
               </div>
-
               <div class="row mb-3">
                 <div class="col">
                   <label for="categoriaProducto" class="form-label">Categoría</label>
-                  <select class="form-select" id="categoriaProducto">
-                    <option selected disabled>Seleccionar categoría</option>
+                  <select class="form-select" id="categoriaProducto" required>
+                    <option value="" selected disabled>Seleccionar categoría</option>
                     <option value="Anime">Anime</option>
                     <option value="Videojuegos">Videojuegos</option>
                     <option value="Cómics">Cómics</option>
                     <option value="Cartas">Cartas</option>
+                    <option value="Accesorios">Accesorios</option>
                   </select>
                 </div>
                 <div class="col">
@@ -273,14 +320,11 @@
                   </select>
                 </div>
               </div>
-
-              <!-- Campo para subir imágenes -->
               <div class="mb-3">
                 <label for="imagenesProducto" class="form-label">Imágenes del Producto</label>
                 <input type="file" class="form-control" id="imagenesProducto" accept="image/*" multiple>
                 <small class="text-muted">Puedes seleccionar una o varias imágenes</small>
               </div>
-
               <div class="modal-footer border-0">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 <button type="submit" class="btn btn-custom">Crear Producto</button>
@@ -292,9 +336,7 @@
     </div>
   </div>
 
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../assets/js/admin.js"></script>
 </body>
-
 </html>
