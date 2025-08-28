@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </td>
           <td>${producto.nombre}</td> <!-- SOLO nombre -->
           <td>${producto.descripcion ? producto.descripcion.substring(0, 40) + '...' : 'Sin descripción'}</td> <!-- SOLO descripción -->
-          <td>${producto.sku || 'N/A'}</td>
+          <td>${producto.sku || ""}</td>
           <td><span class="badge bg-info">${producto.categoria || 'Sin categoría'}</span></td>
           <td>${producto.precio.toFixed(2)}</td>
           <td>${producto.stock}</td>
@@ -296,8 +296,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="fw-semibold">${u.tipoDoc}</div>
             <small class="text-muted">${u.documento}</small>
           </td>
-          <td>${u.telefono || 'N/A'}</td>
-          <td>${u.ciudad || 'N/A'}</td>
+          <td>${u.telefono || ""}</td>
+          <td>${u.ciudad || ""}</td>
           <td><span class="badge bg-info text-capitalize">${u.rol}</span></td>
           <td><span class="badge ${u.estado === "Activo" ? "bg-success" : u.estado === "Suspendido" ? "bg-warning" : "bg-danger"}">${u.estado}</span></td>
           <td>
