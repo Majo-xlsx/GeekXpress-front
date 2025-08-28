@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const productContainer = document.getElementById('productContainer');
     const contadorCarrito = document.getElementById("contadorCarrito");
 
-    // Función para actualizar el numerito del carrito
+    
     function actualizarContador() {
         let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
         let totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
