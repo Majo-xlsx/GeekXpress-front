@@ -6,94 +6,73 @@
   <title>Carrito de Compras - GeekXpress</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="../assets/css/carrito.css" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+   <nav id="navbar"></nav>
 
-  <nav id="navbar"></nav>
+  <div class="container mt-4">
+    <h2 class="titulo text-center">🛒 Carrito de Compras</h2>
 
-<div class="container carrito">
-  <h2 class="titulo">🛒 Carrito de Compras</h2>
-  
-  <!-- Producto -->
-  <div class="card producto">
-    <img src="https://via.placeholder.com/100" alt="Figura Goku">
-    <div class="info">
-      <span class="badge">Anime</span>
-      <h5>Figura Goku Super Saiyan</h5>
-      <span class="precio">$ 89.900</span>
-      <span class="precio-antiguo">$ 113.900</span>
-      <div class="cantidad">
-        <button class="btn-cantidad" onclick="cambiarCantidad(this, -1)">-</button>
-        <span class="num-cantidad">2</span>
-        <button class="btn-cantidad" onclick="cambiarCantidad(this, 1)">+</button>
-      </div>
-    </div>
-    <div class="total">
-      <p class="subtotal">$ 179.800</p>
-      <span class="btn-remove" onclick="eliminarProducto(this)">🗑️</span>
-    </div>
-  </div>
+    <!-- Aquí se renderizan dinámicamente los productos -->
+    <ul id="lista-carrito" class="list-group mt-3"></ul>
 
-  <!-- Otro producto -->
-  <div class="card producto">
-    <img src="https://via.placeholder.com/100" alt="Batman">
-    <div class="info">
-      <span class="badge">Cómics</span>
-      <h5>Funko Pop! Batman</h5>
-      <span class="precio">$ 45.900</span>
-      <div class="cantidad">
-        <button class="btn-cantidad" onclick="cambiarCantidad(this, -1)">-</button>
-        <span class="num-cantidad">1</span>
-        <button class="btn-cantidad" onclick="cambiarCantidad(this, 1)">+</button>
-      </div>
-    </div>
-    <div class="total">
-      <p class="subtotal">$ 45.900</p>
-      <span class="btn-remove" onclick="eliminarProducto(this)">🗑️</span>
-    </div>
-  </div>
+    <!-- Botón vaciar carrito -->
+    <button id="vaciar-carrito" class="btn btn-danger mt-3 w-100">Vaciar Carrito</button>
 
-  <!-- Otro producto -->
-  <div class="card producto">
-    <img src="https://via.placeholder.com/100" alt="Pokémon">
-    <div class="info">
-      <span class="badge">Cartas</span>
-      <h5>Cartas Pokémon Booster Pack</h5>
-      <span class="precio">$ 25.900</span>
-      <div class="cantidad">
-        <button class="btn-cantidad" onclick="cambiarCantidad(this, -1)">-</button>
-        <span class="num-cantidad">3</span>
-        <button class="btn-cantidad" onclick="cambiarCantidad(this, 1)">+</button>
-      </div>
-    </div>
-    <div class="total">
-      <p class="subtotal">$ 77.700</p>
-      <span class="btn-remove" onclick="eliminarProducto(this)">🗑️</span>
-    </div>
-  </div>
-
-  <!-- Resumen -->
-  <div class="card resumen">
-    <h5>Resumen del Pedido</h5>
-    <div class="linea">
-      <span>Subtotal (<span id="num-articulos">3</span> artículos)</span>
-      <span id="subtotal">$ 303.400</span>
-    </div>
-    <div class="linea">
+    <!-- Sección de totales -->
+    <div class="linea d-flex justify-content-between mt-3">
       <span>Envío</span>
       <span class="gratis">¡Gratis!</span>
     </div>
-    <hr>
-    <div class="linea">
+    <div class="linea d-flex justify-content-between">
       <strong>Total</strong>
-      <strong id="total">$ 303.400</strong>
+      <strong id="total">$0</strong>
     </div>
-    <button class="btn-pago">Proceder al Pago</button>
-  </div>
-</div>
 
-<script src="../assets/js/vistaCarrito.js"></script>
-<script src="../assets/js/loadTemplates.js"></script>
+    <!-- Botón de pago -->
+    <button id="btn-pago" class="btn btn-success w-100 mt-3">Proceder al Pago</button>
+  </div>
+
+  <!-- Icono carrito (para animación del JS) -->
+  <div id="icono-carrito" class="position-fixed" style="right: 10px; top: 10px; font-size: 2rem; cursor: pointer;">
+    🛒 <span id="contador" class="badge bg-danger">0</span>
+  </div>
+
+  <script src="../assets/js/carrito.js"></script>
+  <script src="../assets/js/loadTemplates.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/vistaCarrito.js"></script>
+
+  <script>
+    // Extra: actualizar el total en el DOM
+    function actualizarTotal() {
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      let total = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
+      document.getElementById('total').textContent = `$${total.toLocaleString()}`;
+    }
+
+    // Sobrescribimos un poco tu función existente
+    const _actualizarCarrito = actualizarCarrito;
+    actualizarCarrito = function() {
+      _actualizarCarrito(); // ejecuta la función original
+      actualizarTotal();    // actualiza el total en pantalla
+    };
+
+    // Acción del botón de pago
+    document.addEventListener('DOMContentLoaded', () => {
+      const btnPago = document.getElementById('btn-pago');
+      btnPago.addEventListener('click', () => {
+        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        if (carrito.length === 0) {
+          alert("Tu carrito está vacío.");
+        } else {
+          alert("✅ Procediendo al pago con " + carrito.length + " productos.");
+          // Aquí puedes redirigir a una página de checkout real
+          // window.location.href = "checkout.html";
+        }
+      });
+    });
+  </script>
 </body>
 </html>

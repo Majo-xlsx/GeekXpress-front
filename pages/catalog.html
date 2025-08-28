@@ -69,6 +69,7 @@
                         <p class="precio">
                             <span class="precio-oferta">$1'215.000</span>
                         </p>
+                        
                        
                         <button class="btn btn-agregar-carrito w-100" onclick="addProduct('TCG','1215000','../assets/img/TCG_ONEPIECE_1.png')">
                             <i class="bi bi-cart me-2"></i> Agregar al Carrito
@@ -76,6 +77,8 @@
                     </div>
                 </div>
             </div>
+
+            
            
             <!-- 2.  Card TCG POKEMON -->
             <div class="col-12 col-sm-6 col-md-4 mb-4">
@@ -325,6 +328,10 @@
                         <button class="btn btn-agregar-carrito w-100" onclick="addProduct('calzado','68900','../assets/img/comic_Thor_N.01.png')">
                             <i class="bi bi-cart me-2"></i> Agregar al Carrito
                         </button>
+                        <button class="nav-link position-relative me-3">
+  <i class="bi bi-cart-fill"></i>
+  <span id="contadorCarrito" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">3</span>
+</button>
                     </div>
                 </div>
             </div>
@@ -546,14 +553,14 @@
     </div>
 </section>
 
+
+
     <!-- PRODUCTOS DINAMICOS -->
     <div class="container">
         <div class="row justify-content-center" id="productContainer"></div>
     </div>
     
-    <div id="lista-carrito" class="position-fixed" style="right: 10px; top: 70px; z-index: 1050;">
-        </div>
-    <button id="vaciar-carrito" class="btn btn-danger position-fixed" style="right: 10px; top: 500px; z-index: 1050;">Vaciar Carrito</button>
+    
     
     <footer id="footer"></footer>
 
