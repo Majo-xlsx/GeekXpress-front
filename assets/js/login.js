@@ -59,7 +59,6 @@ loginForm.addEventListener('submit', (e) => {
     alert('Email no registrado.');
   }
 });
-
 registerForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const firstName = document.getElementById('first-name').value;
@@ -73,22 +72,35 @@ registerForm.addEventListener('submit', (e) => {
     return;
   }
 
-  if (localStorage.getItem(email)) {
+  // recupera usuarios ya guardados
+  let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+
+  if (usuarios.some(u => u.email === email)) {
     alert('Ya existe una cuenta con este correo.');
     return;
   }
 
-  const user = {
-    firstName,
-    lastName,
+  // creacion de usuarios
+  const nuevoUsuario = {
+    usuario: `${firstName} ${lastName}`,
     email,
-    password
+    tipoDoc: "",              
+    documento: "",            
+    telefono: "",             
+    fechaNacimiento: "",      
+    genero: "",               
+    direccion: "",            
+    ciudad: "",               
+    rol: "cliente",
+    estado: "Activo",
+    fechaRegistro: new Date().toISOString().split('T')[0],
+    notas: "",
   };
 
-  
+  usuarios.push(nuevoUsuario);
+  localStorage.setItem('usuarios', JSON.stringify(usuarios));
 
-  localStorage.setItem(email, JSON.stringify(user));
   alert('Cuenta creada.');
   registerForm.reset();
-  tabLogin.click(); 
+  tabLogin.click();
 });
