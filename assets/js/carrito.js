@@ -4,7 +4,11 @@ const botonVaciar = document.getElementById('vaciar-carrito')
 const contador = document.getElementById('contador')
 const listaCarrito = document.getElementById('lista-carrito')
 const iconoCarrito = document.getElementById('icono-carrito')
+const totalElemento = document.getElementById('total')
 
+// --------------------
+// ACTUALIZAR CARRITO
+// --------------------
 function actualizarCarrito() {
     localStorage.setItem('carrito', JSON.stringify(carrito));
 
@@ -24,7 +28,7 @@ function actualizarCarrito() {
             item.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
 
             item.innerHTML = `
-                <span>${producto.nombre} - $${totalProducto.toLocaleString()}</span>
+                <span>${producto.nombre} - $${totalProducto.toLocaleString('es-CO')}</span>
                 <div>
                     <button class="btn btn-sm btn-secondary me-1" data-id="${producto.id}" data-accion="disminuir">-</button>
                     <span class="mx-1">${producto.cantidad}</span>
@@ -36,14 +40,20 @@ function actualizarCarrito() {
             listaCarrito.appendChild(item);
         });
 
+        // Mostrar total en la lista
         if (totalPrecio > 0) {
             let totalItem = document.createElement('li');
             totalItem.classList.add('list-group-item', 'fw-bold', 'text-end');
-            totalItem.textContent = `Total: $${totalPrecio.toLocaleString()}`;
+            totalItem.textContent = `Total: $${totalPrecio.toLocaleString('es-CO')}`;
             listaCarrito.appendChild(totalItem);
         }
 
-        // Eventos a botones
+        // Mostrar total también en el <strong id="total">
+        if (totalElemento) {
+            totalElemento.textContent = `$${totalPrecio.toLocaleString('es-CO')}`;
+        }
+
+        // Eventos a botones dinámicos
         listaCarrito.querySelectorAll('button').forEach((btn) => {
             btn.addEventListener('click', () => {
                 const id = btn.getAttribute('data-id');
@@ -66,6 +76,9 @@ function actualizarCarrito() {
     }
 }
 
+// --------------------
+// AGREGAR PRODUCTOS
+// --------------------
 function asignarEventosCarrito() {
   const botonesAgregar = document.querySelectorAll('.btn-agregar-carrito')
   
@@ -75,13 +88,17 @@ function asignarEventosCarrito() {
         const card = boton.closest('.card')
 
         const nombre = card.querySelector('.card-title').textContent
-        const precio = parseFloat(
-            card.querySelector('.precio-oferta').textContent.replace('$','')
-        )
-        const imagen = card.querySelector('.card-img-top').src
 
-        const id = card.getAttribute('data-id')
+        // -------- FIX DE PRECIOS --------
+        let precioTexto = card.querySelector('.precio-oferta').textContent;
+        precioTexto = precioTexto.replace(/[$.']/g, '').trim(); // quita $, puntos y apóstrofes
+        const precio = parseInt(precioTexto, 10); // convierte a número
+        // --------------------------------
 
+        const imagen = card.querySelector('.card-img-top')?.src || ""
+        const id = card.getAttribute('data-id') || nombre; // si no hay data-id, usamos el nombre
+
+        // Animación hacia el carrito
         if (iconoCarrito) {
             let rectBoton = boton.getBoundingClientRect()
             let rectCarrito = iconoCarrito.getBoundingClientRect()
@@ -113,6 +130,7 @@ function asignarEventosCarrito() {
             }, 1600);
         }
 
+        // Verificar si ya existe en el carrito
         let existe = false
         for (let j = 0; j < carrito.length; j++) {
             if (carrito[j].id === id) {
@@ -144,7 +162,24 @@ function asignarEventosCarrito() {
   }
 }
 
+// --------------------
+// INICIO
+// --------------------
 document.addEventListener('DOMContentLoaded', () => {
     actualizarCarrito();
     asignarEventosCarrito();
+
+    const btnPago = document.getElementById('btn-pago');
+    if (btnPago) {
+        btnPago.addEventListener('click', () => {
+            if (carrito.length === 0) {
+                alert("Tu carrito está vacío.");
+            } else {
+                alert("✅ Procediendo al pago con " + carrito.length + " productos.");
+                // Aquí podrías redirigir a checkout.html
+                // window.location.href = "checkout.html";
+            }
+        });
+    }
 });
+
