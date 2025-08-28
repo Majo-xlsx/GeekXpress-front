@@ -12,13 +12,13 @@
   <div class="container mt-4">
     <h2 class="titulo text-center">🛒 Carrito de Compras</h2>
 
-    <!-- Aquí se renderizan dinámicamente los productos -->
+
     <ul id="lista-carrito" class="list-group mt-3"></ul>
 
-    <!-- Botón vaciar carrito -->
+ 
     <button id="vaciar-carrito" class="btn btn-danger mt-3 w-100">Vaciar Carrito</button>
 
-    <!-- Sección de totales -->
+  
     <div class="linea d-flex justify-content-between mt-3">
       <span>Envío</span>
       <span class="gratis">¡Gratis!</span>
@@ -28,11 +28,10 @@
       <strong id="total">$0</strong>
     </div>
 
-    <!-- Botón de pago -->
     <button id="btn-pago" class="btn btn-success w-100 mt-3">Proceder al Pago</button>
   </div>
 
-  <!-- Icono carrito (para animación del JS) -->
+ 
   <div id="icono-carrito" class="position-fixed" style="right: 10px; top: 10px; font-size: 2rem; cursor: pointer;">
     🛒 <span id="contador" class="badge bg-danger">0</span>
   </div>
@@ -41,36 +40,6 @@
   <script src="../assets/js/loadTemplates.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../assets/js/vistaCarrito.js"></script>
-
-  <script>
-    // Extra: actualizar el total en el DOM
-    function actualizarTotal() {
-      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-      let total = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
-      document.getElementById('total').textContent = `$${total.toLocaleString()}`;
-    }
-
-    // Sobrescribimos un poco tu función existente
-    const _actualizarCarrito = actualizarCarrito;
-    actualizarCarrito = function() {
-      _actualizarCarrito(); // ejecuta la función original
-      actualizarTotal();    // actualiza el total en pantalla
-    };
-
-    // Acción del botón de pago
-    document.addEventListener('DOMContentLoaded', () => {
-      const btnPago = document.getElementById('btn-pago');
-      btnPago.addEventListener('click', () => {
-        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-        if (carrito.length === 0) {
-          alert("Tu carrito está vacío.");
-        } else {
-          alert("✅ Procediendo al pago con " + carrito.length + " productos.");
-          // Aquí puedes redirigir a una página de checkout real
-          // window.location.href = "checkout.html";
-        }
-      });
-    });
-  </script>
+  
 </body>
 </html>
