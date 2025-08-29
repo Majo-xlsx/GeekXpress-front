@@ -1,20 +1,20 @@
-body {
+.carrito body {
   background-color: #1c1b29;
   color: #fff;
   font-family: Arial, sans-serif;
 }
 
-.container {
+.carrito .container {
   width: 90%;
   max-width: 800px;
   margin: 40px auto;
 }
 
-.titulo {
+.carrito .titulo {
   margin-bottom: 20px;
 }
 
-.card {
+.carrito .card {
   background-color: #2a283d;
   border-radius: 15px;
   padding: 15px;
@@ -24,41 +24,41 @@ body {
   justify-content: space-between;
 }
 
-.card img {
+.carrito .card img {
   width: 100px;
   border-radius: 10px;
 }
 
-.info {
+.carrito .info {
   flex: 1;
   margin-left: 15px;
 }
 
-.badge {
+.carrito .badge {
   background: #444;
   padding: 3px 8px;
   border-radius: 8px;
   font-size: 0.8rem;
 }
 
-.precio {
+.carrito .precio {
   color: #b84cf4;
   font-size: 1.2rem;
   font-weight: bold;
 }
 
-.precio-antiguo {
+.carrito .precio-antiguo {
   text-decoration: line-through;
   color: #aaa;
   font-size: 0.9rem;
   margin-left: 10px;
 }
 
-.cantidad {
+.carrito .cantidad {
   margin-top: 8px;
 }
 
-.btn-cantidad {
+.carrito .btn-cantidad {
   background: transparent;
   border: 1px solid #bbb;
   color: #fff;
@@ -67,42 +67,42 @@ body {
   border-radius: 5px;
 }
 
-.num-cantidad {
+.carrito .num-cantidad {
   margin: 0 10px;
 }
 
-.total {
+.carrito .total {
   text-align: right;
 }
 
-.subtotal {
+.carrito .subtotal {
   color: #b84cf4;
   font-weight: bold;
 }
 
-.btn-remove {
+.carrito .btn-remove {
   color: #e74c3c;
   cursor: pointer;
   font-size: 1.2rem;
 }
 
-.resumen {
+.carrito .resumen {
   flex-direction: column;
   align-items: flex-start;
 }
 
-.resumen .linea {
+.carrito .resumen .linea {
   display: flex;
   justify-content: space-between;
   width: 100%;
   margin: 5px 0;
 }
 
-.gratis {
+.carrito .gratis {
   color: #2ecc71;
 }
 
-.btn-pago {
+.carrito .btn-pago {
   background: linear-gradient(90deg, #f72585, #7209b7);
   color: #fff;
   border: none;
