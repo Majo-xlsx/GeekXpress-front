@@ -40,23 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ================================
-    // AGREGAR PRODUCTO AL CARRITO
-    // ================================
-    function addProduct(id,sku, nombre, precio, imagen) {
-        let carrito = getCarrito();
-
-        let existente = carrito.find(item => item.id === id);
-        if (existente) {
-            existente.cantidad++;
-        } else {
-            // Guardamos ruta de la imagen (local en tu PC o carpeta del proyecto)
-            carrito.push({ id, sku, nombre, precio: Number(precio), imagen, cantidad: 1 });
-        }
-
-        setCarrito(carrito);
-        actualizarContador();
-    }
 
     // ================================
     // CREACIÓN DE CARDS DE PRODUCTOS
@@ -101,11 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         productContainer.appendChild(cardCol);
 
-        // Evento botón agregar
-        const btnAgregar = cardCol.querySelector('.btn-agregar-carrito');
-        btnAgregar.addEventListener('click', () => {
-            addProduct(data.id, data.sku, data.nombre, data.precio, data.imagen);
-        });
     }
 
     // ================================
