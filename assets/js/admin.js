@@ -36,6 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
   function setProducts(products) {
     localStorage.setItem('products', JSON.stringify(products));
   }
+
+  function generarIdUnico() {
+    return 'prod-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
+  }
+
   function safeText(v) {
     return (v === undefined || v === null) ? '' : v;
   }
@@ -165,6 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const sku = (document.getElementById('skuProducto')?.value || '').trim();
       if (!sku) { alert('El SKU es obligatorio.'); return; }
 
+      // const id = document.getElementById('nombreProducto')?.value || '';
       const nombre = document.getElementById('nombreProducto')?.value || 'Sin nombre';
       const descripcion = document.getElementById('descripcionProducto')?.value || '';
       const precio = parseFloat(document.getElementById('precioProducto')?.value) || 0;
@@ -194,6 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
         : (imagenesExistentes.length > 0 ? imagenesExistentes : ['https://via.placeholder.com/100']);
 
       const productoData = {
+        id: isEditing ? productos[editProductIndex].id : generarIdUnico(),        
         nombre,
         sku,
         descripcion,

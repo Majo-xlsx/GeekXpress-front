@@ -18,14 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
         let totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
         contadorCarrito.textContent = totalItems;
     }
+
     function formatearPrecio(valor) {
         return new Intl.NumberFormat('es-CO', {
             style: 'currency',
             currency: 'COP',
-            minimumFractionDigits: 0 // cambia a 2 si quieres siempre dos decimales
+            minimumFractionDigits: 0
         }).format(valor);
     }
-
 
     // ================================
     // CARGA DE PRODUCTOS
@@ -43,15 +43,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // ================================
     // AGREGAR PRODUCTO AL CARRITO
     // ================================
-    function addProduct(id,sku, nombre, precio, imagen) {
+    function addProduct(id, nombre, precio, imagen) {
         let carrito = getCarrito();
 
         let existente = carrito.find(item => item.id === id);
         if (existente) {
             existente.cantidad++;
         } else {
-            // Guardamos ruta de la imagen (local en tu PC o carpeta del proyecto)
-            carrito.push({ id, sku, nombre, precio: Number(precio), imagen, cantidad: 1 });
+            carrito.push({ id, nombre, precio: Number(precio), imagen, cantidad: 1 });
         }
 
         setCarrito(carrito);
@@ -72,20 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span class="badge bg-success badge-nuevo">NUEVO</span>
                     <span class="badge bg-danger badge-descuento">-25%</span>
                     <span class="badge bg-light badge-categoria">${data.categoria}</span>
-                    <div class="iconos-acciones">
-                        <i class="bi bi-heart-fill"></i>
-                        <i class="bi bi-eye-fill"></i>
-                    </div>
                 </div>
                 <div class="card-body">
-                    <div class="rating">
-                        <i class="bi bi-star-fill text-warning"></i>
-                        <i class="bi bi-star-fill text-warning"></i>
-                        <i class="bi bi-star-fill text-warning"></i>
-                        <i class="bi bi-star-fill text-warning"></i>
-                        <i class="bi bi-star text-warning"></i>
-                        <span class="rating-number">4.8 (124)</span>
-                    </div>
                     <h5 class="card-title">${data.nombre}</h5>
                     <p class="card-text">${data.descripcion}</p>
                     <p class="precio">
@@ -101,10 +88,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         productContainer.appendChild(cardCol);
 
-        // Evento botón agregar
         const btnAgregar = cardCol.querySelector('.btn-agregar-carrito');
         btnAgregar.addEventListener('click', () => {
-            addProduct(data.id, data.sku, data.nombre, data.precio, data.imagen);
+            addProduct(data.id, data.nombre, data.precio, data.imagen);
         });
     }
 
