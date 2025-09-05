@@ -2,25 +2,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const productContainer = document.getElementById('productContainer');
     const contadorCarrito = document.getElementById("contadorCarrito");
 
-    // Detectar click en el ícono del ojo
+// ejemplo simple si en cada card el icono tiene clase .ver-detalle y atributos data-...
 document.querySelectorAll(".ver-detalle").forEach(icon => {
   icon.addEventListener("click", () => {
     const product = {
-      title: icon.getAttribute("data-title"),
-      price: icon.getAttribute("data-price"),
-      oldprice: icon.getAttribute("data-oldprice"),
-      rating: icon.getAttribute("data-rating"),
-      img: icon.getAttribute("data-img"),
-      description: icon.getAttribute("data-description")
+      id: icon.dataset.id || Date.now(),
+      title: icon.dataset.title,
+      brand: icon.dataset.brand,
+      category: icon.dataset.category,
+      price: icon.dataset.price,
+      oldprice: icon.dataset.oldprice,
+      rating: icon.dataset.rating,
+      description: icon.dataset.description,
+      features: icon.dataset.features ? JSON.parse(icon.dataset.features) : [],
+      stock: icon.dataset.stock ? Number(icon.dataset.stock) : 0,
+      images: icon.dataset.images ? JSON.parse(icon.dataset.images) : (icon.dataset.img ? [icon.dataset.img] : [])
     };
-
-    // Guardar en localStorage
     localStorage.setItem("selectedProduct", JSON.stringify(product));
-
-    // Redirigir a product.html
     window.location.href = "product.html";
   });
 });
+
 
     // ================================
     // FUNCIONES AUXILIARES
