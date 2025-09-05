@@ -2,16 +2,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const productContainer = document.getElementById('productContainer');
     const contadorCarrito = document.getElementById("contadorCarrito");
 
-    
+    // ================================
+    // FUNCIONES AUXILIARES
+    // ================================
+    function getCarrito() {
+        return JSON.parse(localStorage.getItem("carrito")) || [];
+    }
+
+    function setCarrito(carrito) {
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+    }
+
     function actualizarContador() {
-        let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+        const carrito = getCarrito();
         let totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
         contadorCarrito.textContent = totalItems;
     }
+    function formatearPrecio(valor) {
+        return new Intl.NumberFormat('es-CO', {
+            style: 'currency',
+            currency: 'COP',
+            minimumFractionDigits: 0 // cambia a 2 si quieres siempre dos decimales
+        }).format(valor);
+    }
 
-    // Cargar productos guardados
-    loadProductsFromLocalStorage();
 
+    // ================================
+    // CARGA DE PRODUCTOS
+    // ================================
     function loadProductsFromLocalStorage() {
         const productsJson = localStorage.getItem('products');
         if (productsJson) {
@@ -22,28 +40,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Función para agregar productos al carrito
-    function addProduct(sku, nombre, precio, imagen) {
-        let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-        let existente = carrito.find(item => item.sku === sku);
-        if (existente) {
-            existente.cantidad++;
-        } else {
-            carrito.push({ sku, nombre, precio, imagen, cantidad: 1 });
-        }
-
-        localStorage.setItem("carrito", JSON.stringify(carrito));
-        actualizarContador(); // 👈 aquí actualizamos inmediatamente
-    }
-
-    // Crear cards de productos
+    // ================================
+    // CREACIÓN DE CARDS DE PRODUCTOS
+    // ================================
     function createProductCard(data) {
         const cardCol = document.createElement('div');
         cardCol.classList.add('col-12', 'col-sm-6', 'col-md-4', 'mb-4');
 
         cardCol.innerHTML = `
-            <div class="card product-card" data-id="${data.sku}">
+            <div class="card product-card" data-id="${data.id}">
                 <div class="card-img-container">
                     <img src="${data.imagen}" class="card-img-top" alt="${data.nombre}" style="max-width: 100%; height: auto;">
                     <span class="badge bg-success badge-nuevo">NUEVO</span>
@@ -66,8 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h5 class="card-title">${data.nombre}</h5>
                     <p class="card-text">${data.descripcion}</p>
                     <p class="precio">
-                        <span class="precio-oferta">$${data.precio.toFixed(2)}</span>
-                        <span class="precio-original">$${(data.precio * 1.25).toFixed(2)}</span>
+                        <span class="precio-oferta">${formatearPrecio(data.precio)}</span>
+                        <span class="precio-original">${formatearPrecio(data.precio * 1.25)}</span>
                     </p>
                     <button class="btn btn-agregar-carrito w-100">
                         <i class="bi bi-cart me-2"></i> Agregar al Carrito
@@ -78,15 +84,14 @@ document.addEventListener('DOMContentLoaded', () => {
         
         productContainer.appendChild(cardCol);
 
-        const btnAgregar = cardCol.querySelector('.btn-agregar-carrito');
-        btnAgregar.addEventListener('click', () => {
-            addProduct(data.sku, data.nombre, data.precio, data.imagen);
-        });
     }
 
-    // Escucha cambios en localStorage desde otras pestañas
+    // ================================
+    // EVENTOS
+    // ================================
     window.addEventListener("storage", actualizarContador);
 
-    // Actualiza al cargar la página
+    // Inicializar
+    loadProductsFromLocalStorage();
     actualizarContador();
 });

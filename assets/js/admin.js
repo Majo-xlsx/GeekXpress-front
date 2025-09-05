@@ -1,435 +1,501 @@
+// admin3.js (Cloudinary integrado)
+// Reemplaza estas constantes con tus datos de Cloudinary
+
+const CLOUDINARY_CLOUD_NAME = 'dz4qsmco8'; // <- cambia esto
+const CLOUDINARY_UPLOAD_PRESET = 'geekxpress'; // <- cambia esto (unsigned preset)
+const CLOUDINARY_UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
+
 document.addEventListener('DOMContentLoaded', () => {
-  
-  // Productos
-  const tablaProductosBody = document.querySelector("#tablaProductos tbody");
-  const busquedaProductoInput = document.getElementById("busquedaProducto");
+  // ---------- Elementos DOM ----------
+  const tablaProductosBody = document.querySelector('#tablaProductos tbody');
+  const busquedaProductoInput = document.getElementById('busquedaProducto');
   const productForm = document.getElementById('formNuevoProducto');
   const imageInput = document.getElementById('imagenesProducto');
-  const imagePreview = document.createElement('div');
-  imagePreview.className = 'image-preview-container mt-2';
-  imageInput.parentNode.appendChild(imagePreview);
-  
-  let editProductIndex = null;
-  let selectedImages = [];
+  const modalProductoEl = document.getElementById('nuevoProductoModal');
+  const abrirModalBtn = document.getElementById('nuevoProductoBtn');
 
-  function renderizarTablaProductos(filtro = "") {
-    const productos = JSON.parse(localStorage.getItem('products')) || [];
+  // Contenedor de preview
+  let imagePreview = null;
+  if (imageInput) {
+    imagePreview = imageInput.parentNode.querySelector('.image-preview-container');
+    if (!imagePreview) {
+      imagePreview = document.createElement('div');
+      imagePreview.className = 'image-preview-container mt-2 d-flex flex-wrap gap-2';
+      imageInput.parentNode.appendChild(imagePreview);
+    }
+  }
+
+  // ---------- Estado ----------
+  let editProductIndex = null; // índice del producto a editar en localStorage
+  let selectedFiles = []; // File[] elegidos en el input para subir
+
+  // ---------- Helpers ----------
+  function getProducts() {
+    return JSON.parse(localStorage.getItem('products')) || [];
+  }
+  function setProducts(products) {
+    localStorage.setItem('products', JSON.stringify(products));
+  }
+
+  function generarIdUnico() {
+    return 'prod-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
+  }
+
+  function safeText(v) {
+    return (v === undefined || v === null) ? '' : v;
+  }
+  async function uploadToCloudinary(file) {
+    const fd = new FormData();
+    fd.append('file', file);
+    fd.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+    const res = await fetch(CLOUDINARY_UPLOAD_URL, { method: 'POST', body: fd });
+    const data = await res.json();
+    if (!res.ok || !data.secure_url) {
+      console.error('Error Cloudinary:', data);
+      throw new Error(data.error?.message || 'Fallo al subir a Cloudinary');
+    }
+    return { url: data.secure_url, public_id: data.public_id };
+  }
+
+  // ---------- Render tabla ----------
+  function renderizarTablaProductos(filtro = '') {
+    if (!tablaProductosBody) return;
+    const productos = getProducts();
     tablaProductosBody.innerHTML = '';
-    
-    if (productos.length === 0) {
-      const noDataRow = document.createElement('tr');
-      noDataRow.innerHTML = `<td colspan="8" class="text-center">No hay productos para mostrar.</td>`;
-      tablaProductosBody.appendChild(noDataRow);
+
+    const q = filtro.trim().toLowerCase();
+    const filtrados = productos.filter(p => {
+      if (!q) return true;
+      return (
+        safeText(p.nombre).toLowerCase().includes(q) ||
+        safeText(p.sku).toLowerCase().includes(q) ||
+        safeText(p.categoria).toLowerCase().includes(q)
+      );
+    });
+
+    if (filtrados.length === 0) {
+      const noRow = document.createElement('tr');
+      noRow.innerHTML = `<td colspan="9" class="text-center">No hay productos para mostrar.</td>`;
+      tablaProductosBody.appendChild(noRow);
       return;
     }
 
-    productos
-      .filter(producto => 
-        producto.nombre.toLowerCase().includes(filtro.toLowerCase()) ||
-        producto.sku.toLowerCase().includes(filtro.toLowerCase()) ||
-        (producto.categoria && producto.categoria.toLowerCase().includes(filtro.toLowerCase()))
-      )
-      .forEach((producto, index) => {
-        const fila = document.createElement('tr');
-        const primeraImagen = Array.isArray(producto.imagenes) ? producto.imagenes[0] : producto.imagen;
-        
-        fila.innerHTML = `
-          <td>
-            <img src="${primeraImagen || 'https://via.placeholder.com/60'}" 
-                 alt="${producto.nombre}" 
-                 class="producto-img">
-          </td>
-          <td>${producto.nombre}</td> <!-- SOLO nombre -->
-          <td>${producto.descripcion ? producto.descripcion.substring(0, 40) + '...' : 'Sin descripción'}</td> <!-- SOLO descripción -->
-          <td>${producto.sku || ""}</td>
-          <td><span class="badge bg-info">${producto.categoria || 'Sin categoría'}</span></td>
-          <td>${producto.precio.toFixed(2)}</td>
-          <td>${producto.stock}</td>
-          <td><span class="badge ${producto.estado === 'Activo' ? 'bg-success' : 'bg-danger'}">${producto.estado}</span></td>
-          <td>
-            <button class="btn btn-sm btn-warning editar-btn" data-index="${productos.indexOf(producto)}" title="Editar">✏️</button>
-            <button class="btn btn-sm btn-info ver-btn" data-index="${productos.indexOf(producto)}" title="Ver">👁</button>
-            <button class="btn btn-sm btn-danger eliminar-btn" data-index="${productos.indexOf(producto)}" title="Eliminar">🗑️</button>
-          </td>
-        `;
-        tablaProductosBody.appendChild(fila);
-      });
+    filtrados.forEach(producto => {
+      // obtener índice real por SKU (asumiendo SKU único)
+      const all = getProducts();
+      const realIndex = all.findIndex(p => p.sku === producto.sku);
+
+      const fila = document.createElement('tr');
+      const primeraImagen = Array.isArray(producto.imagenes) ? producto.imagenes[0] : producto.imagen;
+      fila.innerHTML = `
+        <td>
+          <img src="${primeraImagen || 'https://via.placeholder.com/60'}"
+               alt="${producto.nombre}" class="producto-img"
+               style="width:60px;height:60px;object-fit:cover;border-radius:6px;">
+        </td>
+        <td>${producto.nombre}</td>
+        <td>${producto.descripcion ? String(producto.descripcion).substring(0,40) + '...' : 'Sin descripción'}</td>
+        <td>${producto.sku || ''}</td>
+        <td><span class="badge bg-info">${producto.categoria || 'Sin categoría'}</span></td>
+        <td>$${Number(producto.precio || 0).toFixed(2)}</td>
+        <td>${producto.stock ?? 0}</td>
+        <td><span class="badge ${producto.estado === 'Activo' ? 'bg-success' : 'bg-danger'}">${producto.estado || 'Inactivo'}</span></td>
+        <td>
+          <button class="btn btn-sm btn-warning editar-btn" data-index="${realIndex}" title="Editar">✏️</button>
+          <button class="btn btn-sm btn-info ver-btn" data-index="${realIndex}" title="Ver">👁</button>
+          <button class="btn btn-sm btn-danger eliminar-btn" data-index="${realIndex}" title="Eliminar">🗑️</button>
+        </td>
+      `;
+      tablaProductosBody.appendChild(fila);
+    });
   }
 
-  // Búsqueda de productos
-  busquedaProductoInput.addEventListener("keyup", function () {
-    renderizarTablaProductos(this.value);
-  });
-
+  // ---------- Limpiar formulario ----------
   function limpiarFormularioProducto() {
-    productForm.reset();
-    imagePreview.innerHTML = '';
-    selectedImages = [];
+    if (productForm) productForm.reset();
+    if (imagePreview) imagePreview.innerHTML = '';
+    selectedFiles = [];
     editProductIndex = null;
-    imageInput.value = '';
-    delete imageInput.dataset.imageUrl;
+    if (imageInput) imageInput.value = '';
   }
 
-  // visualizacion varias imagenes
-  imageInput.addEventListener('change', function() {
-    const files = this.files;
-    imagePreview.innerHTML = '';
-    selectedImages = [];
-    
-    if (files.length > 0) {
-      Array.from(files).forEach((file, index) => {
-        const url = URL.createObjectURL(file);
-        selectedImages.push(url);
-        
-        const imgContainer = document.createElement('div');
-        imgContainer.className = 'image-preview-item';
-        
+  // ---------- Preview & selección ----------
+  if (imageInput) {
+    imageInput.addEventListener('change', function () {
+      const files = Array.from(this.files || []);
+      if (!imagePreview) return;
+      imagePreview.innerHTML = '';
+      selectedFiles = [];
+
+      if (files.length === 0) return;
+
+      files.forEach((file, idx) => {
+        selectedFiles.push(file);
+        const displayUrl = URL.createObjectURL(file); // solo para preview
+
+        const container = document.createElement('div');
+        container.className = 'image-preview-item position-relative';
+        container.style.width = '100px';
+        container.style.height = '100px';
+
         const img = document.createElement('img');
-        img.src = url;
-        
-        if (index === 0) {
+        img.src = displayUrl;
+        img.alt = file.name;
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'cover';
+        img.style.borderRadius = '6px';
+        img.addEventListener('load', () => { try { URL.revokeObjectURL(displayUrl); } catch (_) {} });
+
+        if (idx === 0) {
           const badge = document.createElement('span');
-          badge.className = 'image-preview-badge';
+          badge.className = 'image-preview-badge badge bg-primary position-absolute';
+          badge.style.top = '6px';
+          badge.style.left = '6px';
           badge.textContent = 'Principal';
-          imgContainer.appendChild(badge);
+          container.appendChild(badge);
         }
-        
-        imgContainer.appendChild(img);
-        imagePreview.appendChild(imgContainer);
+
+        container.appendChild(img);
+        imagePreview.appendChild(container);
       });
-    }
-  });
+    });
+  }
 
-  // Submit del formulario de productos
-  productForm.addEventListener('submit', function(event) {
-    event.preventDefault();
-    const productos = JSON.parse(localStorage.getItem("products")) || [];
-    const sku = document.getElementById("skuProducto").value.trim();
-    
-    if (!sku) {
-      alert("El SKU es obligatorio para el producto.");
-      return;
-    }
+  // ---------- Submit producto (crear / editar) ----------
+  if (productForm) {
+    productForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
 
-    const productoData = {
-      nombre: document.getElementById("nombreProducto").value || 'Sin nombre',
-      sku: sku,
-      descripcion: document.getElementById("descripcionProducto").value || '',
-      precio: parseFloat(document.getElementById("precioProducto").value) || 0,
-      stock: parseInt(document.getElementById("stockProducto").value) || 0,
-      categoria: document.getElementById("categoriaProducto").value || '',
-      estado: document.getElementById("estadoProducto").value || 'Activo',
-      imagenes: selectedImages.length > 0 ? selectedImages : ['https://via.placeholder.com/100'],
-      imagen: selectedImages.length > 0 ? selectedImages[0] : 'https://via.placeholder.com/100'
-    };
+      const sku = (document.getElementById('skuProducto')?.value || '').trim();
+      if (!sku) { alert('El SKU es obligatorio.'); return; }
 
-    if (editProductIndex !== null) {
-      productos[editProductIndex] = productoData;
-      alert(`Producto "${productoData.nombre}" actualizado correctamente!`);
-    } else {
-      const existente = productos.find(p => p.sku === sku);
-      if (existente) {
-        alert(`Ya existe un producto con el SKU "${sku}".`);
+      // const id = document.getElementById('nombreProducto')?.value || '';
+      const nombre = document.getElementById('nombreProducto')?.value || 'Sin nombre';
+      const descripcion = document.getElementById('descripcionProducto')?.value || '';
+      const precio = parseFloat(document.getElementById('precioProducto')?.value) || 0;
+      const stock = parseInt(document.getElementById('stockProducto')?.value) || 0;
+      const categoria = document.getElementById('categoriaProducto')?.value || '';
+      const estado = document.getElementById('estadoProducto')?.value || 'Activo';
+
+      const productos = getProducts();
+      const isEditing = editProductIndex !== null && productos[editProductIndex];
+      const imagenesExistentes = isEditing ? (productos[editProductIndex].imagenes || []) : [];
+
+      // Subir nuevas imágenes seleccionadas (si hay)
+      let nuevasUrls = [];
+      if (selectedFiles.length > 0) {
+        try {
+          const resultados = await Promise.all(selectedFiles.map(f => uploadToCloudinary(f)));
+          nuevasUrls = resultados.map(r => r.url);
+        } catch (err) {
+          console.error('Error subiendo imágenes a Cloudinary:', err);
+          alert('Ocurrió un error subiendo una o más imágenes. Revisa la consola para más detalles.');
+        }
+      }
+
+      // Resolver imágenes finales
+      const imagenesFinales = nuevasUrls.length > 0
+        ? nuevasUrls
+        : (imagenesExistentes.length > 0 ? imagenesExistentes : ['https://via.placeholder.com/100']);
+
+      const productoData = {
+        id: isEditing ? productos[editProductIndex].id : generarIdUnico(),        
+        nombre,
+        sku,
+        descripcion,
+        precio,
+        stock,
+        categoria,
+        estado,
+        imagenes: imagenesFinales,
+        imagen: imagenesFinales[0]
+      };
+
+      // Guardar en localStorage
+      if (isEditing) {
+        productos[editProductIndex] = productoData;
+        alert(`Producto "${productoData.nombre}" actualizado correctamente!`);
+      } else {
+        if (productos.some(p => p.sku === sku)) {
+          alert(`Ya existe un producto con el SKU "${sku}".`);
+          return;
+        }
+        productos.push(productoData);
+        alert(`Producto "${productoData.nombre}" creado correctamente!`);
+      }
+
+      setProducts(productos);
+
+      // Cerrar modal y limpiar
+      if (modalProductoEl) {
+        const modalInstance = bootstrap.Modal.getInstance(modalProductoEl) || new bootstrap.Modal(modalProductoEl);
+        modalInstance.hide();
+        setTimeout(() => { abrirModalBtn?.focus(); }, 50);
+      }
+
+      limpiarFormularioProducto();
+      renderizarTablaProductos(busquedaProductoInput?.value || '');
+    });
+  }
+
+  // ---------- Modal hidden: limpiar + foco ----------
+  if (modalProductoEl) {
+    modalProductoEl.addEventListener('hidden.bs.modal', () => {
+      limpiarFormularioProducto();
+      if (abrirModalBtn) abrirModalBtn.focus();
+    });
+  }
+
+  // ---------- Acciones en la tabla (delegación) ----------
+  if (tablaProductosBody) {
+    tablaProductosBody.addEventListener('click', (e) => {
+      const btn = e.target.closest('button');
+      if (!btn) return;
+      const index = parseInt(btn.dataset.index);
+      const productos = getProducts();
+      if (isNaN(index) || !productos[index]) return;
+
+      if (btn.classList.contains('eliminar-btn')) {
+        if (confirm(`¿Eliminar el producto "${productos[index].nombre}"?`)) {
+          productos.splice(index, 1);
+          setProducts(productos);
+          renderizarTablaProductos(busquedaProductoInput?.value || '');
+        }
         return;
       }
-      productos.push(productoData);
-      alert(`Producto "${productoData.nombre}" creado correctamente!`);
-    }
 
-    localStorage.setItem("products", JSON.stringify(productos));
-    const modal = bootstrap.Modal.getInstance(document.getElementById("nuevoProductoModal"));
-    modal.hide();
-    limpiarFormularioProducto();
-    renderizarTablaProductos(); 
-  });
+      if (btn.classList.contains('editar-btn')) {
+        // preparar edición
+        editProductIndex = index;
+        const producto = productos[index];
 
-  // Limpia formulario al cerrar modal
-  document.getElementById("nuevoProductoModal").addEventListener('hidden.bs.modal', function () {
-    limpiarFormularioProducto();
-  });
+        (document.getElementById('nombreProducto') || {}).value = producto.nombre || '';
+        (document.getElementById('skuProducto') || {}).value = producto.sku || '';
+        (document.getElementById('descripcionProducto') || {}).value = producto.descripcion || '';
+        (document.getElementById('precioProducto') || {}).value = producto.precio ?? 0;
+        (document.getElementById('stockProducto') || {}).value = producto.stock ?? 0;
+        (document.getElementById('categoriaProducto') || {}).value = producto.categoria || '';
+        (document.getElementById('estadoProducto') || {}).value = producto.estado || 'Activo';
 
-  // acciones de la tabla de productos
-  tablaProductosBody.addEventListener("click", function(e) {
-    const target = e.target.closest("button");
-    if (!target) return;
+        // Mostrar imágenes existentes en preview (solo visual)
+        if (imagePreview) imagePreview.innerHTML = '';
+        selectedFiles = []; // no hay nuevos archivos aún
+        const imgs = Array.isArray(producto.imagenes) ? producto.imagenes : (producto.imagen ? [producto.imagen] : []);
+        imgs.forEach((p, idx) => {
+          const container = document.createElement('div');
+          container.className = 'image-preview-item position-relative';
+          container.style.width = '100px';
+          container.style.height = '100px';
 
-    const index = parseInt(target.dataset.index);
-    const productos = JSON.parse(localStorage.getItem("products")) || [];
-
-    if (target.classList.contains("eliminar-btn")) {
-      if (confirm(`¿Eliminar el producto "${productos[index].nombre}"?`)) {
-        productos.splice(index, 1);
-        localStorage.setItem("products", JSON.stringify(productos));
-        renderizarTablaProductos();
-      }
-    }
-
-    if (target.classList.contains("editar-btn")) {
-      editProductIndex = index;
-      const producto = productos[index];
-      
-      // Llenar formulario
-      document.getElementById("nombreProducto").value = producto.nombre;
-      document.getElementById("skuProducto").value = producto.sku;
-      document.getElementById("descripcionProducto").value = producto.descripcion || '';
-      document.getElementById("precioProducto").value = producto.precio;
-      document.getElementById("stockProducto").value = producto.stock;
-      document.getElementById("categoriaProducto").value = producto.categoria || '';
-      document.getElementById("estadoProducto").value = producto.estado;
-
-      // Mostrar imágenes existentes
-      imagePreview.innerHTML = '';
-      selectedImages = [];
-      
-      if (producto.imagenes && Array.isArray(producto.imagenes)) {
-        selectedImages = [...producto.imagenes];
-        producto.imagenes.forEach((imgUrl, imgIndex) => {
-          const imgContainer = document.createElement('div');
-          imgContainer.className = 'image-preview-item';
-          
           const img = document.createElement('img');
-          img.src = imgUrl;
-          
-          if (imgIndex === 0) {
+          img.src = p;
+          img.alt = `${producto.nombre} ${idx + 1}`;
+          img.style.width = '100%';
+          img.style.height = '100%';
+          img.style.objectFit = 'cover';
+          img.style.borderRadius = '6px';
+
+          if (idx === 0) {
             const badge = document.createElement('span');
-            badge.className = 'image-preview-badge';
+            badge.className = 'image-preview-badge badge bg-primary position-absolute';
+            badge.style.top = '6px';
+            badge.style.left = '6px';
             badge.textContent = 'Principal';
-            imgContainer.appendChild(badge);
+            container.appendChild(badge);
           }
-          
-          imgContainer.appendChild(img);
-          imagePreview.appendChild(imgContainer);
+
+          container.appendChild(img);
+          imagePreview.appendChild(container);
         });
+
+        if (modalProductoEl) new bootstrap.Modal(modalProductoEl).show();
+        return;
       }
 
-      new bootstrap.Modal(document.getElementById("nuevoProductoModal")).show();
-    }
-
-    if (target.classList.contains("ver-btn")) {
-      const producto = productos[index];
-      let info = `Información del Producto:\n\n`;
-      info += `Nombre: ${producto.nombre}\n`;
-      info += `SKU: ${producto.sku}\n`;
-      info += `Categoría: ${producto.categoria || 'Sin categoría'}\n`;
-      info += `Precio: $${producto.precio}\n`;
-      info += `Stock: ${producto.stock}\n`;
-      info += `Estado: ${producto.estado}\n`;
-      info += `Descripción: ${producto.descripcion || 'Sin descripción'}\n`;
-      if (producto.imagenes && producto.imagenes.length > 1) {
-        info += `Imágenes: ${producto.imagenes.length}\n`;
+      if (btn.classList.contains('ver-btn')) {
+        const producto = productos[index];
+        let info = `Información del Producto:\n\n`;
+        info += `Nombre: ${producto.nombre}\n`;
+        info += `SKU: ${producto.sku}\n`;
+        info += `Categoría: ${producto.categoria || 'Sin categoría'}\n`;
+        info += `Precio: $${Number(producto.precio || 0).toFixed(2)}\n`;
+        info += `Stock: ${producto.stock ?? 0}\n`;
+        info += `Estado: ${producto.estado || 'Inactivo'}\n`;
+        info += `Descripción: ${producto.descripcion || 'Sin descripción'}\n`;
+        if (producto.imagenes && producto.imagenes.length > 1) info += `Imágenes: ${producto.imagenes.length}\n`;
+        alert(info);
+        return;
       }
-      alert(info);
-    }
-  });
+    });
+  }
 
-  // USUARIOS
-  const tablaUsuariosBody = document.querySelector("#tablaUsuarios tbody");
-  const busquedaUsuarioInput = document.getElementById("busquedaUsuario");
-  const formNuevoUsuario = document.getElementById("formNuevoUsuario");
+  // ---------- Búsqueda productos ----------
+  if (busquedaProductoInput) {
+    busquedaProductoInput.addEventListener('keyup', function () {
+      renderizarTablaProductos(this.value);
+    });
+  }
+
+  // ========== USUARIOS ==========
+  const tablaUsuariosBody = document.querySelector('#tablaUsuarios tbody');
+  const busquedaUsuarioInput = document.getElementById('busquedaUsuario');
+  const formNuevoUsuario = document.getElementById('formNuevoUsuario');
   let editUserIndex = null;
-  
-  let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [
-    {
-      usuario: "Carlos Pérez",
-      email: "carlos@example.com",
-      tipoDoc: "CC",
-      documento: "12345678",
-      telefono: "3001234567",
-      fechaNacimiento: "1985-03-15",
-      genero: "masculino",
-      direccion: "Calle 123 #45-67",
-      ciudad: "Bogotá",
-      rol: "cliente",
-      estado: "Activo",
-      fechaRegistro: "2024-01-15",
-      notas: "Cliente frecuente"
-    },
-    {
-      usuario: "María Gómez",
-      email: "maria@example.com",
-      tipoDoc: "CE",
-      documento: "87654321",
-      telefono: "3109876543",
-      fechaNacimiento: "1990-07-22",
-      genero: "femenino",
-      direccion: "Carrera 50 #20-30",
-      ciudad: "Medellín",
-      rol: "cliente",
-      estado: "Inactivo",
-      fechaRegistro: "2024-02-20",
-      notas: ""
-    }
+  let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [
+    { usuario: 'Carlos Pérez', email: 'carlos@example.com', tipoDoc: 'CC', documento: '12345678', telefono: '3001234567', fechaNacimiento: '1985-03-15', genero: 'masculino', direccion: 'Calle 123 #45-67', ciudad: 'Bogotá', rol: 'cliente', estado: 'Activo', fechaRegistro: '2024-01-15', notas: 'Cliente frecuente' },
+    { usuario: 'María Gómez', email: 'maria@example.com', tipoDoc: 'CE', documento: '87654321', telefono: '3109876543', fechaNacimiento: '1990-07-22', genero: 'femenino', direccion: 'Carrera 50 #20-30', ciudad: 'Medellín', rol: 'cliente', estado: 'Inactivo', fechaRegistro: '2024-02-20', notas: '' }
   ];
 
-  function guardarUsuarios() {
-    localStorage.setItem("usuarios", JSON.stringify(usuarios));
-  }
-
+  function guardarUsuarios() { localStorage.setItem('usuarios', JSON.stringify(usuarios)); }
   function limpiarFormularioUsuario() {
+    if (!formNuevoUsuario) return;
     formNuevoUsuario.reset();
     editUserIndex = null;
-    document.getElementById("fechaRegistro").value = new Date().toISOString().split('T')[0];
+    const fechaReg = document.getElementById('fechaRegistro');
+    if (fechaReg) fechaReg.value = new Date().toISOString().split('T')[0];
   }
 
-  function renderizarUsuarios(filtro = "") {
-    tablaUsuariosBody.innerHTML = "";
-    
-    if (usuarios.length === 0) {
-      const noDataRow = document.createElement('tr');
-      noDataRow.innerHTML = `<td colspan="8" class="text-center">No hay usuarios para mostrar.</td>`;
-      tablaUsuariosBody.appendChild(noDataRow);
+  function renderizarUsuarios(filtro = '') {
+    if (!tablaUsuariosBody) return;
+    tablaUsuariosBody.innerHTML = '';
+    const q = filtro.trim().toLowerCase();
+    const filtrados = usuarios.filter(u => {
+      if (!q) return true;
+      return (
+        (u.usuario || '').toLowerCase().includes(q) ||
+        (u.email || '').toLowerCase().includes(q) ||
+        (u.documento || '').toLowerCase().includes(q)
+      );
+    });
+
+    if (filtrados.length === 0) {
+      const no = document.createElement('tr');
+      no.innerHTML = `<td colspan="8" class="text-center">No hay usuarios para mostrar.</td>`;
+      tablaUsuariosBody.appendChild(no);
       return;
     }
 
-    usuarios
-      .filter(u => 
-        u.usuario.toLowerCase().includes(filtro.toLowerCase()) ||
-        u.email.toLowerCase().includes(filtro.toLowerCase()) ||
-        u.documento.includes(filtro)
-      )
-      .forEach((u, index) => {
-        const fila = document.createElement("tr");
-        fila.innerHTML = `
-          <td class="producto-nombre">${u.usuario}</td>
-          <td>${u.email}</td>
-          <td>
-            <div class="fw-semibold">${u.tipoDoc}</div>
-            <small class="text-muted">${u.documento}</small>
-          </td>
-          <td>${u.telefono || ""}</td>
-          <td>${u.ciudad || ""}</td>
-          <td><span class="badge bg-info text-capitalize">${u.rol}</span></td>
-          <td><span class="badge ${u.estado === "Activo" ? "bg-success" : u.estado === "Suspendido" ? "bg-warning" : "bg-danger"}">${u.estado}</span></td>
-          <td>
-            <button class="btn btn-sm btn-warning editar-usuario" data-index="${usuarios.indexOf(u)}" title="Editar">✏️</button>
-            <button class="btn btn-sm btn-info ver-usuario" data-index="${usuarios.indexOf(u)}" title="Ver">👁</button>
-            <button class="btn btn-sm btn-danger eliminar-usuario" data-index="${usuarios.indexOf(u)}" title="Eliminar">🗑️</button>
-          </td>
-        `;
-        tablaUsuariosBody.appendChild(fila);
-      });
+    filtrados.forEach(u => {
+      const realIndex = usuarios.findIndex(x => x.email === u.email && x.documento === u.documento);
+      const fila = document.createElement('tr');
+      fila.innerHTML = `
+        <td class="producto-nombre">${u.usuario}</td>
+        <td>${u.email}</td>
+        <td><div class="fw-semibold">${u.tipoDoc}</div><small class="text-muted">${u.documento}</small></td>
+        <td>${u.telefono || ''}</td>
+        <td>${u.ciudad || ''}</td>
+        <td><span class="badge bg-info text-capitalize">${u.rol}</span></td>
+        <td><span class="badge ${u.estado === 'Activo' ? 'bg-success' : u.estado === 'Suspendido' ? 'bg-warning' : 'bg-danger'}">${u.estado}</span></td>
+        <td>
+          <button class="btn btn-sm btn-warning editar-usuario" data-index="${realIndex}" title="Editar">✏️</button>
+          <button class="btn btn-sm btn-info ver-usuario" data-index="${realIndex}" title="Ver">👁</button>
+          <button class="btn btn-sm btn-danger eliminar-usuario" data-index="${realIndex}" title="Eliminar">🗑️</button>
+        </td>
+      `;
+      tablaUsuariosBody.appendChild(fila);
+    });
   }
 
-  // Búsqueda de usuarios
-  busquedaUsuarioInput.addEventListener("keyup", function () {
-    renderizarUsuarios(this.value);
-  });
+  if (busquedaUsuarioInput) {
+    busquedaUsuarioInput.addEventListener('keyup', function () {
+      renderizarUsuarios(this.value);
+    });
+  }
 
-  // Establecer fecha actual cuando se abre el modal
-  document.getElementById("nuevoUsuarioBtn").addEventListener("click", function() {
-    limpiarFormularioUsuario();
-  });
+  const nuevoUsuarioBtn = document.getElementById('nuevoUsuarioBtn');
+  if (nuevoUsuarioBtn) {
+    nuevoUsuarioBtn.addEventListener('click', limpiarFormularioUsuario);
+  }
 
-  // Submit del formulario de usuarios
-  formNuevoUsuario.addEventListener("submit", e => {
-    e.preventDefault();
-    
-    const nuevoUsuario = {
-      usuario: document.getElementById("nombreUsuario").value,
-      email: document.getElementById("emailUsuario").value,
-      tipoDoc: document.getElementById("tipoDocumento").value,
-      documento: document.getElementById("documentoUsuario").value,
-      telefono: document.getElementById("telefonoUsuario").value || '',
-      fechaNacimiento: document.getElementById("fechaNacimiento").value || '',
-      genero: document.getElementById("generoUsuario").value || '',
-      direccion: document.getElementById("direccionUsuario").value || '',
-      ciudad: document.getElementById("ciudadUsuario").value || '',
-      rol: document.getElementById("rolUsuario").value,
-      estado: document.getElementById("estadoUsuario").value,
-      fechaRegistro: document.getElementById("fechaRegistro").value,
-      notas: document.getElementById("notasUsuario").value || ''
-    };
+  if (formNuevoUsuario) {
+    formNuevoUsuario.addEventListener('submit', e => {
+      e.preventDefault();
+      const nuevoUsuario = {
+        usuario: document.getElementById('nombreUsuario')?.value || '',
+        email: document.getElementById('emailUsuario')?.value || '',
+        tipoDoc: document.getElementById('tipoDocumento')?.value || '',
+        documento: document.getElementById('documentoUsuario')?.value || '',
+        telefono: document.getElementById('telefonoUsuario')?.value || '',
+        fechaNacimiento: document.getElementById('fechaNacimiento')?.value || '',
+        genero: document.getElementById('generoUsuario')?.value || '',
+        direccion: document.getElementById('direccionUsuario')?.value || '',
+        ciudad: document.getElementById('ciudadUsuario')?.value || '',
+        rol: document.getElementById('rolUsuario')?.value || 'cliente',
+        estado: document.getElementById('estadoUsuario')?.value || 'Activo',
+        fechaRegistro: document.getElementById('fechaRegistro')?.value || new Date().toISOString().split('T')[0],
+        notas: document.getElementById('notasUsuario')?.value || ''
+      };
 
-    if (editUserIndex !== null) {
-      usuarios[editUserIndex] = nuevoUsuario;
-      alert(`Usuario "${nuevoUsuario.usuario}" actualizado exitosamente.`);
-    } else {
-      // Verificar si el email ya existe
-      const emailExiste = usuarios.find(u => u.email === nuevoUsuario.email);
-      if (emailExiste) {
-        alert("Ya existe un usuario con ese email.");
+      if (editUserIndex !== null) {
+        usuarios[editUserIndex] = nuevoUsuario;
+        alert(`Usuario "${nuevoUsuario.usuario}" actualizado exitosamente.`);
+      } else {
+        if (usuarios.some(u => u.email === nuevoUsuario.email)) { alert('Ya existe un usuario con ese email.'); return; }
+        if (usuarios.some(u => u.documento === nuevoUsuario.documento && u.tipoDoc === nuevoUsuario.tipoDoc)) { alert('Ya existe un usuario con ese tipo y número de documento.'); return; }
+        usuarios.push(nuevoUsuario);
+        alert(`Usuario "${nuevoUsuario.usuario}" creado exitosamente.`);
+      }
+
+      localStorage.setItem('usuarios', JSON.stringify(usuarios));
+      renderizarUsuarios(busquedaUsuarioInput?.value || '');
+      limpiarFormularioUsuario();
+      const modalEl = document.getElementById('nuevoUsuarioModal');
+      if (modalEl) {
+        const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+        modal.hide();
+      }
+    });
+  }
+
+  if (tablaUsuariosBody) {
+    tablaUsuariosBody.addEventListener('click', e => {
+      const btn = e.target.closest('button');
+      if (!btn) return;
+      const index = parseInt(btn.dataset.index);
+      if (isNaN(index) || !usuarios[index]) return;
+
+      if (btn.classList.contains('eliminar-usuario')) {
+        if (confirm(`¿Seguro que deseas eliminar al usuario "${usuarios[index].usuario}"?`)) {
+          usuarios.splice(index, 1);
+          guardarUsuarios();
+          renderizarUsuarios(busquedaUsuarioInput?.value || '');
+        }
         return;
       }
 
-      // Verificar si el documento ya existe
-      const docExiste = usuarios.find(u => u.documento === nuevoUsuario.documento && u.tipoDoc === nuevoUsuario.tipoDoc);
-      if (docExiste) {
-        alert("Ya existe un usuario con ese tipo y número de documento.");
+      if (btn.classList.contains('ver-usuario')) {
+        const u = usuarios[index];
+        let info = `Información del Usuario:\n\n`;
+        info += `Nombre: ${u.usuario}\nEmail: ${u.email}\nDocumento: ${u.tipoDoc} ${u.documento}\nTeléfono: ${u.telefono || 'No registrado'}\nCiudad: ${u.ciudad || 'No registrada'}\nRol: ${u.rol}\nEstado: ${u.estado}\nFecha registro: ${u.fechaRegistro}\n`;
+        if (u.notas) info += `Notas: ${u.notas}\n`;
+        alert(info);
         return;
       }
 
-      usuarios.push(nuevoUsuario);
-      alert(`Usuario "${nuevoUsuario.usuario}" creado exitosamente.`);
-    }
-
-    guardarUsuarios();
-    renderizarUsuarios();
-    limpiarFormularioUsuario();
-    bootstrap.Modal.getInstance(document.getElementById("nuevoUsuarioModal")).hide();
-  });
-
-  // limpia formulario de usuario al cerrar modal
-  document.getElementById("nuevoUsuarioModal").addEventListener('hidden.bs.modal', function () {
-    limpiarFormularioUsuario();
-  });
-
-  // acciones de la tabla de usuarios
-  tablaUsuariosBody.addEventListener("click", e => {
-    const target = e.target.closest("button");
-    if (!target) return;
-
-    const index = parseInt(target.dataset.index);
-
-    if (target.classList.contains("eliminar-usuario")) {
-      if (confirm(`¿Seguro que deseas eliminar al usuario "${usuarios[index].usuario}"?`)) {
-        usuarios.splice(index, 1);
-        guardarUsuarios();
-        renderizarUsuarios();
+      if (btn.classList.contains('editar-usuario')) {
+        editUserIndex = index;
+        const u = usuarios[index];
+        (document.getElementById('nombreUsuario') || {}).value = u.usuario || '';
+        (document.getElementById('emailUsuario') || {}).value = u.email || '';
+        (document.getElementById('tipoDocumento') || {}).value = u.tipoDoc || '';
+        (document.getElementById('documentoUsuario') || {}).value = u.documento || '';
+        (document.getElementById('telefonoUsuario') || {}).value = u.telefono || '';
+        (document.getElementById('fechaNacimiento') || {}).value = u.fechaNacimiento || '';
+        (document.getElementById('generoUsuario') || {}).value = u.genero || '';
+        (document.getElementById('direccionUsuario') || {}).value = u.direccion || '';
+        (document.getElementById('ciudadUsuario') || {}).value = u.ciudad || '';
+        (document.getElementById('rolUsuario') || {}).value = u.rol || 'cliente';
+        (document.getElementById('estadoUsuario') || {}).value = u.estado || 'Activo';
+        (document.getElementById('fechaRegistro') || {}).value = u.fechaRegistro || new Date().toISOString().split('T')[0];
+        (document.getElementById('notasUsuario') || {}).value = u.notas || '';
+        const modalEl = document.getElementById('nuevoUsuarioModal');
+        if (modalEl) new bootstrap.Modal(modalEl).show();
       }
-    }
+    });
+  }
 
-    if (target.classList.contains("ver-usuario")) {
-      const usuario = usuarios[index];
-      let info = `Información del Usuario:\n\n`;
-      info += `Nombre: ${usuario.usuario}\n`;
-      info += `Email: ${usuario.email}\n`;
-      info += `Documento: ${usuario.tipoDoc} ${usuario.documento}\n`;
-      info += `Teléfono: ${usuario.telefono || 'No registrado'}\n`;
-      info += `Fecha de nacimiento: ${usuario.fechaNacimiento || 'No registrada'}\n`;
-      info += `Género: ${usuario.genero || 'No especificado'}\n`;
-      info += `Dirección: ${usuario.direccion || 'No registrada'}\n`;
-      info += `Ciudad: ${usuario.ciudad || 'No registrada'}\n`;
-      info += `Rol: ${usuario.rol}\n`;
-      info += `Estado: ${usuario.estado}\n`;
-      info += `Fecha de registro: ${usuario.fechaRegistro}\n`;
-      if (usuario.notas) info += `Notas: ${usuario.notas}\n`;
-      
-      alert(info);
-    }
-
-    if (target.classList.contains("editar-usuario")) {
-      editUserIndex = index;
-      const usuario = usuarios[index];
-      
-      // Llenar formulario
-      document.getElementById("nombreUsuario").value = usuario.usuario;
-      document.getElementById("emailUsuario").value = usuario.email;
-      document.getElementById("tipoDocumento").value = usuario.tipoDoc;
-      document.getElementById("documentoUsuario").value = usuario.documento;
-      document.getElementById("telefonoUsuario").value = usuario.telefono || '';
-      document.getElementById("fechaNacimiento").value = usuario.fechaNacimiento || '';
-      document.getElementById("generoUsuario").value = usuario.genero || '';
-      document.getElementById("direccionUsuario").value = usuario.direccion || '';
-      document.getElementById("ciudadUsuario").value = usuario.ciudad || '';
-      document.getElementById("rolUsuario").value = usuario.rol;
-      document.getElementById("estadoUsuario").value = usuario.estado;
-      document.getElementById("fechaRegistro").value = usuario.fechaRegistro;
-      document.getElementById("notasUsuario").value = usuario.notas || '';
-
-      new bootstrap.Modal(document.getElementById("nuevoUsuarioModal")).show();
-    }
-  });
-
+  // ---------- Inicializar ----------
   renderizarTablaProductos();
   renderizarUsuarios();
 });
