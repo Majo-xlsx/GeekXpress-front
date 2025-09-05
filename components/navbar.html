@@ -11,13 +11,13 @@
             <!-- Carrito + Botón hamburguesa (solo en móviles) -->
             <div class="d-flex d-lg-none align-items-center ms-auto me-3">
                 <!-- Carrito móvil -->
-                <button class="nav-link position-relative me-3">
+                <a href="../pages/carrito.html" class="nav-link position-relative me-3">
                     <i class="bi bi-cart-fill"></i>
                     <span class="contador-carrito position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                         3
                         <span class="visually-hidden">productos en carrito</span>
                     </span>
-                </button>
+                </a>
 
                 <!-- Botón hamburguesa -->
                 <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
@@ -46,8 +46,11 @@
 
                     <!-- Cuenta + carrito escritorio -->
                     <div class="d-flex flex-row align-items-center ms-lg-auto order-2 mt-lg-0 me-4">
-                        <a class="nav-link text-nowrap d-flex align-items-center" href="#">
-                            Tú cuenta
+                        <a class="nav-link text-nowrap d-flex align-items-center" href="#" id="loginLinkNav">
+                            <!-- data-bs-toggle="modal" data-bs-target="#loginModal"> -->
+                        <span id="navUsuario">
+                            Iniciar sesión
+                        </span>
                             <i class="bi bi-person-circle ms-2"></i>
                         </a>
 
