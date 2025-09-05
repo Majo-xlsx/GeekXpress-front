@@ -4,10 +4,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById("searchInput");
     const categoryFilter = document.getElementById("categoryFilter");
 
-    let allProducts = []; // Guardamos todos los productos cargados
+    // ================================
+    // PRODUCTOS ESTÁTICOS
+    // ================================
+    const productos = [
+        { id: 1, titulo: "One Piece | Caja 24 Sobres OP-05 Awakening of the New Era", categoria: "cartas", precioOferta: 1215000, precioOriginal: null, rating: 4.8, reviews: 124, img: "../assets/img/imgProducts/TCG_ONEPIECE_1.png", etiquetas: ["NUEVO", "CARTAS TCG"] },
+        { id: 2, titulo: "Pokemon Juego de cartas Mega Brave Booster Box (japonés)", categoria: "cartas", precioOferta: 542000, precioOriginal: 596200, rating: 4.3, reviews: 24, img: "../assets/img/imgProducts/TCG_POKEMON_1.png", etiquetas: ["NUEVO", "-10%", "CARTAS TCG"] },
+        { id: 3, titulo: "Magic The Gathering Innistrad Remastered Collector Boosters1", categoria: "cartas", precioOferta: 1649350, precioOriginal: 2144155, rating: 4.5, reviews: 194, img: "../assets/img/imgProducts/TCG_MAGIC_01.png", etiquetas: ["NUEVO", "-30%", "CARTAS TCG"] },
+        { id: 4, titulo: "Manga Naruto N.01 Special Edition", categoria: "anime", precioOferta: 49500, precioOriginal: 54450, rating: 4.7, reviews: 44, img: "../assets/img/imgProducts/MANGA_NARUTO_N.01.png", etiquetas: ["NUEVO", "-10%", "MANGA"] },
+        { id: 5, titulo: "Manga Full Metal Alchemist N.01 Special Edition", categoria: "anime", precioOferta: 60000, precioOriginal: 120000, rating: 4.2, reviews: 264, img: "../assets/img/imgProducts/MANGA_FMA_N.01.JPG", etiquetas: ["NUEVO", "-50%", "MANGA"] },
+        { id: 6, titulo: "Manga Jojo's Bizarre N.01 Special Edition", categoria: "anime", precioOferta: 76000, precioOriginal: null, rating: 4.9, reviews: 550, img: "../assets/img/imgProducts/MANGA_JOJOS_N.01.jpg", etiquetas: ["NUEVO", "MANGA"] },
+        { id: 7, titulo: "Comic Thor N.01", categoria: "cómics", precioOferta: 69900, precioOriginal: 87350, rating: 4.7, reviews: 94, img: "../assets/img/imgProducts/Comic_Thor N.01.png", etiquetas: ["NUEVO", "-25%", "COMICS"] },
+        { id: 8, titulo: "Comic Batman Absolute N.01", categoria: "cómics", precioOferta: 105000, precioOriginal: 115500, rating: 4.4, reviews: 10, img: "../assets/img/imgProducts/COMIC_BATMAN_N.01.jpg", etiquetas: ["NUEVO", "-10%", "COMICS"] },
+        { id: 9, titulo: "All Star Superman Edition Deluxe N.01", categoria: "cómics", precioOferta: 188000, precioOriginal: 225600, rating: 4.8, reviews: 15, img: "../assets/img/imgProducts/COMIC_SUPERMAN_N.01.jpg", etiquetas: ["NUEVO", "-20%", "COMICS"] },
+        { id: 10, titulo: "Funko POP Plus Tanjiro Kamado Dancing Flash 2041 Demon Slayer", categoria: "accesorios", precioOferta: 69900, precioOriginal: 80385, rating: 4.5, reviews: 194, img: "../assets/img/imgProducts/FIGURAS_KNY_01.png", etiquetas: ["NUEVO", "-10%", "FIGURAS"] },
+        { id: 11, titulo: "¡Funko Pop! Animación Dragonball Z - Goku Súper Sayajin", categoria: "accesorios", precioOferta: 69900, precioOriginal: 139800, rating: 4.9, reviews: 15, img: "../assets/img/imgProducts/FIGURAS_DB_N.01.png", etiquetas: ["NUEVO", "-50%", "FIGURAS"] },
+        { id: 12, titulo: "Funko Pop Luffy Gear Five One Piece", categoria: "accesorios", precioOferta: 89900, precioOriginal: 125860, rating: 4.9, reviews: 15, img: "../assets/img/imgProducts/FIGURAS_ONEPIECE_G5_01.png", etiquetas: ["NUEVO", "-40%", "FIGURAS"] }
+    ];
 
     // ================================
-    // FUNCIONES AUXILIARES
+    // FUNCIONES DE CARRITO
     // ================================
     function getCarrito() {
         return JSON.parse(localStorage.getItem("carrito")) || [];
@@ -20,38 +36,35 @@ document.addEventListener('DOMContentLoaded', () => {
     function actualizarContador() {
         const carrito = getCarrito();
         let totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
-        contadorCarrito.textContent = totalItems;
+        if (contadorCarrito) contadorCarrito.textContent = totalItems;
     }
 
     function formatearPrecio(valor) {
-        return new Intl.NumberFormat('es-CO', {
-            style: 'currency',
-            currency: 'COP',
-            minimumFractionDigits: 0
-        }).format(valor);
+        return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(valor);
     }
 
     // ================================
-    // CREACIÓN DE CARDS DE PRODUCTOS
+    // RENDER DE PRODUCTOS
     // ================================
-    function createProductCard(data) {
+    function createProductCard(prod) {
         const cardCol = document.createElement('div');
         cardCol.classList.add('col-12', 'col-sm-6', 'col-md-4', 'mb-4');
 
         cardCol.innerHTML = `
-            <div class="card product-card" data-id="${data.id}" data-categoria="${data.categoria.toLowerCase()}">
+            <div class="card product-card" data-id="${prod.id}" data-categoria="${prod.categoria.toLowerCase()}">
                 <div class="card-img-container">
-                    <img src="${data.imagen}" class="card-img-top" alt="${data.nombre}" style="max-width: 100%; height: auto;">
-                    <span class="badge bg-success badge-nuevo">NUEVO</span>
-                    <span class="badge bg-danger badge-descuento">-25%</span>
-                    <span class="badge bg-light badge-categoria">${data.categoria}</span>
+                    <img src="${prod.img || prod.imagen}" class="card-img-top" alt="${prod.titulo || prod.nombre}">
+                    ${(prod.etiquetas || []).map(et => `<span class="badge bg-light text-dark">${et}</span>`).join('')}
+                    <div class="iconos-acciones">
+                        <i class="bi bi-heart-fill"></i>
+                        <i class="bi bi-eye-fill"></i>
+                    </div>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">${data.nombre}</h5>
-                    <p class="card-text">${data.descripcion}</p>
+                    <h4 class="card-title">${prod.titulo || prod.nombre}</h4>
                     <p class="precio">
-                        <span class="precio-oferta">${formatearPrecio(data.precio)}</span>
-                        <span class="precio-original">${formatearPrecio(data.precio * 1.25)}</span>
+                        <span class="precio-oferta">${formatearPrecio(prod.precioOferta || prod.precio)}</span>
+                        ${prod.precioOriginal ? `<span class="precio-original">${formatearPrecio(prod.precioOriginal)}</span>` : ""}
                     </p>
                     <button class="btn btn-agregar-carrito w-100">
                         <i class="bi bi-cart me-2"></i> Agregar al Carrito
@@ -62,24 +75,20 @@ document.addEventListener('DOMContentLoaded', () => {
         return cardCol;
     }
 
-    // ================================
-    // CARGA DE PRODUCTOS
-    // ================================
-    function loadProductsFromLocalStorage() {
-        const productsJson = localStorage.getItem('products');
-        if (productsJson) {
-            allProducts = JSON.parse(productsJson);
-            renderProducts(allProducts);
-        }
-    }
-
     function renderProducts(products) {
         productContainer.innerHTML = "";
-        products.forEach(product => {
-            const card = createProductCard(product);
+        products.forEach(prod => {
+            const card = createProductCard(prod);
             productContainer.appendChild(card);
         });
     }
+
+    function getAllProductsForRender() {
+        const localProducts = JSON.parse(localStorage.getItem('products')) || [];
+        return [...productos, ...localProducts];
+    }
+
+    renderProducts(getAllProductsForRender());
 
     // ================================
     // FILTRO Y BÚSQUEDA
@@ -88,9 +97,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const searchText = searchInput.value.toLowerCase();
         const selectedCategory = categoryFilter.value.toLowerCase();
 
-        const filtered = allProducts.filter(p => {
-            const matchesSearch = p.nombre.toLowerCase().includes(searchText);
-            const matchesCategory = !selectedCategory || p.categoria.toLowerCase() === selectedCategory;
+        const allForRender = getAllProductsForRender();
+        const filtered = allForRender.filter(p => {
+            const name = p.titulo || p.nombre;
+            const category = p.categoria || p.category;
+            const matchesSearch = name.toLowerCase().includes(searchText);
+            const matchesCategory = !selectedCategory || category.toLowerCase() === selectedCategory;
             return matchesSearch && matchesCategory;
         });
 
@@ -101,11 +113,8 @@ document.addEventListener('DOMContentLoaded', () => {
     categoryFilter.addEventListener("change", applyFilters);
 
     // ================================
-    // EVENTOS
+    // EVENTOS DEL CARRITO
     // ================================
     window.addEventListener("storage", actualizarContador);
-
-    // Inicializar
-    loadProductsFromLocalStorage();
     actualizarContador();
 });
