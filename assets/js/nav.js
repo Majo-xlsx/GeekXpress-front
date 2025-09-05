@@ -12,6 +12,17 @@ document.addEventListener("navbarLoaded", () => {
     loginNav.textContent = usuarioLogueado.firstName; // mostrar nombre
     console.log("Usuario logueado:", usuarioLogueado.firstName);
 
+
+        // Si el usuario es admin, agregar enlace de vista admin
+    if (usuarioLogueado.rol === "admin") {
+      const menuCentral = document.querySelector(".navbar-nav"); // ul principal
+      const liAdmin = document.createElement("li");
+      liAdmin.classList.add("nav-item", "me-3");
+      liAdmin.innerHTML = `<a class="nav-link" href="../pages/admin.html">Vista Admin</a>`;
+      menuCentral.appendChild(liAdmin); // lo agrega al final
+    }
+  
+
     // Crear menú desplegable de cerrar sesión
     const logoutMenu = document.createElement("div");
     logoutMenu.id = "logoutMenu";

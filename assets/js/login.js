@@ -97,7 +97,7 @@ registerForm.addEventListener('submit', (e) => {
     genero: "",               
     direccion: "",            
     ciudad: "",               
-    rol: "cliente",
+    rol: "admin",
     estado: "Activo",
     fechaRegistro: new Date().toISOString().split('T')[0],
     notas: "",
