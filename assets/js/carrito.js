@@ -1,11 +1,10 @@
-
 document.addEventListener("DOMContentLoaded", initCarrito);
 document.addEventListener("navbarLoaded", initCarrito);
 
 function initCarrito() {
     const botonVaciar = document.getElementById('vaciar-carrito');
     const listaCarrito = document.getElementById('lista-carrito');
-    const iconoCarrito = document.getElementById('icono-carrito');
+    const iconoCarrito = document.getElementById('icono-carrito') || document.querySelector('.d-none.d-lg-flex') || document.querySelector('.bi-cart-fill')?.closest('a,button,.nav-link,div') || document.querySelector('.contador-carrito')?.closest('a,button,.nav-link,div');
     const totalElemento = document.getElementById('total');
     const productContainer = document.getElementById('productContainer');
     const btnPago = document.getElementById('btn-pago');
@@ -19,6 +18,59 @@ function initCarrito() {
 
     function setCarrito(carrito) {
         localStorage.setItem("carrito", JSON.stringify(carrito));
+    }
+
+    // --------------------
+    // ANIMACIÓN AL CARRITO
+    // --------------------
+    function animarAlCarrito(origen, imagen) {
+        if (!origen || !iconoCarrito) return;
+
+        const rectBoton = origen.getBoundingClientRect();
+        const rectCarrito = iconoCarrito.getBoundingClientRect();
+
+        const startW = Math.max(32, Math.min(rectBoton.width, 80));
+        const startH = Math.max(32, Math.min(rectBoton.height, 80));
+
+        const centerBotonX = rectBoton.left + rectBoton.width / 2;
+        const centerBotonY = rectBoton.top + rectBoton.height / 2;
+        const centerCarritoX = rectCarrito.left + rectCarrito.width / 2;
+        const centerCarritoY = rectCarrito.top + rectCarrito.height / 2;
+
+        const animacionContainer = document.createElement('div');
+        animacionContainer.classList.add('fly-img');
+        animacionContainer.style.width = startW + 'px';
+        animacionContainer.style.height = startH + 'px';
+        animacionContainer.style.position = 'fixed';
+        animacionContainer.style.left = (centerBotonX - startW / 2) + 'px';
+        animacionContainer.style.top = (centerBotonY - startH / 2) + 'px';
+        animacionContainer.style.pointerEvents = 'none';
+        if (imagen) {
+            animacionContainer.style.backgroundImage = `url(${imagen})`;
+            animacionContainer.style.backgroundSize = 'cover';
+            animacionContainer.style.backgroundPosition = 'center';
+            animacionContainer.style.backgroundRepeat = 'no-repeat';
+        } else {
+            animacionContainer.style.backgroundColor = 'rgba(0,0,0,0.06)';
+        }
+
+        document.body.appendChild(animacionContainer);
+
+        // forzar reflow
+        animacionContainer.offsetWidth;
+
+        const deltaX = centerCarritoX - centerBotonX;
+        const deltaY = centerCarritoY - centerBotonY;
+
+        requestAnimationFrame(() => {
+            animacionContainer.style.transform = `translate3d(${deltaX}px, ${deltaY}px, 0) scale(0.2)`;
+        });
+
+        const limpiar = () => {
+            if (animacionContainer && animacionContainer.parentNode) animacionContainer.parentNode.removeChild(animacionContainer);
+        };
+        animacionContainer.addEventListener('transitionend', limpiar, { once: true });
+        setTimeout(limpiar, 1600);
     }
 
     // --------------------
@@ -90,6 +142,7 @@ function actualizarCarrito() {
                         if (carrito[index].cantidad <= 0) carrito.splice(index, 1);
                     } else if (accion === 'eliminar') {
                         carrito.splice(index, 1);
+                        /*
                         Swal.fire({
                             position: "bottom-end",
                             icon: "info",
@@ -97,6 +150,7 @@ function actualizarCarrito() {
                             showConfirmButton: false,
                             timer: 1500
                         });
+                        */
                     }
                     setCarrito(carrito);
                     actualizarCarrito();
@@ -138,6 +192,7 @@ function actualizarCarrito() {
                 carrito.push({ id, nombre, precio, cantidad: 1, imagen });
             }
 
+            /*
             Swal.fire({
                 position: "center-center",
                 icon: "success",
@@ -145,68 +200,44 @@ function actualizarCarrito() {
                 showConfirmButton: false,
                 timer: 1500
             });
+            */
 
             setCarrito(carrito);
             actualizarCarrito();
             animarAlCarrito(nuevoBoton, imagen);
+        });
+    });
 
-                // Animación al carrito
-                if (iconoCarrito) {
-                    let rectBoton = boton.getBoundingClientRect();
-                    let rectCarrito = iconoCarrito.getBoundingClientRect();
+    if (botonVaciar) {
 
-                    let animacionContainer = document.createElement('div');
-                    animacionContainer.classList.add('fly-img');
-                    animacionContainer.style.left = rectBoton.left + 'px';
-                    animacionContainer.style.top = rectBoton.top + 'px';
+        botonVaciar.addEventListener('click', () => {
 
-                    let img = document.createElement('img');
-                    img.src = imagen;
-                    img.style.width = '100%';
-                    img.style.height = '100%';
-                    img.style.objectFit = 'cover';
-
-                    animacionContainer.appendChild(img);
-                    document.body.appendChild(animacionContainer);
-
-                    let deltaX = rectCarrito.left - rectBoton.left;
-                    let deltaY = rectCarrito.top - rectBoton.top;
-
-                    requestAnimationFrame(() => {
-                        animacionContainer.style.transform = `translate3d(${deltaX}px, ${deltaY}px, 0) scale(0.2)`;
+        /*
+        Swal.fire({
+            title: "Desocupar carrito?",
+            text: "Vas a eliminar todos los productos del carrito!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            cancelButtonText: "Cancelar",
+            confirmButtonText: "Desocupar"
+            }).then((result) => {
+            if (result.isConfirmed) {
+                    setCarrito([]);
+                    actualizarCarrito();
+                    Swal.fire({
+                        title: "Productos eliminados",
+                        // text: "Your file has been deleted.",
+                        icon: "success"
                     });
-
-                    setTimeout(() => animacionContainer.remove(), 1600);
                 }
             });
+        */
+            setCarrito([]);
+            actualizarCarrito();
         });
-
-        if (botonVaciar) {
-
-            botonVaciar.addEventListener('click', () => {
-
-            Swal.fire({
-                title: "Desocupar carrito?",
-                text: "Vas a eliminar todos los productos del carrito!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                cancelButtonText: "Cancelar",
-                confirmButtonText: "Desocupar"
-                }).then((result) => {
-                if (result.isConfirmed) {
-                        setCarrito([]);
-                        actualizarCarrito();
-                        Swal.fire({
-                            title: "Productos eliminados",
-                            // text: "Your file has been deleted.",
-                            icon: "success"
-                        });
-                    }
-                });
-            });
-        }
+    }
     }
 
     // --------------------
