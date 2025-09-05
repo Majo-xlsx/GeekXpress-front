@@ -1,6 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     const productContainer = document.getElementById('productContainer');
     const contadorCarrito = document.getElementById("contadorCarrito");
+    const searchInput = document.getElementById("searchInput");
+    const categoryFilter = document.getElementById("categoryFilter");
+
+    let allProducts = []; // Guardamos todos los productos cargados
 
     // ================================
     // FUNCIONES AUXILIARES
@@ -18,28 +22,14 @@ document.addEventListener('DOMContentLoaded', () => {
         let totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
         contadorCarrito.textContent = totalItems;
     }
+
     function formatearPrecio(valor) {
         return new Intl.NumberFormat('es-CO', {
             style: 'currency',
             currency: 'COP',
-            minimumFractionDigits: 0 // cambia a 2 si quieres siempre dos decimales
+            minimumFractionDigits: 0
         }).format(valor);
     }
-
-
-    // ================================
-    // CARGA DE PRODUCTOS
-    // ================================
-    function loadProductsFromLocalStorage() {
-        const productsJson = localStorage.getItem('products');
-        if (productsJson) {
-            const products = JSON.parse(productsJson);
-            products.forEach(product => {
-                createProductCard(product);
-            });
-        }
-    }
-
 
     // ================================
     // CREACIÓN DE CARDS DE PRODUCTOS
@@ -49,26 +39,14 @@ document.addEventListener('DOMContentLoaded', () => {
         cardCol.classList.add('col-12', 'col-sm-6', 'col-md-4', 'mb-4');
 
         cardCol.innerHTML = `
-            <div class="card product-card" data-id="${data.id}">
+            <div class="card product-card" data-id="${data.id}" data-categoria="${data.categoria.toLowerCase()}">
                 <div class="card-img-container">
                     <img src="${data.imagen}" class="card-img-top" alt="${data.nombre}" style="max-width: 100%; height: auto;">
                     <span class="badge bg-success badge-nuevo">NUEVO</span>
                     <span class="badge bg-danger badge-descuento">-25%</span>
                     <span class="badge bg-light badge-categoria">${data.categoria}</span>
-                    <div class="iconos-acciones">
-                        <i class="bi bi-heart-fill"></i>
-                        <i class="bi bi-eye-fill"></i>
-                    </div>
                 </div>
                 <div class="card-body">
-                    <div class="rating">
-                        <i class="bi bi-star-fill text-warning"></i>
-                        <i class="bi bi-star-fill text-warning"></i>
-                        <i class="bi bi-star-fill text-warning"></i>
-                        <i class="bi bi-star-fill text-warning"></i>
-                        <i class="bi bi-star text-warning"></i>
-                        <span class="rating-number">4.8 (124)</span>
-                    </div>
                     <h5 class="card-title">${data.nombre}</h5>
                     <p class="card-text">${data.descripcion}</p>
                     <p class="precio">
@@ -81,10 +59,46 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             </div>
         `;
-        
-        productContainer.appendChild(cardCol);
-
+        return cardCol;
     }
+
+    // ================================
+    // CARGA DE PRODUCTOS
+    // ================================
+    function loadProductsFromLocalStorage() {
+        const productsJson = localStorage.getItem('products');
+        if (productsJson) {
+            allProducts = JSON.parse(productsJson);
+            renderProducts(allProducts);
+        }
+    }
+
+    function renderProducts(products) {
+        productContainer.innerHTML = "";
+        products.forEach(product => {
+            const card = createProductCard(product);
+            productContainer.appendChild(card);
+        });
+    }
+
+    // ================================
+    // FILTRO Y BÚSQUEDA
+    // ================================
+    function applyFilters() {
+        const searchText = searchInput.value.toLowerCase();
+        const selectedCategory = categoryFilter.value.toLowerCase();
+
+        const filtered = allProducts.filter(p => {
+            const matchesSearch = p.nombre.toLowerCase().includes(searchText);
+            const matchesCategory = !selectedCategory || p.categoria.toLowerCase() === selectedCategory;
+            return matchesSearch && matchesCategory;
+        });
+
+        renderProducts(filtered);
+    }
+
+    searchInput.addEventListener("input", applyFilters);
+    categoryFilter.addEventListener("change", applyFilters);
 
     // ================================
     // EVENTOS
