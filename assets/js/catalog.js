@@ -2,6 +2,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const productContainer = document.getElementById('productContainer');
     const contadorCarrito = document.getElementById("contadorCarrito");
 
+    // Detectar click en el ícono del ojo
+document.querySelectorAll(".ver-detalle").forEach(icon => {
+  icon.addEventListener("click", () => {
+    const product = {
+      title: icon.getAttribute("data-title"),
+      price: icon.getAttribute("data-price"),
+      oldprice: icon.getAttribute("data-oldprice"),
+      rating: icon.getAttribute("data-rating"),
+      img: icon.getAttribute("data-img"),
+      description: icon.getAttribute("data-description")
+    };
+
+    // Guardar en localStorage
+    localStorage.setItem("selectedProduct", JSON.stringify(product));
+
+    // Redirigir a product.html
+    window.location.href = "product.html";
+  });
+});
+
     // ================================
     // FUNCIONES AUXILIARES
     // ================================
