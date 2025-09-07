@@ -19,5 +19,5 @@ function loadTemplate(id, url, callback) {
 }
 
 // Cargar plantillas
-loadTemplate("navbar", "/GeekXpress-front/components/navbar.html");
+loadTemplate("navbar", "GeekXpress-front/components/navbar.html");
 loadTemplate("footer", "../components/footer.html");
