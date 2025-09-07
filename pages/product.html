@@ -1,1 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Detalle del producto</title>
 
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Tu CSS (ajusta la ruta si es diferente) -->
+  <link rel="stylesheet" href="../assets/css/styles.css">
+
+  <style>
+    body { background: #1e1e2f; color: #f5f5f8; }
+    .product-card { background: #2a2940; padding: 18px; border-radius: 10px; }
+    .price { font-size: 1.9rem; color: #ff7fb2; font-weight:700; }
+    .old-price { text-decoration: line-through; color:#9a9aa8; margin-left:10px; }
+    .discount-badge { background:#ff4d79; color:white; padding:4px 8px; border-radius:8px; font-size:0.85rem; margin-left:10px; }
+    .thumb { width:80px; height:80px; object-fit:cover; border-radius:6px; cursor:pointer; border:2px solid transparent; }
+    .thumb.selected { outline: 2px solid #8a4bff; box-shadow: 0 0 8px rgba(138,75,255,.25); }
+    .info-box { background:#2f2f45; padding:14px; border-radius:10px; margin-top:22px; color:#dcdce6; }
+    .btn-cart { background: linear-gradient(90deg,#9b5cff,#ff6fa8); color:white; border:none; }
+    .btn-cart:hover { filter:brightness(.95); }
+  </style>
+</head>
+<body>
+
+  <!-- breadcrumb -->
+  <div class="container my-3">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb" style="--bs-breadcrumb-divider:'/'; background:transparent;">
+        <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none text-muted">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="catalog.html" class="text-decoration-none text-muted">Catálogo</a></li>
+        <li class="breadcrumb-item active text-muted" id="breadcrumb-title" aria-current="page">Producto</li>
+      </ol>
+    </nav>
+  </div>
+
+  <!-- main -->
+  <main class="container">
+    <div class="row g-4">
+      <!-- left: galería -->
+      <div class="col-md-6">
+        <div class="product-card">
+          <img id="product-img" src="https://via.placeholder.com/600x600?text=Sin+imagen" alt="Imagen principal" class="img-fluid rounded">
+        </div>
+
+        <div id="product-thumbnails" class="d-flex gap-2 mt-3">
+          <!-- Thumbnails se inyectan por JS -->
+        </div>
+      </div>
+
+      <!-- right: info -->
+      <div class="col-md-6">
+        <span id="product-category" class="badge bg-secondary mb-2">Categoria</span>
+        <h2 id="product-title">Producto principal</h2>
+        <div id="product-brand" class="text-muted mb-2">Marca</div>
+
+        <div id="product-rating" class="mb-2 text-warning"></div>
+
+        <div class="mb-3">
+          <span id="product-price" class="price">$0</span>
+          <span id="product-oldprice" class="old-price">$0</span>
+          <span id="product-discount" class="discount-badge" style="display:inline-block"></span>
+        </div>
+
+        <p id="product-description" class="text-muted">Descripción del producto...</p>
+
+        <ul id="product-features" class="list-unstyled"></ul>
+
+        <p id="product-stock" class="fw-bold"></p>
+
+        <!-- cantidad -->
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <label class="me-2">Cantidad:</label>
+          <div class="input-group" style="max-width:160px;">
+            <button id="decrease-btn" class="btn btn-outline-light" type="button">−</button>
+            <input id="quantity" type="number" class="form-control text-center" value="1" min="1">
+            <button id="increase-btn" class="btn btn-outline-light" type="button">+</button>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button id="add-to-cart-btn" class="btn btn-cart flex-grow-1 btn-lg">
+            <i class="bi bi-cart-plus me-2"></i> Agregar al Carrito
+          </button>
+          <button id="wishlist-btn" class="btn btn-outline-light" title="Agregar a favoritos"><i class="bi bi-heart"></i></button>
+          <button id="share-btn" class="btn btn-outline-light" title="Compartir"><i class="bi bi-share"></i></button>
+        </div>
+
+        <div class="info-box mt-4">
+          <ul class="mb-0">
+            <li><i class="bi bi-truck me-2 text-info"></i> Envío gratis en compras superiores a $150.000</li>
+            <li><i class="bi bi-shield-check me-2 text-success"></i> Garantía de 30 días</li>
+            <li><i class="bi bi-arrow-counterclockwise me-2 text-warning"></i> Devoluciones fáciles</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="mt-5 py-4 text-center text-muted">© 2025 GeekStore</footer>
+
+  <!-- scripts -->
+  <script src="../assets/js/loadTemplates.js"></script> <!-- si usas este para navbar/footer -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- tu JS del producto -->
+  <script src="../assets/js/product.js"></script>
+</body>
+</html>

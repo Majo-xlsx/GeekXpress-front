@@ -44,13 +44,16 @@ const registerForm = document.getElementById('register-form');
 loginForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const email = document.getElementById('email').value;
+  
   const password = document.getElementById('password').value;
+const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+const user = usuarios.find(u => u.email === email);
 
-  const user = localStorage.getItem(email);
   if (user) {
-    const userData = JSON.parse(user);
-    if (userData.password === password) {
+    if (user.password === password) {
+      localStorage.setItem('usuarioLogueado', JSON.stringify(user));
       alert('Inicio de sesión exitoso.');
+      window.location.href = 'catalog.html';
       loginForm.reset();
     } else {
       alert('Contraseña incorrecta.');
@@ -84,6 +87,9 @@ registerForm.addEventListener('submit', (e) => {
   const nuevoUsuario = {
     usuario: `${firstName} ${lastName}`,
     email,
+    firstName,
+    lastName,
+    password,
     tipoDoc: "",              
     documento: "",            
     telefono: "",             
@@ -91,7 +97,7 @@ registerForm.addEventListener('submit', (e) => {
     genero: "",               
     direccion: "",            
     ciudad: "",               
-    rol: "cliente",
+    rol: "admin",
     estado: "Activo",
     fechaRegistro: new Date().toISOString().split('T')[0],
     notas: "",
