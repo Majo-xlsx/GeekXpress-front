@@ -50,6 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const cardCol = document.createElement('div');
         cardCol.classList.add('col-12', 'col-sm-6', 'col-md-4', 'mb-4');
 
+                        // <i class="ver-detalle bi bi-eye-fill" data-id="${prod.id}"></i>
+
         cardCol.innerHTML = `
             <div class="card product-card" data-id="${prod.id}" data-categoria="${prod.categoria.toLowerCase()}">
                 <div class="card-img-container">
@@ -57,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     ${(prod.etiquetas || []).map(et => `<span class="badge bg-light text-dark">${et}</span>`).join('')}
                     <div class="iconos-acciones">
                         <i class="bi bi-heart-fill"></i>
-                        <i class="ver-detalle bi bi-eye-fill" data-id="${prod.id}"></i>
+
                     </div>
                 </div>
                 <div class="card-body">
@@ -124,19 +126,37 @@ document.addEventListener('DOMContentLoaded', () => {
     // EVENTO VER DETALLE (delegación)
     // ================================
 
-    productContainer.addEventListener("click", (e) => {
-        if (e.target.closest(".ver-detalle")) {
-            const icon = e.target.closest(".ver-detalle");
-            const id = icon.dataset.id; // 👈 ahora sí funciona
-            const allProducts = getAllProductsForRender();
-            const product = allProducts.find(p => p.id == id);
+    // productContainer.addEventListener("click", (e) => {
+    //     if (e.target.closest(".ver-detalle")) {
+    //         const icon = e.target.closest(".ver-detalle");
+    //         const id = icon.dataset.id; // 👈 ahora sí funciona
+    //         const allProducts = getAllProductsForRender();
+    //         const product = allProducts.find(p => p.id == id);
 
-            if (product) {
-                localStorage.setItem("selectedProduct", JSON.stringify(product));
-                window.location.href = "product.html";
-            }
+    //         if (product) {
+    //             localStorage.setItem("selectedProduct", JSON.stringify(product));
+    //             window.location.href = "product.html";
+    //         }
+    //     }
+    // });
+
+        productContainer.addEventListener("click", (e) => {
+    // Ignorar clics en el botón de agregar al carrito
+    if (e.target.closest(".btn-agregar-carrito")) {
+        return;
+    }
+
+    const card = e.target.closest(".product-card");
+    if (card) {
+        const id = card.dataset.id;
+        const allProducts = getAllProductsForRender();
+        const product = allProducts.find(p => p.id == id);
+
+        if (product) {
+            localStorage.setItem("selectedProduct", JSON.stringify(product));
+            window.location.href = "product.html";
         }
-    });
-
+    }
+});
 
 });
