@@ -2,20 +2,20 @@
   <div class="container-fluid">
 
     <!-- Logo -->
-    <a class="navbar-brand mx-2" href="#">
-      <img src="assets/img/logoo.png" alt="Logo" height="40">
+    <a class="navbar-brand mx-2" href="/GeekXpress-front/index.html">
+      <img src="/GeekXpress-front/assets/img/logoo.png" alt="Logo" height="40">
     </a>
 
-            <!-- Carrito + Botón hamburguesa (solo en móviles) -->
-            <div class="d-flex d-lg-none align-items-center ms-auto me-3">
-                <!-- Carrito móvil -->
-                <a href="../pages/carrito.html" class="nav-link position-relative me-3">
-                    <i class="bi bi-cart-fill"></i>
-                    <span class="contador-carrito position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        3
-                        <span class="visually-hidden">productos en carrito</span>
-                    </span>
-                </a>
+    <!-- Carrito + Botón hamburguesa (solo en móviles) -->
+    <div class="d-flex d-lg-none align-items-center ms-auto me-3">
+      <!-- Carrito móvil -->
+      <a href="/GeekXpress-front/pages/carrito.html" class="nav-link position-relative me-3">
+        <i class="bi bi-cart-fill"></i>
+        <span class="contador-carrito position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          3
+          <span class="visually-hidden">productos en carrito</span>
+        </span>
+      </a>
 
       <!-- Botón hamburguesa -->
       <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
@@ -32,37 +32,35 @@
         <!-- Menú central -->
         <ul class="navbar-nav w-100 justify-content-center mb-2 mb-lg-0 order-1">
           <li class="nav-item me-3">
-            <a class="nav-link" aria-current="page" href="#">Catálogo</a>
+            <a class="nav-link" href="/GeekXpress-front/pages/catalog.html">Catálogo</a>
           </li>
           <li class="nav-item me-3">
-            <a class="nav-link" href="#">Contáctanos</a>
+            <a class="nav-link" href="/GeekXpress-front/pages/contacto.html">Contáctanos</a>
           </li>
           <li class="nav-item me-3">
-            <a class="nav-link text-nowrap" href="#">Sobre nosotros</a>
+            <a class="nav-link text-nowrap" href="/GeekXpress-front/pages/nosotros.html">Sobre nosotros</a>
           </li>
         </ul>
 
-                    <!-- Cuenta + carrito escritorio -->
-                    <div class="d-flex flex-row align-items-center ms-lg-auto order-2 mt-lg-0 me-4">
-                        <a class="nav-link text-nowrap d-flex align-items-center" href="#" id="loginLinkNav">
-                            <!-- data-bs-toggle="modal" data-bs-target="#loginModal"> -->
-                        <span id="navUsuario">
-                            Iniciar sesión
-                        </span>
-                            <i class="bi bi-person-circle ms-2"></i>
-                        </a>
+        <!-- Cuenta + carrito escritorio -->
+        <div class="d-flex flex-row align-items-center ms-lg-auto order-2 mt-lg-0 me-4">
+          <a class="nav-link text-nowrap d-flex align-items-center" href="/GeekXpress-front/pages/login.html" id="loginLinkNav">
+            <span id="navUsuario">Iniciar sesión</span>
+            <i class="bi bi-person-circle ms-2"></i>
+          </a>
 
-                        <!-- Carrito visible solo en escritorio -->
-                        <a class="nav-link position-relative ms-3 d-none d-lg-flex" href="../pages/carrito.html">
-                            <i class="bi bi-cart-fill"></i>
-                            <span id="contador"
-                                class="contador-carrito position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                3
-                                <span class="visually-hidden">productos en carrito</span>
-                            </span>
-                        </a>
-                    </div>
-
-
+          <!-- Carrito visible solo en escritorio -->
+          <a class="nav-link position-relative ms-3 d-none d-lg-flex" href="/GeekXpress-front/pages/carrito.html">
+            <i class="bi bi-cart-fill"></i>
+            <span id="contador"
+              class="contador-carrito position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              3
+              <span class="visually-hidden">productos en carrito</span>
+            </span>
+          </a>
         </div>
-    </nav>
+
+      </div>
+    </div>
+  </div>
+</nav>
