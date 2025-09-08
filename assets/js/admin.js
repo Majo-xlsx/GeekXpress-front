@@ -57,6 +57,16 @@ document.addEventListener('DOMContentLoaded', () => {
     return { url: data.secure_url, public_id: data.public_id };
   }
 
+  // ---------- Formatear moneda COP ----------
+  function formatearCOP(valor) {
+  return new Intl.NumberFormat("es-CO", {
+    style: "currency",
+    currency: "COP",
+    minimumFractionDigits: 0, // sin decimales
+    maximumFractionDigits: 0
+  }).format(valor);
+}
+
   // ---------- Render tabla ----------
   function renderizarTablaProductos(filtro = '') {
     if (!tablaProductosBody) return;
@@ -90,14 +100,14 @@ document.addEventListener('DOMContentLoaded', () => {
       fila.innerHTML = `
         <td>
           <img src="${primeraImagen || 'https://via.placeholder.com/60'}"
-               alt="${producto.nombre}" class="producto-img"
-               style="width:60px;height:60px;object-fit:cover;border-radius:6px;">
+          alt="${producto.nombre}" class="producto-img"
+          style="width:60px;height:60px;object-fit:cover;border-radius:6px;">
         </td>
         <td>${producto.nombre}</td>
         <td>${producto.descripcion ? String(producto.descripcion).substring(0,40) + '...' : 'Sin descripción'}</td>
         <td>${producto.sku || ''}</td>
         <td><span class="badge bg-info">${producto.categoria || 'Sin categoría'}</span></td>
-        <td>$${Number(producto.precio || 0).toFixed(2)}</td>
+        <td>${ formatearCOP(producto.precio)}</td>
         <td>${producto.stock ?? 0}</td>
         <td><span class="badge ${producto.estado === 'Activo' ? 'bg-success' : 'bg-danger'}">${producto.estado || 'Inactivo'}</span></td>
         <td>
@@ -118,6 +128,13 @@ document.addEventListener('DOMContentLoaded', () => {
     editProductIndex = null;
     if (imageInput) imageInput.value = '';
   }
+
+
+
+// Ejemplo
+console.log(formatearCOP(1500));     // $ 1.500
+console.log(formatearCOP(2500000));  // $ 2.500.000
+
 
   // ---------- Preview & selección ----------
   if (imageInput) {
