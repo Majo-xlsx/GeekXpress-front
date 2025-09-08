@@ -724,7 +724,8 @@ nav.navbar .navbar-toggler-icon {
     border-radius: 50%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 1.5s ease-in-out;
-}/* ADMIN */
+}
+/* ADMIN */
 body {
   background-color: #130524;
   font-family: 'Segoe UI', sans-serif;
@@ -960,6 +961,7 @@ body {
   min-width: 100px;
   width: 130px;
 }
+
 
 .producto-img {
   width: 60px;
@@ -1214,12 +1216,8 @@ body {
     font-size: 0.9rem;
   }
 }
-.badge {
-  font-size: 0.75rem;
-  padding: 0.4em 0.8em;
 
-/* CATALOGO */
-
+/*CATALOGO*/
 body {
     background: linear-gradient(135deg, #0a0615, #130524, #1a0a2e);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
