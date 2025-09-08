@@ -724,8 +724,7 @@ nav.navbar .navbar-toggler-icon {
     border-radius: 50%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 1.5s ease-in-out;
-}
-/* ADMIN */
+}/* ADMIN */
 body {
   background-color: #130524;
   font-family: 'Segoe UI', sans-serif;
@@ -816,6 +815,8 @@ body {
   overflow: hidden;
   border-collapse: separate;
   border-spacing: 8px;
+  width: 100%;
+  table-layout: auto; /* Permite que las columnas se ajusten automáticamente */
 }
 
 .table-dark thead th {
@@ -828,6 +829,8 @@ body {
   text-align: center;
   box-shadow: 0 2px 8px rgba(64, 223, 255, 0.2);
   transition: all 0.3s ease;
+  white-space: nowrap; /* Evita que el texto se parta */
+  min-width: fit-content; /* Asegura espacio mínimo */
 }
 
 .table-dark thead th:hover {
@@ -844,6 +847,8 @@ body {
   transition: all 0.3s ease;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   vertical-align: middle;
+  white-space: nowrap; /* Evita que el contenido se parta */
+  min-width: fit-content; /* Asegura espacio mínimo */
 }
 
 .table-dark tbody tr:hover td {
@@ -858,6 +863,7 @@ body {
   background: none !important;
   -webkit-text-fill-color: inherit !important;
 }
+
 .table-dark .btn {
   background: transparent !important;
   border: 1px solid #40DFFF !important;
@@ -865,6 +871,8 @@ body {
   border-radius: 6px;
   padding: 0.3rem 0.6rem;
   transition: all 0.3s ease;
+  margin: 0 2px; /* Espacio entre botones */
+  white-space: nowrap;
 }
 
 .table-dark .btn:hover {
@@ -872,6 +880,85 @@ body {
   color: #fff !important;
   transform: translateY(-1px);
   box-shadow: 0 0 10px rgba(64, 223, 255, 0.3);
+}
+
+/* Estilos específicos para columnas */
+.table-dark .col-imagen {
+  width: 80px;
+  min-width: 80px;
+  text-align: center;
+}
+
+.table-dark .col-nombre {
+  min-width: 150px;
+  max-width: 200px;
+}
+
+.table-dark .col-descripcion {
+  min-width: 200px;
+  max-width: 300px;
+  white-space: normal; /* Permite que la descripción se parta en líneas */
+}
+
+.table-dark .col-sku {
+  min-width: 100px;
+  width: 120px;
+}
+
+.table-dark .col-categoria {
+  min-width: 100px;
+  width: 120px;
+}
+
+.table-dark .col-precio {
+  min-width: 80px;
+  width: 100px;
+  text-align: right;
+}
+
+.table-dark .col-stock {
+  min-width: 60px;
+  width: 80px;
+  text-align: center;
+}
+
+.table-dark .col-estado {
+  min-width: 100px;
+  width: 120px;
+  text-align: center;
+}
+
+.table-dark .col-rol {
+  min-width: 100px;
+  width: 120px;
+  text-align: center;
+}
+
+.table-dark .col-acciones {
+  min-width: 140px;
+  width: 160px;
+  text-align: center;
+}
+
+/* Estilos específicos para campos de usuario */
+.table-dark .col-email {
+  min-width: 180px;
+  max-width: 250px;
+}
+
+.table-dark .col-documento {
+  min-width: 120px;
+  width: 140px;
+}
+
+.table-dark .col-telefono {
+  min-width: 120px;
+  width: 140px;
+}
+
+.table-dark .col-ciudad {
+  min-width: 100px;
+  width: 130px;
 }
 
 .producto-img {
@@ -897,6 +984,9 @@ body {
   font-size: 0.75rem;
   padding: 0.4em 0.8em;
   border-radius: 12px;
+  display: inline-block; /* Asegura que se mantenga en línea */
+  white-space: nowrap; /* Evita que se parta */
+  min-width: fit-content; /* Asegura espacio mínimo */
 }
 
 .badge.bg-success {
@@ -930,7 +1020,7 @@ body {
 
 .admin-card table {
   width: 100%;
-  min-width: 600px;
+  min-width: 800px; /* Aumenté el ancho mínimo para mejor visualización */
 }
 
 .table-compact {
@@ -1006,6 +1096,7 @@ body {
   transition: all 0.3s ease;
   box-shadow: none !important;
 }
+
 .admin-form-card .btn-custom:hover,
 .np-form-card .btn-custom:hover {
   background: rgba(64, 223, 255, 0.15) !important;
@@ -1026,6 +1117,7 @@ body {
 .np-form-card .form-actions .btn-custom {
   margin-left: 0; 
 }
+
 .admin-form-card small,
 .np-form-card small {
   color: #fff !important;
@@ -1088,7 +1180,6 @@ body {
   font-weight: bold;
 }
 
-
 @media (max-width: 992px) {
   .admin-title {
     font-size: 2rem;
@@ -1111,7 +1202,21 @@ body {
     width: 50px;
     height: 50px;
   }
+  
+  /* Ajustes para móvil */
+  .admin-card table {
+    min-width: 600px;
+  }
+  
+  .table-dark thead th,
+  .table-dark tbody td {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
 }
+.badge {
+  font-size: 0.75rem;
+  padding: 0.4em 0.8em;
 
 /* CATALOGO */
 
