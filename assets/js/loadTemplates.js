@@ -19,5 +19,5 @@ function loadTemplate(id, url, callback) {
 }
 
 // Cargar plantillas
-loadTemplate("navbar", "components/navbar.html");
-loadTemplate("footer", "components/footer.html");
+loadTemplate("navbar", "../components/navbar.html");
+loadTemplate("footer", "../components/footer.html");

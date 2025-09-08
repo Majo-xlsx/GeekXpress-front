@@ -7,74 +7,79 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
-<body class="min-h-screen flex flex-col justify-center items-center px-4 py-10">
+<body class="lg-body flex flex-col min-h-screen items-center justify-start px-4">
 
-  <header class="mb-10 text-center">
+  <!-- HEADER -->
+  <header class="lg-header mb-10 text-center">
     <h1>GeekXpress</h1>
     <p>Tu tienda favorita de productos geek en Colombia</p>
   </header>
-<main class="lg-auth-container">
-  <nav class="lg-auth-tabs" aria-label="Authentication Tabs">
-    <button id="tab-login" aria-selected="true" aria-controls="panel-login" role="tab" type="button">
-      Iniciar Sesión
-    </button>
-    <button id="tab-register" aria-selected="false" aria-controls="panel-register" role="tab" type="button">
-      Crear Cuenta
-    </button>
-  </nav>
 
-  <!-- LOGIN -->
-  <section id="panel-login" role="tabpanel" aria-labelledby="tab-login" class="lg-auth-panel">
-    <h2>¡Bienvenido de vuelta!</h2>
-    <p>Ingresa a tu cuenta para continuar comprando</p>
+  <!-- CONTENEDOR -->
+  <main class="lg-auth-container">
+    <!-- TABS -->
+    <nav class="lg-auth-tabs" aria-label="Authentication Tabs">
+      <button id="tab-login" aria-selected="true" aria-controls="panel-login" role="tab" type="button">
+        Iniciar Sesión
+      </button>
+      <button id="tab-register" aria-selected="false" aria-controls="panel-register" role="tab" type="button">
+        Crear Cuenta
+      </button>
+    </nav>
 
-    <form id="login-form" class="lg-auth-form">
-      <label for="email">Email</label>
-      <input id="email" name="email" type="email" placeholder="tu@email.com" required>
+    <!-- LOGIN -->
+    <section id="panel-login" role="tabpanel" aria-labelledby="tab-login" class="lg-auth-panel">
+      <h2>¡Bienvenido de vuelta!</h2>
+      <p>Ingresa a tu cuenta para continuar comprando</p>
 
-      <label for="password">Contraseña</label>
-      <input id="password" name="password" type="password" placeholder="Tu contraseña" required>
+      <form id="login-form" class="lg-auth-form">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="tu@email.com" required>
 
-      <div class="lg-auth-options">
-        <label><input type="checkbox"> Recordarme</label>
-        <a href="#">¿Olvidaste tu contraseña?</a>
-      </div>
+        <label for="password">Contraseña</label>
+        <input id="password" name="password" type="password" placeholder="Tu contraseña" required>
 
-      <button type="submit" class="lg-btn-submit">Iniciar Sesión</button>
-    </form>
-  </section>
+        <div class="lg-auth-options">
+          <label><input type="checkbox"> Recordarme</label>
+          <a href="#">¿Olvidaste tu contraseña?</a>
+        </div>
 
-  <!-- REGISTER -->
-  <section id="panel-register" role="tabpanel" aria-labelledby="tab-register" hidden class="lg-auth-panel">
-    <h2>¡Únete a GeekXpress!</h2>
-    <p>Crea tu cuenta y accede a beneficios exclusivos</p>
+        <button type="submit" class="lg-btn-submit">Iniciar Sesión</button>
+      </form>
+    </section>
 
-    <form id="register-form" class="lg-auth-form">
-      <label for="first-name">Nombre</label>
-      <input id="first-name" type="text" placeholder="Juan" required>
+    <!-- REGISTER -->
+    <section id="panel-register" role="tabpanel" aria-labelledby="tab-register" hidden class="lg-auth-panel">
+      <h2>¡Únete a GeekXpress!</h2>
+      <p>Crea tu cuenta y accede a beneficios exclusivos</p>
 
-      <label for="last-name">Apellido</label>
-      <input id="last-name" type="text" placeholder="Pérez" required>
+      <form id="register-form" class="lg-auth-form">
+        <label for="first-name">Nombre</label>
+        <input id="first-name" type="text" placeholder="Juan" required>
 
-      <label for="email-register">Email</label>
-      <input id="email-register" type="email" placeholder="juan@email.com" required>
+        <label for="last-name">Apellido</label>
+        <input id="last-name" type="text" placeholder="Pérez" required>
 
-      <label for="password-register">Contraseña</label>
-      <input id="password-register" type="password" placeholder="Crea una contraseña segura" required>
+        <label for="email-register">Email</label>
+        <input id="email-register" type="email" placeholder="juan@email.com" required>
 
-      <label for="confirm-password">Confirmar Contraseña</label>
-      <input id="confirm-password" type="password" placeholder="Repite tu contraseña" required>
+        <label for="password-register">Contraseña</label>
+        <input id="password-register" type="password" placeholder="Crea una contraseña segura" required>
 
-      <label class="lg-terms">
-        <input type="checkbox" required> Acepto los <a href="#">términos</a> y <a href="#">políticas</a>
-      </label>
+        <label for="confirm-password">Confirmar Contraseña</label>
+        <input id="confirm-password" type="password" placeholder="Repite tu contraseña" required>
 
-      <button type="submit" class="lg-btn-submit">Crear Cuenta Gratuita</button>
-    </form>
-  </section>
-</main>
+        <label class="lg-terms">
+          <input type="checkbox" required> Acepto los <a href="#">términos</a> y <a href="#">políticas</a>
+        </label>
 
-  <footer class="mt-10">
+        <button type="submit" class="lg-btn-submit">Crear Cuenta Gratuita</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="mt-10 text-center">
     <a href="../pages/catalog.html" class="flex items-center justify-center gap-2" aria-label="Volver al inicio">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
         <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
