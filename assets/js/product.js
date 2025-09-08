@@ -1,179 +1,195 @@
-// product.js
+// product.js (corregido y robusto)
 document.addEventListener("DOMContentLoaded", () => {
-  // Leer producto seleccionado desde localStorage
-  let raw = localStorage.getItem("selectedProduct");
-  let product;
-  try {
-    product = raw ? JSON.parse(raw) : null;
-  } catch (e) {
-    product = null;
-  }
-
-  // Placeholder y fallback (si no hay selectedProduct)
   const PLACEHOLDER = "https://via.placeholder.com/600x600?text=Sin+imagen";
-  const fallback = {
-    title: "Figura Goku Super Saiyan",
-    brand: "Bandai",
-    category: "Anime",
-    rating: "4.8 (156 reseñas)",
-    price: 89900,
-    oldprice: 119900,
-    description: "Figura de acción de Goku en su transformación Super Saiyan. PVC, pintado a mano.",
-    features: [
-      "Altura: 15 cm",
-      "Material: PVC de alta calidad",
-      "Articulaciones móviles",
-      "Efectos de energía incluidos",
-      "Base incluida",
-      "Edición limitada"
-    ],
-    stock: 8,
-    images: [
-      "../assets/img/imgProducts/FIGURA_GOKU_01.png",
-      "../assets/img/imgProducts/FIGURA_GOKU_02.png",
-      "../assets/img/imgProducts/FIGURA_GOKU_03.png"
-    ]
-  };
+  const $ = (id) => document.getElementById(id);
 
-  if (!product) product = fallback;
-
-  // Si product tiene solo `img` en vez de `images`, convertirlo a array
-  if (!product.images || product.images.length === 0) {
-    if (product.img) product.images = [product.img];
-    else product.images = [PLACEHOLDER];
-  }
-
-  // Helpers
   const fmt = (n) => {
     const num = Number(n) || 0;
     try {
       return new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", maximumFractionDigits: 0 }).format(num);
-    } catch (e) {
+    } catch {
       return "$" + num;
     }
   };
 
-  const $ = (id) => document.getElementById(id);
+  const safeParseJSON = (raw, fallback = null) => {
+    try { return raw ? JSON.parse(raw) : fallback; } catch { return fallback; }
+  };
 
-  // Elementos DOM
+  // Cargar producto
+  const raw = localStorage.getItem("selectedProduct");
+  const product = safeParseJSON(raw, null);
+
+  if (!product) {
+    console.warn("No se encontró producto en localStorage (selectedProduct).");
+    return;
+  }
+
+  // Normalizar imagenes
+  if (!product.imagenes || product.imagenes.length === 0) {
+    product.imagenes = product.imagen ? [product.imagen] : [PLACEHOLDER];
+  }
+
+  // Helpers DOM (comprobamos elementos antes de usar)
+  const maybeSetText = (id, text) => {
+    const el = $(id);
+    if (el) el.textContent = text;
+  };
+  const maybeSetHTML = (id, html) => {
+    const el = $(id);
+    if (el) el.innerHTML = html;
+  };
+
+  // Render básico (solo si existen los elementos)
+  maybeSetText("product-title", product.nombre || "Producto");
+  maybeSetText("product-category", product.categoria || "");
+  maybeSetText("product-sku", product.sku ? `SKU: ${product.sku}` : "");
+  maybeSetText("product-price", fmt(product.precio));
+  maybeSetText("product-description", product.descripcion || "");
+  maybeSetText("breadcrumb-title", product.nombre || "Producto");
+
+  // Estado (badge)
+  const estadoEl = $("product-estado");
+  if (estadoEl) {
+    estadoEl.textContent = product.estado || "";
+    estadoEl.className = (product.estado === "Activo") ? "badge bg-success mb-2" : "badge bg-secondary mb-2";
+  }
+
+  // Stock
+  const stockEl = $("product-stock");
+  const stockNum = Number(product.stock) || 0;
+  if (stockEl) {
+    if (stockNum > 0) {
+      stockEl.innerHTML = `<i class="bi bi-check-circle-fill text-success me-2"></i> En stock (${stockNum})`;
+    } else {
+      stockEl.innerHTML = `<i class="bi bi-x-circle-fill text-danger me-2"></i> Agotado`;
+    }
+  }
+
+  // Galería
   const mainImg = $("product-img");
   const thumbsContainer = $("product-thumbnails");
-  const titleEl = $("product-title");
-  const brandEl = $("product-brand");
-  const catEl = $("product-category");
-  const ratingEl = $("product-rating");
-  const priceEl = $("product-price");
-  const oldPriceEl = $("product-oldprice");
-  const discountEl = $("product-discount");
-  const descEl = $("product-description");
-  const featuresEl = $("product-features");
-  const stockEl = $("product-stock");
+  if (mainImg) {
+    mainImg.src = product.imagenes[0] || PLACEHOLDER;
+    mainImg.alt = product.nombre || "Imagen de producto";
+  }
+  if (thumbsContainer) {
+    thumbsContainer.innerHTML = "";
+    product.imagenes.forEach((src, idx) => {
+      const img = document.createElement("img");
+      img.src = src || PLACEHOLDER;
+      img.alt = `${product.nombre} vista ${idx + 1}`;
+      img.className = "thumb";
+      if (idx === 0) img.classList.add("selected");
+      img.addEventListener("click", () => {
+        if (mainImg) mainImg.src = src || PLACEHOLDER;
+        thumbsContainer.querySelectorAll(".thumb").forEach(t => t.classList.remove("selected"));
+        img.classList.add("selected");
+      });
+      thumbsContainer.appendChild(img);
+    });
+  }
+
+  // Cantidad
+  let qty = 1;
   const qtyInput = $("quantity");
   const btnInc = $("increase-btn");
   const btnDec = $("decrease-btn");
-  const addToCartBtn = $("add-to-cart-btn");
-
-  // Llenar datos
-  titleEl.textContent = product.title || "Producto";
-  brandEl.textContent = product.brand || "";
-  catEl.textContent = product.category || "";
-  ratingEl.textContent = product.rating || "";
-  priceEl.textContent = fmt(product.price);
-  oldPriceEl.textContent = product.oldprice ? fmt(product.oldprice) : "";
-  descEl.textContent = product.description || "";
-
-  // descuento
-  const priceNum = Number(product.price) || 0;
-  const oldNum = Number(product.oldprice) || 0;
-  if (oldNum && oldNum > priceNum) {
-    const percent = Math.round(((oldNum - priceNum) / oldNum) * 100);
-    discountEl.style.display = "inline-block";
-    discountEl.textContent = `Ahorras ${fmt(oldNum - priceNum)} (${percent}% OFF)`;
-  } else {
-    discountEl.style.display = "none";
-  }
-
-  // features
-  featuresEl.innerHTML = "";
-  if (Array.isArray(product.features)) {
-    product.features.forEach(f => {
-      const li = document.createElement("li");
-      li.innerHTML = `<i class="bi bi-dot me-2 text-info"></i> ${f}`;
-      featuresEl.appendChild(li);
-    });
-  }
-
-  // stock
-  const stockNum = Number(product.stock) || 0;
-  if (stockNum > 0) {
-    stockEl.innerHTML = `<i class="bi bi-check-circle-fill text-success me-2"></i> En stock (${stockNum})`;
-  } else {
-    stockEl.innerHTML = `<i class="bi bi-x-circle-fill text-danger me-2"></i> Agotado`;
-  }
-
-  // galería (thumbnails) y main image
-  mainImg.src = product.images[0] || PLACEHOLDER;
-  thumbsContainer.innerHTML = "";
-  product.images.forEach((src, idx) => {
-    const img = document.createElement("img");
-    img.src = src || PLACEHOLDER;
-    img.className = "thumb";
-    if (idx === 0) img.classList.add("selected");
-    img.addEventListener("click", () => {
-      mainImg.src = src || PLACEHOLDER;
-      // marcar seleccionado
-      thumbsContainer.querySelectorAll(".thumb").forEach(t => t.classList.remove("selected"));
-      img.classList.add("selected");
-    });
-    thumbsContainer.appendChild(img);
-  });
-
-  // cantidad: lógica +/-
-  let qty = 1;
-  qtyInput.value = qty;
-
-  btnInc.addEventListener("click", () => {
-    if (stockNum && qty >= stockNum) return; // no subir si llega al stock
+  if (qtyInput) qtyInput.value = qty;
+  if (btnInc) btnInc.addEventListener("click", () => {
+    if (stockNum && qty >= stockNum) return;
     qty++;
-    qtyInput.value = qty;
+    if (qtyInput) qtyInput.value = qty;
   });
-
-  btnDec.addEventListener("click", () => {
+  if (btnDec) btnDec.addEventListener("click", () => {
     if (qty > 1) qty--;
-    qtyInput.value = qty;
+    if (qtyInput) qtyInput.value = qty;
   });
+  if (qtyInput) {
+    qtyInput.addEventListener("input", () => {
+      let v = parseInt(qtyInput.value, 10) || 1;
+      if (v < 1) v = 1;
+      if (stockNum && v > stockNum) v = stockNum;
+      qty = v;
+      qtyInput.value = qty;
+    });
+  }
 
-  // permitir editar input manualmente
-  qtyInput.addEventListener("input", () => {
-    let v = parseInt(qtyInput.value) || 1;
-    if (v < 1) v = 1;
-    if (stockNum && v > stockNum) v = stockNum;
-    qty = v;
-    qtyInput.value = qty;
-  });
+  // ---------- AGREGAR AL CARRITO ----------
+  // Buscamos botón por varios ids por compatibilidad con tu HTML
+  const addBtn = $("add-to-cart-btn") || $("btn-agregar-carrito") || document.querySelector(".btn-cart") || null;
+  if (!addBtn) {
+    console.warn("Botón para agregar al carrito no encontrado (esperado id 'add-to-cart-btn').");
+    return;
+  }
 
-  // agregar al carrito (guarda en localStorage 'cart')
-  addToCartBtn.addEventListener("click", () => {
-    if (stockNum === 0) {
-      alert("Lo sentimos, el producto está agotado.");
-      return;
+  addBtn.addEventListener("click", (e) => {
+    try {
+      if (stockNum === 0) {
+        alert("Lo sentimos, el producto está agotado.");
+        return;
+      }
+
+      const carrito = safeParseJSON(localStorage.getItem("carrito"), []);
+
+      const item = {
+        id: product.id,
+        nombre: product.nombre,
+        precio: Number(product.precio) || 0,
+        cantidad: qty,
+        imagen: (product.imagenes && product.imagenes[0]) || product.imagen || "https://via.placeholder.com/100"
+      };
+
+      const existente = carrito.find(p => p.id === item.id);
+      if (existente) {
+        if ((existente.cantidad || 0) + item.cantidad > (product.stock || 0)) {
+          alert("No puedes agregar más de lo disponible en stock.");
+          return;
+        }
+        existente.cantidad = (existente.cantidad || 0) + item.cantidad;
+      } else {
+        carrito.push(item);
+      }
+
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+
+      // Actualizar badges inmediatamente en la misma pestaña
+      const totalCantidad = carrito.reduce((acc, it) => acc + (it.cantidad || 0), 0);
+      document.querySelectorAll(".contador-carrito").forEach(el => el.textContent = totalCantidad);
+
+      // Emitir evento custom para que carrito.js (si lo adaptas) pueda escucharlo
+      window.dispatchEvent(new CustomEvent("carritoActualizado", { detail: { carrito } }));
+
+      // Llamar a funciones globales si fueron expuestas por carrito.js
+      if (typeof window.actualizarCarrito === "function") {
+        try { window.actualizarCarrito(); } catch (err) { /* silent */ }
+      }
+      if (typeof window.animarAlCarrito === "function") {
+        try { window.animarAlCarrito(addBtn, item.imagen); } catch (err) { /* silent */ }
+      }
+
+      // Feedback no bloqueante (toast simple)
+      const toast = document.createElement("div");
+      toast.textContent = `✅ Se agregaron ${item.cantidad} x ${item.nombre} al carrito.`;
+      Object.assign(toast.style, {
+        position: "fixed",
+        right: "20px",
+        bottom: "24px",
+        background: "rgba(0,0,0,0.75)",
+        color: "white",
+        padding: "10px 14px",
+        borderRadius: "8px",
+        zIndex: 9999,
+        // height: "80px",
+        // widht: "1300px"
+      });
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 2200);
+
+    } catch (err) {
+      console.error("Error al agregar al carrito:", err);
+      alert("Ocurrió un error al agregar el producto. Revisa la consola.");
     }
-
-    const cartRaw = localStorage.getItem("cart");
-    const cart = cartRaw ? JSON.parse(cartRaw) : [];
-
-    // item minimal info
-    const item = {
-      id: product.id || Date.now(),
-      title: product.title,
-      price: priceNum,
-      qty: qty,
-      img: product.images[0] || PLACEHOLDER
-    };
-
-    cart.push(item);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert(`Se agregaron ${qty} x ${product.title} al carrito.`);
   });
 
 });
