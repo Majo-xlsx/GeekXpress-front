@@ -1,5 +1,6 @@
 function loadTemplate(id, url, callback) {
-    fetch(url)
+    const base = "/GeekXpress-front/";
+    fetch(base + url)
         .then(response => response.text())
         .then(data => {
             document.getElementById(id).innerHTML = data;
@@ -18,5 +19,5 @@ function loadTemplate(id, url, callback) {
 }
 
 // Cargar plantillas
-loadTemplate("navbar", "../components/navbar.html");
-loadTemplate("footer", "../components/footer.html");
+loadTemplate("navbar", "components/navbar.html");
+loadTemplate("footer", "components/footer.html");
