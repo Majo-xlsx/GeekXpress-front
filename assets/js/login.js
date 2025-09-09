@@ -3,6 +3,7 @@ const tabRegister = document.getElementById('tab-register');
 const panelLogin = document.getElementById('panel-login');
 const panelRegister = document.getElementById('panel-register');
 
+// --- Tabs de login/register ---
 tabLogin.addEventListener('click', () => {
   tabLogin.setAttribute('aria-selected', 'true');
   tabRegister.setAttribute('aria-selected', 'false');
@@ -17,12 +18,13 @@ tabRegister.addEventListener('click', () => {
   tabRegister.setAttribute('aria-selected', 'true');
   tabLogin.setAttribute('aria-selected', 'false');
   panelRegister.hidden = false;
-  panelLogin.hidden = true; 
+  panelLogin.hidden = true;
 
   tabRegister.classList.add('text-white', 'font-semibold');
   tabLogin.classList.remove('text-white', 'font-semibold');
 });
 
+// --- Toggle password ---
 function togglePasswordVisibility() {
   const passwordInput = document.getElementById('password');
   const eyeOpen = document.getElementById('eye-open');
@@ -38,30 +40,36 @@ function togglePasswordVisibility() {
   }
 }
 
+// --- Formularios ---
 const loginForm = document.getElementById('login-form');
 const registerForm = document.getElementById('register-form');
 
+// --- Login ---
 loginForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const email = document.getElementById('email').value;
-  
   const password = document.getElementById('password').value;
-const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-const user = usuarios.find(u => u.email === email);
 
-  if (user) {
-    if (user.password === password) {
-      localStorage.setItem('usuarioLogueado', JSON.stringify(user));
-      alert('Inicio de sesión exitoso.');
-      window.location.href = 'catalog.html';
-      loginForm.reset();
-    } else {
-      alert('Contraseña incorrecta.');
-    }
-  } else {
+  const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+  const user = usuarios.find(u => u.email === email);
+
+  if (!user) {
     alert('Email no registrado.');
+    return;
   }
+
+  if (user.password !== password) {
+    alert('Contraseña incorrecta.');
+    return;
+  }
+
+  localStorage.setItem('usuarioLogueado', JSON.stringify(user));
+  alert('Inicio de sesión exitoso.');
+  loginForm.reset();
+  window.location.href = 'catalog.html';
 });
+
+// --- Registro ---
 registerForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const firstName = document.getElementById('first-name').value;
@@ -73,11 +81,8 @@ registerForm.addEventListener('submit', (e) => {
   if (password !== confirmPassword) {
     alert('Las contraseñas no coinciden.');
     return;
-
-  
   }
 
-  // recupera usuarios ya guardados
   let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
 
   if (usuarios.some(u => u.email === email)) {
@@ -85,20 +90,19 @@ registerForm.addEventListener('submit', (e) => {
     return;
   }
 
-  // creacion de usuarios
   const nuevoUsuario = {
     usuario: `${firstName} ${lastName}`,
     email,
     firstName,
     lastName,
     password,
-    tipoDoc: "",              
-    documento: "",            
-    telefono: "",             
-    fechaNacimiento: "",      
-    genero: "",               
-    direccion: "",            
-    ciudad: "",               
+    tipoDoc: "",
+    documento: "",
+    telefono: "",
+    fechaNacimiento: "",
+    genero: "",
+    direccion: "",
+    ciudad: "",
     rol: "admin",
     estado: "Activo",
     fechaRegistro: new Date().toISOString().split('T')[0],
@@ -107,12 +111,11 @@ registerForm.addEventListener('submit', (e) => {
 
   usuarios.push(nuevoUsuario);
   localStorage.setItem('usuarios', JSON.stringify(usuarios));
+
+  // Guardar sesión activa automáticamente
   localStorage.setItem('usuarioLogueado', JSON.stringify(nuevoUsuario));
 
-  alert('Cuenta creada.');
+  alert('Cuenta creada. Redirigiendo al catálogo...');
   registerForm.reset();
-  tabLogin.click();
-
   window.location.href = 'catalog.html';
-
 });

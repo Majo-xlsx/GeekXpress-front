@@ -1,5 +1,4 @@
 function loadTemplate(id, url, callback) {
-    // const base = "/GeekXpress-front/";
     fetch(url)
         .then(response => response.text())
         .then(data => {
