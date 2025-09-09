@@ -471,7 +471,8 @@ document.addEventListener('DOMContentLoaded', () => {
         rol: document.getElementById('rolUsuario')?.value || 'cliente',
         estado: document.getElementById('estadoUsuario')?.value || 'Activo',
         fechaRegistro: document.getElementById('fechaRegistro')?.value || new Date().toISOString().split('T')[0],
-        notas: document.getElementById('notasUsuario')?.value || ''
+        notas: document.getElementById('notasUsuario')?.value || '',
+        password: document.getElementById('passwordUsuario')?.value || '',
       };
 
       if (editUserIndex !== null) {
@@ -554,6 +555,7 @@ if (btn.classList.contains('ver-usuario')) {
         (document.getElementById('estadoUsuario') || {}).value = u.estado || 'Activo';
         (document.getElementById('fechaRegistro') || {}).value = u.fechaRegistro || new Date().toISOString().split('T')[0];
         (document.getElementById('notasUsuario') || {}).value = u.notas || '';
+        (document.getElementById('passwordUsuario') || {}).value = '';
 
 
         setTextoBotonUsuario("editar");
