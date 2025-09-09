@@ -1459,6 +1459,8 @@ h1::after, h2::after {
         0 20px 60px rgba(64, 223, 255, 0.2),
         0 0 0 1px rgba(64, 223, 255, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.2);
+         cursor: pointer;
+
 }
 
 .card-img-container {
@@ -1469,7 +1471,6 @@ h1::after, h2::after {
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
 }
 
 .card-img-container img {
