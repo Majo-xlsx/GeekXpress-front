@@ -331,19 +331,39 @@ console.log(formatearCOP(2500000));  // $ 2.500.000
       }
 
       if (btn.classList.contains('ver-btn')) {
-        const producto = productos[index];
-        let info = `Información del Producto:\n\n`;
-        info += `Nombre: ${producto.nombre}\n`;
-        info += `SKU: ${producto.sku}\n`;
-        info += `Categoría: ${producto.categoria || 'Sin categoría'}\n`;
-        info += `Precio: $${Number(producto.precio || 0).toFixed(2)}\n`;
-        info += `Stock: ${producto.stock ?? 0}\n`;
-        info += `Estado: ${producto.estado || 'Inactivo'}\n`;
-        info += `Descripción: ${producto.descripcion || 'Sin descripción'}\n`;
-        if (producto.imagenes && producto.imagenes.length > 1) info += `Imágenes: ${producto.imagenes.length}\n`;
-        alert(info);
-        return;
-      }
+  const producto = productos[index];
+
+  // Generar las imágenes
+  let imagenesHTML = '';
+  if (producto.imagenes && producto.imagenes.length > 0) {
+    imagenesHTML = producto.imagenes.map(img =>
+      `<img src="${img}" alt="${producto.nombre}" class="img-thumbnail me-2 mb-2" style="max-width:150px;">`
+    ).join('');
+  } else {
+    imagenesHTML = `<p class="text-muted">Sin imágenes</p>`;
+  }
+
+  // Contenido del modal
+  const modalContent = `
+    <p><strong>Nombre:</strong> ${producto.nombre}</p>
+    <p><strong>SKU:</strong> ${producto.sku}</p>
+    <p><strong>Categoría:</strong> ${producto.categoria || 'Sin categoría'}</p>
+    <p><strong>Precio:</strong> ${formatearCOP(producto.precio)}</p>
+    <p><strong>Stock:</strong> ${producto.stock ?? 0}</p>
+    <p><strong>Estado:</strong> ${producto.estado || 'Inactivo'}</p>
+    <p><strong>Descripción:</strong> ${producto.descripcion || 'Sin descripción'}</p>
+    <div class="d-flex flex-wrap">${imagenesHTML}</div>
+  `;
+
+  // Insertar el contenido en el body del modal
+  document.getElementById('detalleProductoBody').innerHTML = modalContent;
+
+  // Abrir el modal con Bootstrap
+  const modal = new bootstrap.Modal(document.getElementById('detalleProductoModal'));
+  modal.show();
+}
+
+
     });
   }
 
