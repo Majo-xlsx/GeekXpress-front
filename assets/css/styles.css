@@ -1469,6 +1469,7 @@ h1::after, h2::after {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .card-img-container img {
