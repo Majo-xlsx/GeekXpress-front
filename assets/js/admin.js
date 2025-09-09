@@ -512,14 +512,31 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      if (btn.classList.contains('ver-usuario')) {
-        const u = usuarios[index];
-        let info = `Información del Usuario:\n\n`;
-        info += `Nombre: ${u.usuario}\nEmail: ${u.email}\nDocumento: ${u.tipoDoc} ${u.documento}\nTeléfono: ${u.telefono || 'No registrado'}\nCiudad: ${u.ciudad || 'No registrada'}\nRol: ${u.rol}\nEstado: ${u.estado}\nFecha registro: ${u.fechaRegistro}\n`;
-        if (u.notas) info += `Notas: ${u.notas}\n`;
-        alert(info);
-        return;
-      }
+if (btn.classList.contains('ver-usuario')) {
+  const u = usuarios[index];
+
+  const infoHtml = `
+    <div class="col">
+        <p><strong>Nombre:</strong> ${u.usuario}</p>
+        <p><strong>Email:</strong> ${u.email}</p>
+        <p><strong>Documento:</strong> ${u.tipoDoc} ${u.documento}</p>
+        <p><strong>Teléfono:</strong> ${u.telefono || 'No registrado'}</p>
+        <p><strong>Ciudad:</strong> ${u.ciudad || 'No registrada'}</p>
+        <p><strong>Rol:</strong> ${u.rol}</p>
+        <p><strong>Estado:</strong> ${u.estado}</p>
+        <p><strong>Fecha de Registro:</strong> ${u.fechaRegistro}</p>
+    </div>
+    ${u.notas ? `<div class="mt-3"><p><strong>Notas:</strong> ${u.notas}</p></div>` : ''}
+  `;
+
+  document.getElementById('detalleUsuarioBody').innerHTML = infoHtml;
+
+  const modalEl = document.getElementById('detalleUsuarioModal');
+  const modal = new bootstrap.Modal(modalEl);
+  modal.show();
+}
+
+
 
       if (btn.classList.contains('editar-usuario')) {
         editUserIndex = index;
