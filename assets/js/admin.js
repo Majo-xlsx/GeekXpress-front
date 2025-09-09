@@ -127,13 +127,13 @@ document.addEventListener('DOMContentLoaded', () => {
     selectedFiles = [];
     editProductIndex = null;
     if (imageInput) imageInput.value = '';
+    const btnSubmit = document.getElementById('admin-product-submit');
+    if (btnSubmit) {
+    const span = btnSubmit.querySelector('span') || btnSubmit;
+    span.textContent = "Crear producto";
+  }
   }
 
-
-
-// Ejemplo
-console.log(formatearCOP(1500));     // $ 1.500
-console.log(formatearCOP(2500000));  // $ 2.500.000
 
 
   // ---------- Preview & selección ----------
@@ -283,6 +283,12 @@ console.log(formatearCOP(2500000));  // $ 2.500.000
       }
 
       if (btn.classList.contains('editar-btn')) {
+
+        const btnSubmit = document.getElementById('admin-product-submit');
+        if (btnSubmit) {
+          const span = btnSubmit.querySelector('span') || btnSubmit; 
+          span.textContent = "Editar producto";
+        }
         // preparar edición
         editProductIndex = index;
         const producto = productos[index];
@@ -391,6 +397,10 @@ console.log(formatearCOP(2500000));  // $ 2.500.000
     editUserIndex = null;
     const fechaReg = document.getElementById('fechaRegistro');
     if (fechaReg) fechaReg.value = new Date().toISOString().split('T')[0];
+
+    setTextoBotonUsuario("crear");
+
+
   }
 
   function renderizarUsuarios(filtro = '') {
@@ -487,6 +497,7 @@ console.log(formatearCOP(2500000));  // $ 2.500.000
 
   if (tablaUsuariosBody) {
     tablaUsuariosBody.addEventListener('click', e => {
+
       const btn = e.target.closest('button');
       if (!btn) return;
       const index = parseInt(btn.dataset.index);
@@ -526,11 +537,27 @@ console.log(formatearCOP(2500000));  // $ 2.500.000
         (document.getElementById('estadoUsuario') || {}).value = u.estado || 'Activo';
         (document.getElementById('fechaRegistro') || {}).value = u.fechaRegistro || new Date().toISOString().split('T')[0];
         (document.getElementById('notasUsuario') || {}).value = u.notas || '';
+
+
+        setTextoBotonUsuario("editar");
+
         const modalEl = document.getElementById('nuevoUsuarioModal');
         if (modalEl) new bootstrap.Modal(modalEl).show();
       }
     });
   }
+
+  function setTextoBotonUsuario(modo) {
+  const spanBtn = document.getElementById('admin-user-submit');
+  if (!spanBtn) return;
+
+  if (modo === 'editar') {
+    spanBtn.textContent = "Editar Usuario";
+  } else {
+    spanBtn.textContent = "Crear Usuario";
+  }
+}
+
 
   // ---------- Inicializar ----------
   renderizarTablaProductos();
