@@ -1,8 +1,6 @@
 // admin3.js (Cloudinary integrado)
-// Reemplaza estas constantes con tus datos de Cloudinary
-
-const CLOUDINARY_CLOUD_NAME = 'dz4qsmco8'; // <- cambia esto
-const CLOUDINARY_UPLOAD_PRESET = 'geekxpress'; // <- cambia esto (unsigned preset)
+const CLOUDINARY_CLOUD_NAME = 'dz4qsmco8';
+const CLOUDINARY_UPLOAD_PRESET = 'geekxpress';
 const CLOUDINARY_UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -26,8 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ---------- Estado ----------
-  let editProductIndex = null; // índice del producto a editar en localStorage
-  let selectedFiles = []; // File[] elegidos en el input para subir
+  let editProductIndex = null;
+  let selectedFiles = [];
 
   // ---------- Helpers ----------
   function getProducts() {
@@ -44,6 +42,38 @@ document.addEventListener('DOMContentLoaded', () => {
   function safeText(v) {
     return (v === undefined || v === null) ? '' : v;
   }
+
+  // Función para obtener la clase CSS según el estado
+  function getEstadoClass(estado) {
+    switch(estado?.toLowerCase()) {
+      case 'activo': return 'estado-activo';
+      case 'inactivo': return 'estado-inactivo';
+      default: return 'estado-inactivo';
+    }
+  }
+
+  // Función para obtener la clase CSS según la categoría
+  function getCategoriaClass(categoria) {
+    switch(categoria?.toLowerCase()) {
+      case 'anime': return 'categoria-anime';
+      case 'videojuegos': return 'categoria-videojuegos';
+      case 'cómics': case 'comics': return 'categoria-comics';
+      case 'cartas': return 'categoria-cartas';
+      case 'accesorios': return 'categoria-accesorios';
+      default: return 'categoria-accesorios';
+    }
+  }
+
+  // Función para obtener la clase CSS según el rol
+  function getRolClass(rol) {
+    switch(rol?.toLowerCase()) {
+      case 'admin': case 'administrador': return 'rol-admin';
+      case 'cliente': return 'rol-cliente';
+      case 'moderador': return 'rol-moderador';
+      default: return 'rol-cliente';
+    }
+  }
+
   async function uploadToCloudinary(file) {
     const fd = new FormData();
     fd.append('file', file);
@@ -57,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return { url: data.secure_url, public_id: data.public_id };
   }
 
-  // ---------- Render tabla ----------
+  // ---------- Render tabla productos ----------
   function renderizarTablaProductos(filtro = '') {
     if (!tablaProductosBody) return;
     const productos = getProducts();
@@ -81,12 +111,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     filtrados.forEach(producto => {
-      // obtener índice real por SKU (asumiendo SKU único)
       const all = getProducts();
       const realIndex = all.findIndex(p => p.sku === producto.sku);
 
       const fila = document.createElement('tr');
       const primeraImagen = Array.isArray(producto.imagenes) ? producto.imagenes[0] : producto.imagen;
+      
       fila.innerHTML = `
         <td>
           <img src="${primeraImagen || 'https://via.placeholder.com/60'}"
@@ -96,10 +126,10 @@ document.addEventListener('DOMContentLoaded', () => {
         <td>${producto.nombre}</td>
         <td>${producto.descripcion ? String(producto.descripcion).substring(0,40) + '...' : 'Sin descripción'}</td>
         <td>${producto.sku || ''}</td>
-        <td><span class="badge bg-info">${producto.categoria || 'Sin categoría'}</span></td>
+        <td><span class="${getCategoriaClass(producto.categoria)}">${producto.categoria || 'Sin categoría'}</span></td>
         <td>$${Number(producto.precio || 0).toFixed(2)}</td>
         <td>${producto.stock ?? 0}</td>
-        <td><span class="badge ${producto.estado === 'Activo' ? 'bg-success' : 'bg-danger'}">${producto.estado || 'Inactivo'}</span></td>
+        <td><span class="${getEstadoClass(producto.estado)}">${producto.estado || 'Inactivo'}</span></td>
         <td>
           <button class="btn btn-sm btn-warning editar-btn" data-index="${realIndex}" title="Editar">✏️</button>
           <button class="btn btn-sm btn-info ver-btn" data-index="${realIndex}" title="Ver">👁</button>
@@ -131,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       files.forEach((file, idx) => {
         selectedFiles.push(file);
-        const displayUrl = URL.createObjectURL(file); // solo para preview
+        const displayUrl = URL.createObjectURL(file);
 
         const container = document.createElement('div');
         container.className = 'image-preview-item position-relative';
@@ -170,7 +200,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const sku = (document.getElementById('skuProducto')?.value || '').trim();
       if (!sku) { alert('El SKU es obligatorio.'); return; }
 
-      // const id = document.getElementById('nombreProducto')?.value || '';
       const nombre = document.getElementById('nombreProducto')?.value || 'Sin nombre';
       const descripcion = document.getElementById('descripcionProducto')?.value || '';
       const precio = parseFloat(document.getElementById('precioProducto')?.value) || 0;
@@ -182,7 +211,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const isEditing = editProductIndex !== null && productos[editProductIndex];
       const imagenesExistentes = isEditing ? (productos[editProductIndex].imagenes || []) : [];
 
-      // Subir nuevas imágenes seleccionadas (si hay)
       let nuevasUrls = [];
       if (selectedFiles.length > 0) {
         try {
@@ -194,7 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
-      // Resolver imágenes finales
       const imagenesFinales = nuevasUrls.length > 0
         ? nuevasUrls
         : (imagenesExistentes.length > 0 ? imagenesExistentes : ['https://via.placeholder.com/100']);
@@ -212,7 +239,6 @@ document.addEventListener('DOMContentLoaded', () => {
         imagen: imagenesFinales[0]
       };
 
-      // Guardar en localStorage
       if (isEditing) {
         productos[editProductIndex] = productoData;
         alert(`Producto "${productoData.nombre}" actualizado correctamente!`);
@@ -227,7 +253,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       setProducts(productos);
 
-      // Cerrar modal y limpiar
       if (modalProductoEl) {
         const modalInstance = bootstrap.Modal.getInstance(modalProductoEl) || new bootstrap.Modal(modalProductoEl);
         modalInstance.hide();
@@ -266,7 +291,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (btn.classList.contains('editar-btn')) {
-        // preparar edición
         editProductIndex = index;
         const producto = productos[index];
 
@@ -278,9 +302,8 @@ document.addEventListener('DOMContentLoaded', () => {
         (document.getElementById('categoriaProducto') || {}).value = producto.categoria || '';
         (document.getElementById('estadoProducto') || {}).value = producto.estado || 'Activo';
 
-        // Mostrar imágenes existentes en preview (solo visual)
         if (imagePreview) imagePreview.innerHTML = '';
-        selectedFiles = []; // no hay nuevos archivos aún
+        selectedFiles = [];
         const imgs = Array.isArray(producto.imagenes) ? producto.imagenes : (producto.imagen ? [producto.imagen] : []);
         imgs.forEach((p, idx) => {
           const container = document.createElement('div');
@@ -356,6 +379,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (fechaReg) fechaReg.value = new Date().toISOString().split('T')[0];
   }
 
+  // ---------- Render tabla usuarios ----------
   function renderizarUsuarios(filtro = '') {
     if (!tablaUsuariosBody) return;
     tablaUsuariosBody.innerHTML = '';
@@ -379,14 +403,25 @@ document.addEventListener('DOMContentLoaded', () => {
     filtrados.forEach(u => {
       const realIndex = usuarios.findIndex(x => x.email === u.email && x.documento === u.documento);
       const fila = document.createElement('tr');
+      
+      // Función para obtener clase de estado para usuarios
+      function getEstadoUsuarioClass(estado) {
+        switch(estado?.toLowerCase()) {
+          case 'activo': return 'estado-activo';
+          case 'inactivo': return 'estado-inactivo';
+          case 'suspendido': return 'estado-suspendido';
+          default: return 'estado-inactivo';
+        }
+      }
+      
       fila.innerHTML = `
         <td class="producto-nombre">${u.usuario}</td>
         <td>${u.email}</td>
         <td><div class="fw-semibold">${u.tipoDoc}</div><small class="text-muted">${u.documento}</small></td>
         <td>${u.telefono || ''}</td>
         <td>${u.ciudad || ''}</td>
-        <td><span class="badge bg-info text-capitalize">${u.rol}</span></td>
-        <td><span class="badge ${u.estado === 'Activo' ? 'bg-success' : u.estado === 'Suspendido' ? 'bg-warning' : 'bg-danger'}">${u.estado}</span></td>
+        <td><span class="${getRolClass(u.rol)}">${u.rol}</span></td>
+        <td><span class="${getEstadoUsuarioClass(u.estado)}">${u.estado}</span></td>
         <td>
           <button class="btn btn-sm btn-warning editar-usuario" data-index="${realIndex}" title="Editar">✏️</button>
           <button class="btn btn-sm btn-info ver-usuario" data-index="${realIndex}" title="Ver">👁</button>

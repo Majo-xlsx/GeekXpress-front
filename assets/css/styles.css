@@ -725,6 +725,7 @@ nav.navbar .navbar-toggler-icon {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 1.5s ease-in-out;
 }
+
 /* ADMIN */
 body {
   background-color: #130524;
@@ -809,7 +810,7 @@ body {
   box-shadow: 0 0 10px rgba(64, 223, 255, 0.4);
 }
 
-/*TABLAS*/
+/*TABLAS MEJORADAS*/
 .table-dark {
   background-color: transparent;
   border-radius: 0.75rem;
@@ -817,7 +818,7 @@ body {
   border-collapse: separate;
   border-spacing: 8px;
   width: 100%;
-  table-layout: auto; /* Permite que las columnas se ajusten automáticamente */
+  table-layout: fixed; /* Cambiado de auto a fixed para mejor control */
 }
 
 .table-dark thead th {
@@ -830,8 +831,9 @@ body {
   text-align: center;
   box-shadow: 0 2px 8px rgba(64, 223, 255, 0.2);
   transition: all 0.3s ease;
-  white-space: nowrap; /* Evita que el texto se parta */
-  min-width: fit-content; /* Asegura espacio mínimo */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .table-dark thead th:hover {
@@ -848,8 +850,8 @@ body {
   transition: all 0.3s ease;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   vertical-align: middle;
-  white-space: nowrap; /* Evita que el contenido se parta */
-  min-width: fit-content; /* Asegura espacio mínimo */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .table-dark tbody tr:hover td {
@@ -870,10 +872,12 @@ body {
   border: 1px solid #40DFFF !important;
   color: #40DFFF !important;
   border-radius: 6px;
-  padding: 0.3rem 0.6rem;
+  padding: 0.25rem 0.5rem;
   transition: all 0.3s ease;
-  margin: 0 2px; /* Espacio entre botones */
+  margin: 0 2px;
+  font-size: 0.75rem;
   white-space: nowrap;
+  display: inline-block;
 }
 
 .table-dark .btn:hover {
@@ -883,85 +887,152 @@ body {
   box-shadow: 0 0 10px rgba(64, 223, 255, 0.3);
 }
 
-/* Estilos específicos para columnas */
+/* Estilos específicos para columnas - MEJORADOS */
 .table-dark .col-imagen {
   width: 80px;
-  min-width: 80px;
   text-align: center;
 }
 
 .table-dark .col-nombre {
-  min-width: 150px;
-  max-width: 200px;
+  width: 180px;
+  white-space: normal;
+  word-wrap: break-word;
 }
 
 .table-dark .col-descripcion {
-  min-width: 200px;
-  max-width: 300px;
-  white-space: normal; /* Permite que la descripción se parta en líneas */
+  width: 250px;
+  white-space: normal;
+  word-wrap: break-word;
+  max-height: 60px;
+  overflow: hidden;
 }
 
 .table-dark .col-sku {
-  min-width: 100px;
   width: 120px;
+  text-align: center;
 }
 
 .table-dark .col-categoria {
-  min-width: 100px;
   width: 120px;
+  text-align: center;
 }
 
 .table-dark .col-precio {
-  min-width: 80px;
   width: 100px;
   text-align: right;
 }
 
 .table-dark .col-stock {
-  min-width: 60px;
   width: 80px;
   text-align: center;
 }
 
 .table-dark .col-estado {
-  min-width: 100px;
-  width: 120px;
+  width: 100px;
   text-align: center;
 }
 
 .table-dark .col-rol {
-  min-width: 100px;
   width: 120px;
   text-align: center;
 }
 
 .table-dark .col-acciones {
-  min-width: 140px;
-  width: 160px;
+  width: 140px;
   text-align: center;
 }
 
 /* Estilos específicos para campos de usuario */
 .table-dark .col-email {
-  min-width: 180px;
-  max-width: 250px;
+  width: 200px;
+  white-space: normal;
+  word-wrap: break-word;
 }
 
 .table-dark .col-documento {
-  min-width: 120px;
   width: 140px;
+  text-align: center;
 }
 
 .table-dark .col-telefono {
-  min-width: 120px;
-  width: 140px;
+  width: 130px;
+  text-align: center;
 }
 
 .table-dark .col-ciudad {
-  min-width: 100px;
-  width: 130px;
+  width: 120px;
+  text-align: center;
 }
 
+/* NUEVOS ESTILOS PARA TEXTO SIMPLE */
+.table-dark .text-estado {
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 4px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  text-align: center;
+  min-width: 70px;
+}
+
+.table-dark .text-estado.activo {
+  background: rgba(40, 167, 69, 0.2);
+  color: #28a745;
+  border: 1px solid rgba(40, 167, 69, 0.3);
+}
+
+.table-dark .text-estado.inactivo {
+  background: rgba(220, 53, 69, 0.2);
+  color: #dc3545;
+  border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+.table-dark .text-estado.suspendido {
+  background: rgba(255, 193, 7, 0.2);
+  color: #ffc107;
+  border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.table-dark .text-rol {
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 4px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  text-align: center;
+  min-width: 80px;
+}
+
+.table-dark .text-rol.admin {
+  background: rgba(156, 24, 161, 0.2);
+  color: #9C18A1;
+  border: 1px solid rgba(156, 24, 161, 0.3);
+}
+
+.table-dark .text-rol.cliente {
+  background: rgba(64, 223, 255, 0.2);
+  color: #40DFFF;
+  border: 1px solid rgba(64, 223, 255, 0.3);
+}
+
+.table-dark .text-rol.moderador {
+  background: rgba(23, 162, 184, 0.2);
+  color: #17a2b8;
+  border: 1px solid rgba(23, 162, 184, 0.3);
+}
+
+.table-dark .text-categoria {
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 4px 8px;
+  border-radius: 8px;
+  display: inline-block;
+  text-align: center;
+  background: rgba(64, 223, 255, 0.1);
+  color: #40DFFF;
+  border: 1px solid rgba(64, 223, 255, 0.2);
+  min-width: 70px;
+}
 
 .producto-img {
   width: 60px;
@@ -980,34 +1051,13 @@ body {
   font-size: 0.85rem;
   color: #b8a8c8;
   margin-top: 2px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.badge {
-  font-size: 0.75rem;
-  padding: 0.4em 0.8em;
-  border-radius: 12px;
-  display: inline-block; /* Asegura que se mantenga en línea */
-  white-space: nowrap; /* Evita que se parta */
-  min-width: fit-content; /* Asegura espacio mínimo */
-}
-
-.badge.bg-success {
-  background: linear-gradient(45deg, #28a745, #34ce57) !important;
-}
-
-.badge.bg-warning {
-  background: linear-gradient(45deg, #ffc107, #ffda6a) !important;
-  color: #000 !important;
-}
-
-.badge.bg-danger {
-  background: linear-gradient(45deg, #dc3545, #e74c3c) !important;
-}
-
-.badge.bg-info {
-  background: linear-gradient(45deg, #17a2b8, #40DFFF) !important;
-}
-
+/* Removemos los estilos de badge para usar texto simple */
 .table-responsive {
   border-radius: 0.75rem;
   overflow-x: auto;
@@ -1022,7 +1072,7 @@ body {
 
 .admin-card table {
   width: 100%;
-  min-width: 800px; /* Aumenté el ancho mínimo para mejor visualización */
+  min-width: 900px;
 }
 
 .table-compact {
@@ -1207,16 +1257,100 @@ body {
   
   /* Ajustes para móvil */
   .admin-card table {
-    min-width: 600px;
+    min-width: 700px;
   }
   
   .table-dark thead th,
   .table-dark tbody td {
-    padding: 8px 12px;
-    font-size: 0.9rem;
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
+  
+  .table-dark .col-nombre {
+    width: 150px;
+  }
+  
+  .table-dark .col-descripcion {
+    width: 200px;
+  }
+  
+  .table-dark .col-email {
+    width: 180px;
   }
 }
+/* ESTILOS PARA TEXTO SIMPLE SIN BADGES */
+/* Agregar estas clases al final de tu archivo styles.css */
 
+.estado-activo {
+  color: #28a745 !important;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.estado-inactivo {
+  color: #6c757d !important;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.estado-suspendido {
+  color: #dc3545 !important;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.rol-admin {
+  color: #40DFFF !important;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.rol-cliente {
+  color: #f8e8ff !important;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.rol-moderador {
+  color: #ffc107 !important;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.categoria-anime {
+  color: #ff6b9d !important;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.categoria-videojuegos {
+  color: #4ecdc4 !important;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.categoria-comics {
+  color: #ffe66d !important;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.categoria-cartas {
+  color: #a8e6cf !important;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.categoria-accesorios {
+  color: #ffaaa5 !important;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+/* Eliminamos completamente los estilos de badges */
+.badge {
+  display: none !important;
+}
 /*CATALOGO*/
 body {
     background: linear-gradient(135deg, #0a0615, #130524, #1a0a2e);
