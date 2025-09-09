@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -139,18 +140,19 @@
             <table class="table table-dark table-hover" id="tablaProductos">
               <thead>
                 <tr>
-                  <th>Imagen</th>
-                  <th>Nombre</th>
-                  <th>Descripción</th>
-                  <th>SKU</th>
-                  <th>Categoría</th>
-                  <th>Precio</th>
-                  <th>Stock</th>
-                  <th>Estado</th>
-                  <th>Acciones</th>
+                  <th class="col-imagen">Imagen</th>
+                  <th class="col-nombre">Nombre</th>
+                  <th class="col-descripcion">Descripción</th>
+                  <th class="col-sku">SKU</th>
+                  <th class="col-categoria">Categoría</th>
+                  <th class="col-precio">Precio</th>
+                  <th class="col-stock">Stock</th>
+                  <th class="col-estado">Estado</th>
+                  <th class="col-acciones">Acciones</th>
                 </tr>
               </thead>
-              <tbody></tbody>
+              <tbody>
+              </tbody>
             </table>
           </div>
         </div>
@@ -177,21 +179,23 @@
           </div>
           <input type="text" id="busquedaUsuario" class="form-control mb-3" placeholder="Buscar usuarios...">
           <div class="table-responsive">
-            <table class="table table-dark table-hover" id="tablaUsuarios">
-              <thead>
-                <tr>
-                  <th>Nombre</th>
-                  <th>Email</th>
-                  <th>Documento</th>
-                  <th>Teléfono</th>
-                  <th>Ciudad</th>
-                  <th>Rol</th>
-                  <th>Estado</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
+  <table class="table table-dark table-hover" id="tablaUsuarios">
+    <thead>
+      <tr>
+        <th class="col-nombre">Nombre</th>
+        <th class="col-email">Email</th>
+        <th class="col-documento">Documento</th>
+        <th class="col-telefono">Teléfono</th>
+        <th class="col-ciudad">Ciudad</th>
+        <th class="col-rol">Rol</th>
+        <th class="col-estado">Estado</th>
+        <th class="col-acciones">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
           </div>
         </div>
       </div>
@@ -403,4 +407,5 @@
 
 
 </body>
+
 </html>
