@@ -88,6 +88,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ---------- Render tabla productos ----------
+
+  // ---------- Formatear moneda COP ----------
+  function formatearCOP(valor) {
+  return new Intl.NumberFormat("es-CO", {
+    style: "currency",
+    currency: "COP",
+    minimumFractionDigits: 0, // sin decimales
+    maximumFractionDigits: 0
+  }).format(valor);
+}
+
+  // ---------- Render tabla ----------
   function renderizarTablaProductos(filtro = '') {
     if (!tablaProductosBody) return;
     const productos = getProducts();
@@ -120,14 +132,17 @@ document.addEventListener('DOMContentLoaded', () => {
       fila.innerHTML = `
         <td>
           <img src="${primeraImagen || 'https://via.placeholder.com/60'}"
-               alt="${producto.nombre}" class="producto-img"
-               style="width:60px;height:60px;object-fit:cover;border-radius:6px;">
+          alt="${producto.nombre}" class="producto-img"
+          style="width:60px;height:60px;object-fit:cover;border-radius:6px;">
         </td>
         <td>${producto.nombre}</td>
         <td>${producto.descripcion ? String(producto.descripcion).substring(0,40) + '...' : 'Sin descripción'}</td>
         <td>${producto.sku || ''}</td>
         <td><span class="${getCategoriaClass(producto.categoria)}">${producto.categoria || 'Sin categoría'}</span></td>
         <td>$${Number(producto.precio || 0).toFixed(2)}</td>
+
+        <td><span class="badge bg-info">${producto.categoria || 'Sin categoría'}</span></td>
+        <td>${ formatearCOP(producto.precio)}</td>
         <td>${producto.stock ?? 0}</td>
         <td><span class="${getEstadoClass(producto.estado)}">${producto.estado || 'Inactivo'}</span></td>
         <td>
@@ -147,7 +162,14 @@ document.addEventListener('DOMContentLoaded', () => {
     selectedFiles = [];
     editProductIndex = null;
     if (imageInput) imageInput.value = '';
+    const btnSubmit = document.getElementById('admin-product-submit');
+    if (btnSubmit) {
+    const span = btnSubmit.querySelector('span') || btnSubmit;
+    span.textContent = "Crear producto";
   }
+  }
+
+
 
   // ---------- Preview & selección ----------
   if (imageInput) {
@@ -291,6 +313,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (btn.classList.contains('editar-btn')) {
+
+        const btnSubmit = document.getElementById('admin-product-submit');
+        if (btnSubmit) {
+          const span = btnSubmit.querySelector('span') || btnSubmit; 
+          span.textContent = "Editar producto";
+        }
+        // preparar edición
         editProductIndex = index;
         const producto = productos[index];
 
@@ -337,19 +366,39 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (btn.classList.contains('ver-btn')) {
-        const producto = productos[index];
-        let info = `Información del Producto:\n\n`;
-        info += `Nombre: ${producto.nombre}\n`;
-        info += `SKU: ${producto.sku}\n`;
-        info += `Categoría: ${producto.categoria || 'Sin categoría'}\n`;
-        info += `Precio: $${Number(producto.precio || 0).toFixed(2)}\n`;
-        info += `Stock: ${producto.stock ?? 0}\n`;
-        info += `Estado: ${producto.estado || 'Inactivo'}\n`;
-        info += `Descripción: ${producto.descripcion || 'Sin descripción'}\n`;
-        if (producto.imagenes && producto.imagenes.length > 1) info += `Imágenes: ${producto.imagenes.length}\n`;
-        alert(info);
-        return;
-      }
+  const producto = productos[index];
+
+  // Generar las imágenes
+  let imagenesHTML = '';
+  if (producto.imagenes && producto.imagenes.length > 0) {
+    imagenesHTML = producto.imagenes.map(img =>
+      `<img src="${img}" alt="${producto.nombre}" class="img-thumbnail me-2 mb-2" style="max-width:150px;">`
+    ).join('');
+  } else {
+    imagenesHTML = `<p class="text-muted">Sin imágenes</p>`;
+  }
+
+  // Contenido del modal
+  const modalContent = `
+    <p><strong>Nombre:</strong> ${producto.nombre}</p>
+    <p><strong>SKU:</strong> ${producto.sku}</p>
+    <p><strong>Categoría:</strong> ${producto.categoria || 'Sin categoría'}</p>
+    <p><strong>Precio:</strong> ${formatearCOP(producto.precio)}</p>
+    <p><strong>Stock:</strong> ${producto.stock ?? 0}</p>
+    <p><strong>Estado:</strong> ${producto.estado || 'Inactivo'}</p>
+    <p><strong>Descripción:</strong> ${producto.descripcion || 'Sin descripción'}</p>
+    <div class="d-flex flex-wrap">${imagenesHTML}</div>
+  `;
+
+  // Insertar el contenido en el body del modal
+  document.getElementById('detalleProductoBody').innerHTML = modalContent;
+
+  // Abrir el modal con Bootstrap
+  const modal = new bootstrap.Modal(document.getElementById('detalleProductoModal'));
+  modal.show();
+}
+
+
     });
   }
 
@@ -377,6 +426,10 @@ document.addEventListener('DOMContentLoaded', () => {
     editUserIndex = null;
     const fechaReg = document.getElementById('fechaRegistro');
     if (fechaReg) fechaReg.value = new Date().toISOString().split('T')[0];
+
+    setTextoBotonUsuario("crear");
+
+
   }
 
   // ---------- Render tabla usuarios ----------
@@ -459,7 +512,8 @@ document.addEventListener('DOMContentLoaded', () => {
         rol: document.getElementById('rolUsuario')?.value || 'cliente',
         estado: document.getElementById('estadoUsuario')?.value || 'Activo',
         fechaRegistro: document.getElementById('fechaRegistro')?.value || new Date().toISOString().split('T')[0],
-        notas: document.getElementById('notasUsuario')?.value || ''
+        notas: document.getElementById('notasUsuario')?.value || '',
+        password: document.getElementById('passwordUsuario')?.value || '',
       };
 
       if (editUserIndex !== null) {
@@ -485,6 +539,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (tablaUsuariosBody) {
     tablaUsuariosBody.addEventListener('click', e => {
+
       const btn = e.target.closest('button');
       if (!btn) return;
       const index = parseInt(btn.dataset.index);
@@ -499,14 +554,31 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      if (btn.classList.contains('ver-usuario')) {
-        const u = usuarios[index];
-        let info = `Información del Usuario:\n\n`;
-        info += `Nombre: ${u.usuario}\nEmail: ${u.email}\nDocumento: ${u.tipoDoc} ${u.documento}\nTeléfono: ${u.telefono || 'No registrado'}\nCiudad: ${u.ciudad || 'No registrada'}\nRol: ${u.rol}\nEstado: ${u.estado}\nFecha registro: ${u.fechaRegistro}\n`;
-        if (u.notas) info += `Notas: ${u.notas}\n`;
-        alert(info);
-        return;
-      }
+if (btn.classList.contains('ver-usuario')) {
+  const u = usuarios[index];
+
+  const infoHtml = `
+    <div class="col">
+        <p><strong>Nombre:</strong> ${u.usuario}</p>
+        <p><strong>Email:</strong> ${u.email}</p>
+        <p><strong>Documento:</strong> ${u.tipoDoc} ${u.documento}</p>
+        <p><strong>Teléfono:</strong> ${u.telefono || 'No registrado'}</p>
+        <p><strong>Ciudad:</strong> ${u.ciudad || 'No registrada'}</p>
+        <p><strong>Rol:</strong> ${u.rol}</p>
+        <p><strong>Estado:</strong> ${u.estado}</p>
+        <p><strong>Fecha de Registro:</strong> ${u.fechaRegistro}</p>
+    </div>
+    ${u.notas ? `<div class="mt-3"><p><strong>Notas:</strong> ${u.notas}</p></div>` : ''}
+  `;
+
+  document.getElementById('detalleUsuarioBody').innerHTML = infoHtml;
+
+  const modalEl = document.getElementById('detalleUsuarioModal');
+  const modal = new bootstrap.Modal(modalEl);
+  modal.show();
+}
+
+
 
       if (btn.classList.contains('editar-usuario')) {
         editUserIndex = index;
@@ -524,11 +596,28 @@ document.addEventListener('DOMContentLoaded', () => {
         (document.getElementById('estadoUsuario') || {}).value = u.estado || 'Activo';
         (document.getElementById('fechaRegistro') || {}).value = u.fechaRegistro || new Date().toISOString().split('T')[0];
         (document.getElementById('notasUsuario') || {}).value = u.notas || '';
+        (document.getElementById('passwordUsuario') || {}).value = '';
+
+
+        setTextoBotonUsuario("editar");
+
         const modalEl = document.getElementById('nuevoUsuarioModal');
         if (modalEl) new bootstrap.Modal(modalEl).show();
       }
     });
   }
+
+  function setTextoBotonUsuario(modo) {
+  const spanBtn = document.getElementById('admin-user-submit');
+  if (!spanBtn) return;
+
+  if (modo === 'editar') {
+    spanBtn.textContent = "Editar Usuario";
+  } else {
+    spanBtn.textContent = "Crear Usuario";
+  }
+}
+
 
   // ---------- Inicializar ----------
   renderizarTablaProductos();
