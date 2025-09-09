@@ -87,19 +87,17 @@ document.addEventListener('DOMContentLoaded', () => {
     return { url: data.secure_url, public_id: data.public_id };
   }
 
-  // ---------- Render tabla productos ----------
-
   // ---------- Formatear moneda COP ----------
   function formatearCOP(valor) {
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    minimumFractionDigits: 0, // sin decimales
-    maximumFractionDigits: 0
-  }).format(valor);
-}
+    return new Intl.NumberFormat("es-CO", {
+      style: "currency",
+      currency: "COP",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(valor);
+  }
 
-  // ---------- Render tabla ----------
+  // ---------- Render tabla productos ----------
   function renderizarTablaProductos(filtro = '') {
     if (!tablaProductosBody) return;
     const productos = getProducts();
@@ -139,10 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <td>${producto.descripcion ? String(producto.descripcion).substring(0,40) + '...' : 'Sin descripción'}</td>
         <td>${producto.sku || ''}</td>
         <td><span class="${getCategoriaClass(producto.categoria)}">${producto.categoria || 'Sin categoría'}</span></td>
-        <td>$${Number(producto.precio || 0).toFixed(2)}</td>
-
-        <td><span class="badge bg-info">${producto.categoria || 'Sin categoría'}</span></td>
-        <td>${ formatearCOP(producto.precio)}</td>
+        <td>${formatearCOP(producto.precio)}</td>
         <td>${producto.stock ?? 0}</td>
         <td><span class="${getEstadoClass(producto.estado)}">${producto.estado || 'Inactivo'}</span></td>
         <td>
@@ -164,12 +159,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (imageInput) imageInput.value = '';
     const btnSubmit = document.getElementById('admin-product-submit');
     if (btnSubmit) {
-    const span = btnSubmit.querySelector('span') || btnSubmit;
-    span.textContent = "Crear producto";
+      const span = btnSubmit.querySelector('span') || btnSubmit;
+      span.textContent = "Crear producto";
+    }
   }
-  }
-
-
 
   // ---------- Preview & selección ----------
   if (imageInput) {
@@ -294,7 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ---------- Acciones en la tabla (delegación) ----------
+  // ---------- Acciones en la tabla productos (delegación) ----------
   if (tablaProductosBody) {
     tablaProductosBody.addEventListener('click', (e) => {
       const btn = e.target.closest('button');
@@ -313,13 +306,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (btn.classList.contains('editar-btn')) {
-
         const btnSubmit = document.getElementById('admin-product-submit');
         if (btnSubmit) {
           const span = btnSubmit.querySelector('span') || btnSubmit; 
           span.textContent = "Editar producto";
         }
-        // preparar edición
+        
         editProductIndex = index;
         const producto = productos[index];
 
@@ -366,39 +358,32 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (btn.classList.contains('ver-btn')) {
-  const producto = productos[index];
+        const producto = productos[index];
 
-  // Generar las imágenes
-  let imagenesHTML = '';
-  if (producto.imagenes && producto.imagenes.length > 0) {
-    imagenesHTML = producto.imagenes.map(img =>
-      `<img src="${img}" alt="${producto.nombre}" class="img-thumbnail me-2 mb-2" style="max-width:150px;">`
-    ).join('');
-  } else {
-    imagenesHTML = `<p class="text-muted">Sin imágenes</p>`;
-  }
+        let imagenesHTML = '';
+        if (producto.imagenes && producto.imagenes.length > 0) {
+          imagenesHTML = producto.imagenes.map(img =>
+            `<img src="${img}" alt="${producto.nombre}" class="img-thumbnail me-2 mb-2" style="max-width:150px;">`
+          ).join('');
+        } else {
+          imagenesHTML = `<p class="text-muted">Sin imágenes</p>`;
+        }
 
-  // Contenido del modal
-  const modalContent = `
-    <p><strong>Nombre:</strong> ${producto.nombre}</p>
-    <p><strong>SKU:</strong> ${producto.sku}</p>
-    <p><strong>Categoría:</strong> ${producto.categoria || 'Sin categoría'}</p>
-    <p><strong>Precio:</strong> ${formatearCOP(producto.precio)}</p>
-    <p><strong>Stock:</strong> ${producto.stock ?? 0}</p>
-    <p><strong>Estado:</strong> ${producto.estado || 'Inactivo'}</p>
-    <p><strong>Descripción:</strong> ${producto.descripcion || 'Sin descripción'}</p>
-    <div class="d-flex flex-wrap">${imagenesHTML}</div>
-  `;
+        const modalContent = `
+          <p><strong>Nombre:</strong> ${producto.nombre}</p>
+          <p><strong>SKU:</strong> ${producto.sku}</p>
+          <p><strong>Categoría:</strong> ${producto.categoria || 'Sin categoría'}</p>
+          <p><strong>Precio:</strong> ${formatearCOP(producto.precio)}</p>
+          <p><strong>Stock:</strong> ${producto.stock ?? 0}</p>
+          <p><strong>Estado:</strong> ${producto.estado || 'Inactivo'}</p>
+          <p><strong>Descripción:</strong> ${producto.descripcion || 'Sin descripción'}</p>
+          <div class="d-flex flex-wrap">${imagenesHTML}</div>
+        `;
 
-  // Insertar el contenido en el body del modal
-  document.getElementById('detalleProductoBody').innerHTML = modalContent;
-
-  // Abrir el modal con Bootstrap
-  const modal = new bootstrap.Modal(document.getElementById('detalleProductoModal'));
-  modal.show();
-}
-
-
+        document.getElementById('detalleProductoBody').innerHTML = modalContent;
+        const modal = new bootstrap.Modal(document.getElementById('detalleProductoModal'));
+        modal.show();
+      }
     });
   }
 
@@ -420,16 +405,14 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
 
   function guardarUsuarios() { localStorage.setItem('usuarios', JSON.stringify(usuarios)); }
+  
   function limpiarFormularioUsuario() {
     if (!formNuevoUsuario) return;
     formNuevoUsuario.reset();
     editUserIndex = null;
     const fechaReg = document.getElementById('fechaRegistro');
     if (fechaReg) fechaReg.value = new Date().toISOString().split('T')[0];
-
     setTextoBotonUsuario("crear");
-
-
   }
 
   // ---------- Render tabla usuarios ----------
@@ -453,19 +436,19 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    // Función para obtener clase de estado para usuarios
+    function getEstadoUsuarioClass(estado) {
+      switch(estado?.toLowerCase()) {
+        case 'activo': return 'estado-activo';
+        case 'inactivo': return 'estado-inactivo';
+        case 'suspendido': return 'estado-suspendido';
+        default: return 'estado-inactivo';
+      }
+    }
+
     filtrados.forEach(u => {
       const realIndex = usuarios.findIndex(x => x.email === u.email && x.documento === u.documento);
       const fila = document.createElement('tr');
-      
-      // Función para obtener clase de estado para usuarios
-      function getEstadoUsuarioClass(estado) {
-        switch(estado?.toLowerCase()) {
-          case 'activo': return 'estado-activo';
-          case 'inactivo': return 'estado-inactivo';
-          case 'suspendido': return 'estado-suspendido';
-          default: return 'estado-inactivo';
-        }
-      }
       
       fila.innerHTML = `
         <td class="producto-nombre">${u.usuario}</td>
@@ -537,9 +520,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ---------- Acciones en la tabla usuarios (delegación) ----------
   if (tablaUsuariosBody) {
     tablaUsuariosBody.addEventListener('click', e => {
-
       const btn = e.target.closest('button');
       if (!btn) return;
       const index = parseInt(btn.dataset.index);
@@ -554,31 +537,29 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-if (btn.classList.contains('ver-usuario')) {
-  const u = usuarios[index];
+      if (btn.classList.contains('ver-usuario')) {
+        const u = usuarios[index];
 
-  const infoHtml = `
-    <div class="col">
-        <p><strong>Nombre:</strong> ${u.usuario}</p>
-        <p><strong>Email:</strong> ${u.email}</p>
-        <p><strong>Documento:</strong> ${u.tipoDoc} ${u.documento}</p>
-        <p><strong>Teléfono:</strong> ${u.telefono || 'No registrado'}</p>
-        <p><strong>Ciudad:</strong> ${u.ciudad || 'No registrada'}</p>
-        <p><strong>Rol:</strong> ${u.rol}</p>
-        <p><strong>Estado:</strong> ${u.estado}</p>
-        <p><strong>Fecha de Registro:</strong> ${u.fechaRegistro}</p>
-    </div>
-    ${u.notas ? `<div class="mt-3"><p><strong>Notas:</strong> ${u.notas}</p></div>` : ''}
-  `;
+        const infoHtml = `
+          <div class="col">
+              <p><strong>Nombre:</strong> ${u.usuario}</p>
+              <p><strong>Email:</strong> ${u.email}</p>
+              <p><strong>Documento:</strong> ${u.tipoDoc} ${u.documento}</p>
+              <p><strong>Teléfono:</strong> ${u.telefono || 'No registrado'}</p>
+              <p><strong>Ciudad:</strong> ${u.ciudad || 'No registrada'}</p>
+              <p><strong>Rol:</strong> ${u.rol}</p>
+              <p><strong>Estado:</strong> ${u.estado}</p>
+              <p><strong>Fecha de Registro:</strong> ${u.fechaRegistro}</p>
+          </div>
+          ${u.notas ? `<div class="mt-3"><p><strong>Notas:</strong> ${u.notas}</p></div>` : ''}
+        `;
 
-  document.getElementById('detalleUsuarioBody').innerHTML = infoHtml;
+        document.getElementById('detalleUsuarioBody').innerHTML = infoHtml;
 
-  const modalEl = document.getElementById('detalleUsuarioModal');
-  const modal = new bootstrap.Modal(modalEl);
-  modal.show();
-}
-
-
+        const modalEl = document.getElementById('detalleUsuarioModal');
+        const modal = new bootstrap.Modal(modalEl);
+        modal.show();
+      }
 
       if (btn.classList.contains('editar-usuario')) {
         editUserIndex = index;
@@ -598,7 +579,6 @@ if (btn.classList.contains('ver-usuario')) {
         (document.getElementById('notasUsuario') || {}).value = u.notas || '';
         (document.getElementById('passwordUsuario') || {}).value = '';
 
-
         setTextoBotonUsuario("editar");
 
         const modalEl = document.getElementById('nuevoUsuarioModal');
@@ -608,16 +588,15 @@ if (btn.classList.contains('ver-usuario')) {
   }
 
   function setTextoBotonUsuario(modo) {
-  const spanBtn = document.getElementById('admin-user-submit');
-  if (!spanBtn) return;
+    const spanBtn = document.getElementById('admin-user-submit');
+    if (!spanBtn) return;
 
-  if (modo === 'editar') {
-    spanBtn.textContent = "Editar Usuario";
-  } else {
-    spanBtn.textContent = "Crear Usuario";
+    if (modo === 'editar') {
+      spanBtn.textContent = "Editar Usuario";
+    } else {
+      spanBtn.textContent = "Crear Usuario";
+    }
   }
-}
-
 
   // ---------- Inicializar ----------
   renderizarTablaProductos();
