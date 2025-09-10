@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,46 +9,6 @@
   <link rel="stylesheet" href="../assets/css/styles.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
-
-
-<!-- Modal Ver producto -->
-<div class="modal fade" id="detalleProductoModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content modal-custom">
-      <div class="modal-header border-0">
-        <h5 class="modal-title"><i class="bi bi-box"></i> Detalle del Producto</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body" id="detalleProductoBody">
-        <!-- Aquí se inyecta la info con JS -->
-
-
-      </div>
-      <div class="modal-footer border-0">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal Ver Usuario -->
-<div class="modal fade" id="detalleUsuarioModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content modal-custom">
-      <div class="modal-header border-0">
-        <h5 class="modal-title"><i class="bi bi-person"></i> Detalle del Usuario</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body" id="detalleUsuarioBody">
-        <!-- Aquí se inyecta la info con JS -->
-      </div>
-      <div class="modal-footer border-0">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 
 <body>
   <nav id="navbar"></nav>
@@ -139,18 +100,19 @@
             <table class="table table-dark table-hover" id="tablaProductos">
               <thead>
                 <tr>
-                  <th>Imagen</th>
-                  <th>Nombre</th>
-                  <th>Descripción</th>
-                  <th>SKU</th>
-                  <th>Categoría</th>
-                  <th>Precio</th>
-                  <th>Stock</th>
-                  <th>Estado</th>
-                  <th>Acciones</th>
+                  <th class="col-imagen">Imagen</th>
+                  <th class="col-nombre">Nombre</th>
+                  <th class="col-descripcion">Descripción</th>
+                  <th class="col-sku">SKU</th>
+                  <th class="col-categoria">Categoría</th>
+                  <th class="col-precio">Precio</th>
+                  <th class="col-stock">Stock</th>
+                  <th class="col-estado">Estado</th>
+                  <th class="col-acciones">Acciones</th>
                 </tr>
               </thead>
-              <tbody></tbody>
+              <tbody>
+              </tbody>
             </table>
           </div>
         </div>
@@ -177,21 +139,23 @@
           </div>
           <input type="text" id="busquedaUsuario" class="form-control mb-3" placeholder="Buscar usuarios...">
           <div class="table-responsive">
-            <table class="table table-dark table-hover" id="tablaUsuarios">
-              <thead>
-                <tr>
-                  <th>Nombre</th>
-                  <th>Email</th>
-                  <th>Documento</th>
-                  <th>Teléfono</th>
-                  <th>Ciudad</th>
-                  <th>Rol</th>
-                  <th>Estado</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
+  <table class="table table-dark table-hover" id="tablaUsuarios">
+    <thead>
+      <tr>
+        <th class="col-nombre">Nombre</th>
+        <th class="col-email">Email</th>
+        <th class="col-documento">Documento</th>
+        <th class="col-telefono">Teléfono</th>
+        <th class="col-ciudad">Ciudad</th>
+        <th class="col-rol">Rol</th>
+        <th class="col-estado">Estado</th>
+        <th class="col-acciones">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
           </div>
         </div>
       </div>
@@ -297,21 +261,10 @@
               </div>
               <div class="mb-3">
                 <label for="notasUsuario" class="form-label">Notas Administrativas</label>
-                <textarea class="form-control" id="notasUsuario" rows="3" placeholder="Información adicional sobre el usuario..."></textarea>
+                <textarea class="form-control" id="notasUsuario" rows="3"
+                  placeholder="Información adicional sobre el usuario..."></textarea>
               </div>
-              <div class="mb-3">
-                <label for="passwordUsuario" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="passwordUsuario" required>
-              </div>
-              <div class="mb-3">
-                <label for="confirmPasswordUsuario" class="form-label">Confirmar Contraseña</label>
-                <input type="password" class="form-control" id="confirmPasswordUsuario" required>
-              </div>
-              <button type="submit" class="btn btn-custom" >
-                <span id="admin-user-submit">
-                  Crear Usuario
-                </span>
-              </button>
+              <button type="submit" class="btn btn-custom">Crear Usuario</button>
             </form>
           </div>
         </div>
@@ -403,4 +356,5 @@
 
 
 </body>
+
 </html>
