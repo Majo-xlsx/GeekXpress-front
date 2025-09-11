@@ -20,6 +20,15 @@ function initCarrito() {
         localStorage.setItem("carrito", JSON.stringify(carrito));
     }
 
+    if (botonVaciar) {
+        botonVaciar.addEventListener("click", () => {
+            localStorage.removeItem("carrito"); // o setCarrito([])
+            actualizarCarrito();
+        console.log("Carrito vaciado");
+        });
+    }
+
+
     // --------------------
     // ANIMACIÓN AL CARRITO
     // --------------------
@@ -161,28 +170,37 @@ function actualizarCarrito() {
 }
 
 
-    // --------------------
-    // AGREGAR PRODUCTOS (desde catálogo)
-    // --------------------
-   function asignarEventosCarrito() {
-    const botonesAgregar = document.querySelectorAll('.btn-agregar-carrito');
+function asignarEventosCarrito() {
+    // Soporta catálogo (.btn-agregar-carrito) y destacados (.product-btn)
+    const botonesAgregar = document.querySelectorAll('.btn-agregar-carrito, .product-btn');
 
     botonesAgregar.forEach(boton => {
-        // Clonar botón para eliminar cualquier listener previo
+        // Clonamos para limpiar listeners previos
         const nuevoBoton = boton.cloneNode(true);
         boton.replaceWith(nuevoBoton);
 
         nuevoBoton.addEventListener('click', () => {
-            const card = nuevoBoton.closest('.card');
-            const nombre = card.querySelector('.card-title').textContent;
+            const card = nuevoBoton.closest('.card, .product-card');
 
-            let precioTexto = card.querySelector('.precio-oferta').textContent;
-            precioTexto = precioTexto.replace(/[$.']/g, '').trim();
-            const precio = parseInt(precioTexto, 10);
+            // Nombre
+            const nombre = card.querySelector('.card-title, .product-title')?.textContent.trim() || "Producto";
 
-            const imagen = card.querySelector('.card-img-top')?.src || "";
-            const id = card.getAttribute('data-id') || nombre;
+            // Precio
+            let precioTexto = card.querySelector('.precio-oferta, .price-offer')?.textContent || "0";
+            precioTexto = precioTexto.replace(/[$.,]/g, '').trim();
+            const precio = parseInt(precioTexto, 10) || 0;
 
+            // Imagen
+            const imagen = card.querySelector('.card-img-top, .product-image')?.src || "";
+
+            // ID único (si no hay data-id, se genera automático con nombre + timestamp)
+            let id = card.getAttribute('data-id');
+            if (!id) {
+                id = nombre.toLowerCase().replace(/\s+/g, '-') + "-" + Date.now();
+                card.setAttribute('data-id', id);
+            }
+
+            // Carrito
             const carrito = getCarrito();
             const existente = carrito.find(p => p.id === id);
 
@@ -192,53 +210,13 @@ function actualizarCarrito() {
                 carrito.push({ id, nombre, precio, cantidad: 1, imagen });
             }
 
-            /*
-            Swal.fire({
-                position: "center-center",
-                icon: "success",
-                title: `${nombre} agregado al carrito`,
-                showConfirmButton: false,
-                timer: 1500
-            });
-            */
-
             setCarrito(carrito);
             actualizarCarrito();
             animarAlCarrito(nuevoBoton, imagen);
         });
     });
+}
 
-    if (botonVaciar) {
-
-        botonVaciar.addEventListener('click', () => {
-
-        /*
-        Swal.fire({
-            title: "Desocupar carrito?",
-            text: "Vas a eliminar todos los productos del carrito!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            cancelButtonText: "Cancelar",
-            confirmButtonText: "Desocupar"
-            }).then((result) => {
-            if (result.isConfirmed) {
-                    setCarrito([]);
-                    actualizarCarrito();
-                    Swal.fire({
-                        title: "Productos eliminados",
-                        // text: "Your file has been deleted.",
-                        icon: "success"
-                    });
-                }
-            });
-        */
-            setCarrito([]);
-            actualizarCarrito();
-        });
-    }
-    }
 
     // --------------------
     // BOTÓN DE PAGO

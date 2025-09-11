@@ -50,6 +50,24 @@ loginForm.addEventListener('submit', (e) => {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
 
+  
+  // --- ADMIN HARDCODEADO ---
+  if (email === "admin@gmail.com" && password === "admin123") {
+    const adminUser = {
+      email,
+      password,
+      firstName: "Admin",
+      rol: "admin",
+      usuario: "Administrador",
+      estado: "Activo"
+    };
+    localStorage.setItem('usuarioLogueado', JSON.stringify(adminUser));
+    alert('Inicio de sesión exitoso. Redirigiendo al panel de administración...');
+    loginForm.reset();
+    window.location.href = 'admin.html';
+    return;
+  }
+  
   const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
   const user = usuarios.find(u => u.email === email);
 
@@ -62,6 +80,7 @@ loginForm.addEventListener('submit', (e) => {
     alert('Contraseña incorrecta.');
     return;
   }
+
 
   localStorage.setItem('usuarioLogueado', JSON.stringify(user));
   alert('Inicio de sesión exitoso.');
@@ -103,7 +122,7 @@ registerForm.addEventListener('submit', (e) => {
     genero: "",
     direccion: "",
     ciudad: "",
-    rol: "admin",
+    rol: "",
     estado: "Activo",
     fechaRegistro: new Date().toISOString().split('T')[0],
     notas: "",
