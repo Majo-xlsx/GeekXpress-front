@@ -66,7 +66,6 @@ document.addEventListener("navbarLoaded", () => {
       e.preventDefault();
       // window.location.href = "login.html";
       window.location.href = `${isGitHubPages ? "/" + repoName : ""}/pages/login.html`;
-
     });
   }
 });
