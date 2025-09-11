@@ -209,7 +209,11 @@
 }
 
 .sn-sergio-back {
+<<<<<<< HEAD
   background-image: url('../img/backSergio.jpg');
+=======
+  background-image: url('../img/backSergio.jpeg');
+>>>>>>> 2ccd35bbe2529cbdc07f0262930784c5341137ea
 }
 
 .sn-alexa-back {
