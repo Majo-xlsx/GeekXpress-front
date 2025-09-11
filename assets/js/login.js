@@ -64,7 +64,7 @@ loginForm.addEventListener('submit', (e) => {
     localStorage.setItem('usuarioLogueado', JSON.stringify(adminUser));
     alert('Inicio de sesión exitoso. Redirigiendo al panel de administración...');
     loginForm.reset();
-    window.location.href = 'admin.html';
+    window.location.href = 'pages/admin.html';
     return;
   }
   

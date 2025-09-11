@@ -2329,7 +2329,7 @@ footer a:hover svg {
   justify-content: center;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-top: -1.6rem;
+  margin-top: 0rem;
   margin-bottom: 0.3rem; 
 }
 
