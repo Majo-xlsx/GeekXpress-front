@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <td>${producto.nombre}</td>
         <td>${producto.descripcion ? String(producto.descripcion).substring(0,40) + '...' : 'Sin descripción'}</td>
         <td>${producto.sku || ''}</td>
-        <td><span class="badge bg-info">${producto.categoria || 'Sin categoría'}</span></td>
+        <td><span class="bg-info">${producto.categoria || 'Sin categoría'}</span></td>
         <td>${ formatearCOP(producto.precio)}</td>
         <td>${producto.stock ?? 0}</td>
         <td><span class="${getEstadoClass(producto.estado)}">${producto.estado || 'Inactivo'}</span></td>
