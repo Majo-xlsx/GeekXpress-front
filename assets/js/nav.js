@@ -27,13 +27,13 @@ document.addEventListener("navbarLoaded", () => {
     const logoutMenu = document.createElement("div");
     logoutMenu.id = "logoutMenu";
     logoutMenu.style.position = "absolute";
-    logoutMenu.style.background = "#fff";
+    logoutMenu.style.background = "#9C18A1";
     logoutMenu.style.border = "1px solid #ccc";
     logoutMenu.style.padding = "8px 12px";
     logoutMenu.style.cursor = "pointer";
     logoutMenu.style.display = "none"; // inicialmente oculto
     logoutMenu.textContent = "Cerrar sesión";
-    logoutMenu.style.color = "black"
+    logoutMenu.style.color = "white"
 
     document.body.appendChild(logoutMenu);
 
@@ -66,7 +66,6 @@ document.addEventListener("navbarLoaded", () => {
       e.preventDefault();
       // window.location.href = "login.html";
       window.location.href = `${isGitHubPages ? "/" + repoName : ""}/pages/login.html`;
-
     });
   }
 });

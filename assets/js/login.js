@@ -62,9 +62,19 @@ loginForm.addEventListener('submit', (e) => {
       estado: "Activo"
     };
     localStorage.setItem('usuarioLogueado', JSON.stringify(adminUser));
-    alert('Inicio de sesión exitoso. Redirigiendo al panel de administración...');
+    Swal.fire({
+      position: "center-center",
+      icon: "success",
+      title: "Inicio de sesión exitoso. Redirigiendo al panel de administración...",
+      showConfirmButton: false,
+      timer: 1500
+    }).then(() => {
+      window.location.href = 'admin.html';
+    });
+
+    // alert('Inicio de sesión exitoso. Redirigiendo al panel de administración...');
     loginForm.reset();
-    window.location.href = 'admin.html';
+    // window.location.href = 'admin.html';
     return;
   }
   
@@ -83,9 +93,19 @@ loginForm.addEventListener('submit', (e) => {
 
 
   localStorage.setItem('usuarioLogueado', JSON.stringify(user));
-  alert('Inicio de sesión exitoso.');
+
+    Swal.fire({
+      position: "center-center",
+      icon: "success",
+      title: "Inicio de sesión exitoso.",
+      showConfirmButton: false,
+      timer: 1500
+    }).then(() => {
+      window.location.href = 'catalog.html';
+    });
+  // alert('Inicio de sesión exitoso.');
   loginForm.reset();
-  window.location.href = 'catalog.html';
+  // window.location.href = 'catalog.html';
 });
 
 // --- Registro ---
@@ -134,7 +154,17 @@ registerForm.addEventListener('submit', (e) => {
   // Guardar sesión activa automáticamente
   localStorage.setItem('usuarioLogueado', JSON.stringify(nuevoUsuario));
 
-  alert('Cuenta creada. Redirigiendo al catálogo...');
-  registerForm.reset();
+  Swal.fire({
+  position: "center-center",
+  icon: "success",
+  title: "Cuenta creada. Redirigiendo al catálogo...",
+  showConfirmButton: false,
+  timer: 1500
+}).then(() => {
   window.location.href = 'catalog.html';
+});
+
+  // alert('Cuenta creada. Redirigiendo al catálogo...');
+  registerForm.reset();
+  // window.location.href = 'catalog.html';
 });
