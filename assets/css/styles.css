@@ -3268,3 +3268,27 @@ graciaaaas */
     font-size: 1rem;
   }
 }
+
+/* BOTON DE CERRAR SESIÓN */
+#logoutMenu {
+  position: absolute;
+  background: #0f0f1a;
+  border: 2px solid #00f7ff;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  display: none; 
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
+  transition: all 0.3s ease;
+  z-index: 9999;
+}
+
+#logoutMenu:hover {
+  background: #1a1a2e;
+  box-shadow: 0 0 15px #00f7ff, 0 0 25px rgba(0, 247, 255, 0.6);
+  transform: scale(1.05);
+}
