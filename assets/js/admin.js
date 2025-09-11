@@ -87,7 +87,17 @@ document.addEventListener('DOMContentLoaded', () => {
     return { url: data.secure_url, public_id: data.public_id };
   }
 
-  // ---------- Render tabla productos ----------
+  // ---------- Formatear moneda COP ----------
+  function formatearCOP(valor) {
+  return new Intl.NumberFormat("es-CO", {
+    style: "currency",
+    currency: "COP",
+    minimumFractionDigits: 0, // sin decimales
+    maximumFractionDigits: 0
+  }).format(valor);
+}
+
+  // ---------- Render tabla ----------
   function renderizarTablaProductos(filtro = '') {
     if (!tablaProductosBody) return;
     const productos = getProducts();
@@ -126,8 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
         <td>${producto.nombre}</td>
         <td>${producto.descripcion ? String(producto.descripcion).substring(0,40) + '...' : 'Sin descripción'}</td>
         <td>${producto.sku || ''}</td>
-        <td><span class="${getCategoriaClass(producto.categoria)}">${producto.categoria || 'Sin categoría'}</span></td>
-        <td>$${Number(producto.precio || 0).toFixed(2)}</td>
+        <td><span class="bg-info">${producto.categoria || 'Sin categoría'}</span></td>
+        <td>${ formatearCOP(producto.precio)}</td>
         <td>${producto.stock ?? 0}</td>
         <td><span class="${getEstadoClass(producto.estado)}">${producto.estado || 'Inactivo'}</span></td>
         <td>
@@ -298,6 +308,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (btn.classList.contains('editar-btn')) {
+
+        const btnSubmit = document.getElementById('admin-product-submit');
+        if (btnSubmit) {
+          const span = btnSubmit.querySelector('span') || btnSubmit; 
+          span.textContent = "Editar producto";
+        }
+        // preparar edición
         editProductIndex = index;
         const producto = productos[index];
 

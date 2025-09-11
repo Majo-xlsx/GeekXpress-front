@@ -8,18 +8,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // PRODUCTOS ESTÁTICOS
     // ================================
     const productos = [
-        { id: 1, nombre: "One Piece | Caja 24 Sobres OP-05 Awakening of the New Era", categoria: "cartas", precioOferta: 1215000, precio: 125000, rating: 4.8, reviews: 124, imagen: "../assets/img/imgProducts/TCG_ONEPIECE_1.png",cantidad:14, etiquetas: ["NUEVO", "CARTAS TCG"] },
-        { id: 2, nombre:"Pokemon Juego de cartas Mega Brave Booster Box (japonés)", categoria: "cartas", precioOferta: 542000, precio: 596200, rating: 4.3, reviews: 24, imagen: "../assets/img/imgProducts/TCG_POKEMON_1.png", etiquetas: ["NUEVO", "-10%", "CARTAS TCG"] },
-        { id: 3, nombre:"Magic The Gathering Innistrad Remastered Collector Boosters1", categoria: "cartas", precioOferta: 1649350, precio: 2144155, rating: 4.5, reviews: 194, imagen: "../assets/img/imgProducts/TCG_MAGIC_01.png", etiquetas: ["NUEVO", "-30%", "CARTAS TCG"] },
-        { id: 4, nombre:"Manga Naruto N.01 Special Edition", categoria: "anime", precioOferta: 49500, precio: 54450, rating: 4.7, reviews: 44, imagen: "../assets/img/imgProducts/MANGA_NARUTO_N.01.png", etiquetas: ["NUEVO", "-10%", "MANGA"] },
-        { id: 5, nombre:"Manga Full Metal Alchemist N.01 Special Edition", categoria: "anime", precioOferta: 60000, precio: 120000, rating: 4.2, reviews: 264, imagen: "../assets/img/imgProducts/MANGA_FMA_N.01.JPG", etiquetas: ["NUEVO", "-50%", "MANGA"] },
-        { id: 6, nombre:"Manga Jojo's Bizarre N.01 Special Edition", categoria: "anime", precioOferta: 76000, precio: null, rating: 4.9, reviews: 550, imagen: "../assets/img/imgProducts/MANGA_JOJOS_N.01.jpg", etiquetas: ["NUEVO", "MANGA"] },
-        { id: 7, nombre:"Comic Thor N.01", categoria: "cómics", precioOferta: 69900, precio: 87350, rating: 4.7, reviews: 94, imagen: "../assets/img/imgProducts/Comic_Thor N.01.png", etiquetas: ["NUEVO", "-25%", "COMICS"] },
-        { id: 8, nombre:"Comic Batman Absolute N.01", categoria: "cómics", precioOferta: 105000, precio: 115500, rating: 4.4, reviews: 10, imagen: "../assets/img/imgProducts/COMIC_BATMAN_N.01.jpg", etiquetas: ["NUEVO", "-10%", "COMICS"] },
-        { id: 9, nombre:"All Star Superman Edition Deluxe N.01", categoria: "cómics", precioOferta: 188000, precio: 225600, rating: 4.8, reviews: 15, imagen: "../assets/img/imgProducts/COMIC_SUPERMAN_N.01.jpg", etiquetas: ["NUEVO", "-20%", "COMICS"] },
-        { id: 10,nombre: "Funko POP Plus Tanjiro Kamado Dancing Flash 2041 Demon Slayer", categoria: "accesorios", precioOferta: 69900, precio: 80385, rating: 4.5, reviews: 194, imagen: "../assets/img/imgProducts/FIGURAS_KNY_01.png", etiquetas: ["NUEVO", "-10%", "FIGURAS"] },
-        { id: 11,nombre: "¡Funko Pop! Animación Dragonball Z - Goku Súper Sayajin", categoria: "accesorios", precioOferta: 69900, precio: 139800, rating: 4.9, reviews: 15, imagen: "../assets/img/imgProducts/FIGURAS_DB_N.01.png", etiquetas: ["NUEVO", "-50%", "FIGURAS"] },
-        { id: 12,nombre: "Funko Pop Luffy Gear Five One Piece", categoria: "accesorios", precioOferta: 89900, precio: 125860, rating: 4.9, reviews: 15, imagen: "../assets/img/imgProducts/FIGURAS_ONEPIECE_G5_01.png", etiquetas: ["NUEVO", "-40%", "FIGURAS"] }
+        { id: 1, nombre: "One Piece | Caja 24 Sobres OP-05 Awakening of the New Era", categoria: "cartas", precioOferta: 1215000, precio: 125000, rating: 4.8, reviews: 124, imagen: "../assets/img/imgProducts/TCG_ONEPIECE_1.png",stock:14, etiquetas: ["NUEVO", "CARTAS TCG"], descripcion:"lolololo" },
+        { id: 2, nombre:"Pokemon Juego de cartas Mega Brave Booster Box (japonés)", categoria: "cartas", precioOferta: 542000, precio: 596200, rating: 4.3, reviews: 24, imagen: "../assets/img/imgProducts/TCG_POKEMON_1.png",stock:14, etiquetas: ["NUEVO", "-10%", "CARTAS TCG"] },
+        { id: 3, nombre:"Magic The Gathering Innistrad Remastered Collector Boosters1", categoria: "cartas", precioOferta: 1649350, precio: 2144155, rating: 4.5, reviews: 194, imagen: "../assets/img/imgProducts/TCG_MAGIC_01.png",stock:14, etiquetas: ["NUEVO", "-30%", "CARTAS TCG"] },
+        { id: 4, nombre:"Manga Naruto N.01 Special Edition", categoria: "anime", precioOferta: 49500, precio: 54450, rating: 4.7, reviews: 44, imagen: "../assets/img/imgProducts/MANGA_NARUTO_N.01.png",stock:14, etiquetas: ["NUEVO", "-10%", "MANGA"] },
+        { id: 5, nombre:"Manga Full Metal Alchemist N.01 Special Edition", categoria: "anime", precioOferta: 60000, precio: 120000, rating: 4.2, reviews: 264, imagen: "../assets/img/imgProducts/MANGA_FMA_N.01.JPG",stock:14, etiquetas: ["NUEVO", "-50%", "MANGA"] },
+        { id: 6, nombre:"Manga Jojo's Bizarre N.01 Special Edition", categoria: "anime", precioOferta: 76000, precio: null, rating: 4.9, reviews: 550, imagen: "../assets/img/imgProducts/MANGA_JOJOS_N.01.jpg",stock:14, etiquetas: ["NUEVO", "MANGA"] },
+        { id: 7, nombre:"Comic Thor N.01", categoria: "cómics", precioOferta: 69900, precio: 87350, rating: 4.7, reviews: 94, imagen: "../assets/img/imgProducts/Comic_Thor N.01.png",stock:14, etiquetas: ["NUEVO", "-25%", "COMICS"] },
+        { id: 8, nombre:"Comic Batman Absolute N.01", categoria: "cómics", precioOferta: 105000, precio: 115500, rating: 4.4, reviews: 10, imagen: "../assets/img/imgProducts/COMIC_BATMAN_N.01.jpg",stock:14, etiquetas: ["NUEVO", "-10%", "COMICS"] },
+        { id: 9, nombre:"All Star Superman Edition Deluxe N.01", categoria: "cómics", precioOferta: 188000, precio: 225600, rating: 4.8, reviews: 15, imagen: "../assets/img/imgProducts/COMIC_SUPERMAN_N.01.jpg",stock:14, etiquetas: ["NUEVO", "-20%", "COMICS"] },
+        { id: 10,nombre: "Funko POP Plus Tanjiro Kamado Dancing Flash 2041 Demon Slayer", categoria: "accesorios", precioOferta: 69900, precio: 80385, rating: 4.5, reviews: 194, imagen: "../assets/img/imgProducts/FIGURAS_KNY_01.png",stock:14, etiquetas: ["NUEVO", "-10%", "FIGURAS"] },
+        { id: 11,nombre: "¡Funko Pop! Animación Dragonball Z - Goku Súper Sayajin", categoria: "accesorios", precioOferta: 69900, precio: 139800, rating: 4.9, reviews: 15, imagen: "../assets/img/imgProducts/FIGURAS_DB_N.01.png",stock:14, etiquetas: ["NUEVO", "-50%", "FIGURAS"] },
+        { id: 12,nombre: "Funko Pop Luffy Gear Five One Piece", categoria: "accesorios", precioOferta: 89900, precio: 125860, rating: 4.9, reviews: 15, imagen: "../assets/img/imgProducts/FIGURAS_ONEPIECE_G5_01.png",stock:14, etiquetas: ["NUEVO", "-40%", "FIGURAS"] }
     ];
 
     // ================================
@@ -122,41 +122,5 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener("storage", actualizarContador);
     actualizarContador();
 
-    // ================================
-    // EVENTO VER DETALLE (delegación)
-    // ================================
-
-    // productContainer.addEventListener("click", (e) => {
-    //     if (e.target.closest(".ver-detalle")) {
-    //         const icon = e.target.closest(".ver-detalle");
-    //         const id = icon.dataset.id; // 👈 ahora sí funciona
-    //         const allProducts = getAllProductsForRender();
-    //         const product = allProducts.find(p => p.id == id);
-
-    //         if (product) {
-    //             localStorage.setItem("selectedProduct", JSON.stringify(product));
-    //             window.location.href = "product.html";
-    //         }
-    //     }
-    // });
-
-        productContainer.addEventListener("click", (e) => {
-    // Ignorar clics en el botón de agregar al carrito
-    if (e.target.closest(".btn-agregar-carrito")) {
-        return;
-    }
-
-    const card = e.target.closest(".product-card");
-    if (card) {
-        const id = card.dataset.id;
-        const allProducts = getAllProductsForRender();
-        const product = allProducts.find(p => p.id == id);
-
-        if (product) {
-            localStorage.setItem("selectedProduct", JSON.stringify(product));
-            window.location.href = "product.html";
-        }
-    }
-});
 
 });

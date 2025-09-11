@@ -125,10 +125,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   addBtn.addEventListener("click", (e) => {
     try {
-      if (stockNum === 0) {
-        alert("Lo sentimos, el producto está agotado.");
-        return;
-      }
+      // if (stockNum === 0) {
+      //   alert("Lo sentimos, el producto está agotado.");
+      //   console.log(stockNum);
+        
+      //   return;
+      // }
 
       const carrito = safeParseJSON(localStorage.getItem("carrito"), []);
 
@@ -142,10 +144,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const existente = carrito.find(p => p.id === item.id);
       if (existente) {
-        if ((existente.cantidad || 0) + item.cantidad > (product.stock || 0)) {
-          alert("No puedes agregar más de lo disponible en stock.");
-          return;
-        }
+        // if ((existente.cantidad || 0) + item.cantidad > (product.stock || 0)) {
+        //   alert("No puedes agregar más de lo disponible en stock.");
+        //   return;
+        // }
         existente.cantidad = (existente.cantidad || 0) + item.cantidad;
       } else {
         carrito.push(item);
