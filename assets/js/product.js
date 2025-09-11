@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (stockNum > 0) {
       stockEl.innerHTML = `<i class="bi bi-check-circle-fill text-success me-2"></i> En stock (${stockNum})`;
     } else {
-      stockEl.innerHTML = `<i class="bi bi-x-circle-fill text-danger me-2"></i> Agotado`;
+      // stockEl.innerHTML = `<i class="bi bi-x-circle-fill text-danger me-2"></i> Agotado`;
     }
   }
 
