@@ -122,6 +122,32 @@ function actualizarCarrito() {
             listaCarrito.appendChild(item);
         });
 
+        // Hacer clic en todo el contenedor del item, excepto en botones
+        listaCarrito.querySelectorAll('.list-group-item').forEach((el) => {
+            el.style.cursor = "pointer";
+
+            el.addEventListener('click', (e) => {
+                // Evitar redirección si el clic fue en un botón
+                if (e.target.tagName === "BUTTON" || e.target.closest("button")) {
+                    return;
+                }
+
+                const id = el.querySelector("[data-id]")?.getAttribute("data-id");
+                if (!id) return;
+
+                const carrito = getCarrito();
+                const producto = carrito.find(p => p.id === id);
+
+                if (producto) {
+                    localStorage.setItem("selectedProduct", JSON.stringify(producto));
+                    const target = location.pathname.includes("/pages/") ? "product.html" : "pages/product.html";
+                    window.location.href = target;
+                }
+            });
+        });
+
+
+
         // Total al final de la lista
         if (totalPrecio > 0) {
             const totalItem = document.createElement('li');
