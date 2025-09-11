@@ -64,7 +64,9 @@ document.addEventListener("navbarLoaded", () => {
     // Usuario no logueado, redirigir a login
     loginLink.addEventListener("click", (e) => {
       e.preventDefault();
-      window.location.href = "login.html";
+      // window.location.href = "login.html";
+      window.location.href = `${isGitHubPages ? "/" + repoName : ""}/pages/login.html`;
+
     });
   }
 });
